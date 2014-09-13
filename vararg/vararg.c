@@ -56,6 +56,7 @@ void arg_cnt(int cnt, ...)
    }
   
   va_end(arg_ptr);
+  return ;
 }
 
 void arg_type(int cnt, ...)
