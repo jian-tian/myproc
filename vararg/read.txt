@@ -10,3 +10,4 @@
 #for fast forward mode
 #for without fast forward mode
 #again
+#add for stash test
