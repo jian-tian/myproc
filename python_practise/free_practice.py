@@ -103,5 +103,22 @@ def calcNewSort():
 	    break
     print('the new sorted list is:',l)
 
+def reveData():
+    a = [1,2,3,4,5,6,7,8,9]
+    l = len(a)
+    print(a)
+    for i in range(l/2):
+	a[i],a[l-i-1] = a[l-i-1],a[i]
+    print(a)
+
+def lambdaShow():
+    MAXMUM = lambda x,y: (x>y)*x + (x<y)*y
+    MINMUM = lambda x,y: (x>y)*y + (x<y)*x
+
+    a = 10
+    b = 20
+    print("the larger one is %d" %MAXMUM(a,b))
+    print("the lower one is %d" %MINMUM(a,b))
+ 
 if __name__ == "__main__":
-    calcNewSort() 
+   lambdaShow() 
