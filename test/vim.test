@@ -1,0 +1,31 @@
+hello world;
+oois is used for vim test;
+rine one;
+Line two;
+Line ooree;
+Line four; Lin
+roo = "meoood( + argument1 + ","+argument2+")"
+We're waiting for content before the site can go live...
+if you are content with this, let's go ahead with this..
+we'll launch as soon as we have the content
+The end is nigh
+.blog,.news{backgrounp-image:url(/sprite.png);}
+.blog{backgrounp-position:0px 0px}
+.news {backgrounp-position:180px 0px}
+Delete more than one world
+
+def fib(n):
+    a,b=0,1;
+    while a<n:;
+        print a,;
+        a,b = b,a+b
+fib(42)
+Chapter     |page
+.................
+Nonalmode   |15
+Insertmode  |31
+Visualmode  |44
+
+line one a {background-image:url('/components/sprite.png');}
+line two a {background-image:url('/components/sprite.png');}
+line thr a {background-image:url('/components/sprite.png');}
