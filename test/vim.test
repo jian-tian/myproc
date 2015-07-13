@@ -29,3 +29,10 @@ Visualmode  |44
 line one a {background-image:url('/components/sprite.png');}
 line two a {background-image:url('/components/sprite.png');}
 line thr a {background-image:url('/components/sprite.png');}
+
+Line 1 Shopping List
+     2	Hardware Store
+     3  Buy a nee hammer
+     4  Beauty Parlor
+     5  Buy nail polish remover
+     6  Buy nails
