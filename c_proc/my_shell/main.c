@@ -1,23 +1,32 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
 #define BUFFERSIZE 16
 
-void pipel(char *input, int li_inputlen){};
-void redirect(char *input, int li_inputlen){};
+int is_fileexist(char *comm, char *buffer);
+void pipel(char *input, int li_inputlen);
+void redirect(char *input, int li_inputlen);
+
 int main(int argc, char *argv[])
 {
     char *path;
     char lc_char;
     int li_inputlen = 0; 
     char buffer[BUFFERSIZE] = {'\0'};
-    char *input;
-    char **arg;
+    char dirpath[256] = {'\0'};
+    char *input = NULL;
+    char *arg[5];
     int is_bj = 0;
     int is_back = 0;
+    int pid;
+    int status;
     int i,j,k;
 
     while (1) {
 	/*input instructior*/
+	memset(buffer,0,sizeof(buffer));
+	li_inputlen = 0;
 	path = get_current_dir_name();
 	printf("%s>$", path);
 
@@ -32,9 +41,13 @@ int main(int argc, char *argv[])
 	    li_inputlen = 0;
 	    continue;
 	}
+	else {
+	    buffer[li_inputlen] = '\0';
+	}
 	input = (char *)malloc(sizeof(char) * (li_inputlen + 1));
 	strcpy(input, buffer);
 	
+	printf("buffer is %s, input is %s, li_inputlen is %d\n", buffer, input, li_inputlen);	
 	/*profile instruction*/
 	for (i = 0,j = 0,k = 0; i <= li_inputlen; i++) {
 	    if (input[i] == '<' || input[i] == '>' || input[i] == '|') {
@@ -50,8 +63,11 @@ int main(int argc, char *argv[])
 		    continue;
 		else {
 		    buffer[j++] = '\0';
+		    printf("i=%d, k=%d\n", i,k);
 		    arg[k] = (char *)malloc(sizeof(char) * j);
+		    printf("buffer is %s\n", buffer);
 		    strcpy(arg[k], buffer);
+		    printf("i=%d, k=%d, arg[k]=%s\n", i, k, arg[k]);
 		    j = 0;
 		    k++;
 		}
@@ -64,8 +80,69 @@ int main(int argc, char *argv[])
 		buffer[j++] = input[i];
 	    }
 	}
-	for(i=0;i < j; i++)
-	    printf("arg[%d] is %s\n", i, arg[j]);
 	free(input);
+	/*search instruction*/
+	if (0 == strcmp(arg[0], "leave")) {
+	    printf("Bye-bye\n");
+	    break;
+	}
+	if (0 == is_bj) {
+	    arg[k] = (char *)0;
+	    if (-1 == is_fileexist(arg[0], dirpath)) {
+		printf("this command is not found!\n");
+		for(i=0; i<k; i++)
+		    free(arg[i]);
+		continue;	
+	    }
+	 /*exec command*/   
+	    if (0 == (pid = fork())) {
+		/*child to execv command*/
+		execv(dirpath, arg);
+	    }
+	    else {
+		/*father to wait command*/
+		if(is_back == 0)
+		    waitpid(pid, &status,0);
+	    }
+	    
+	    for(i=0; i<k; i++)
+		free(arg[i]);
+	}
     }
+}
+
+void pipel(char *input, int li_inputlen)
+{
+    printf("pipel\n");
+}
+
+void redirect(char *input, int li_inputlen)
+{
+    printf("redirect\n");
+}
+
+int is_fileexist(char *comm, char *buffer)
+{
+    char *path,*p;
+    int i = 0;
+
+    path = getenv("PATH");
+    //printf("path is %s\n", path);
+    p = path;
+    while (*p != '\0') {
+	if(*p != ':')
+	    buffer[i++] = *p;
+	else {
+	    buffer[i++] = '/';
+	    buffer[i] = '\0';
+	    strcat(buffer,comm);
+	   // printf("buffer is %s\n", buffer);
+	    if (access(buffer, F_OK) == 0)
+		return 0;
+	    else
+		i = 0;
+	}
+	p++;
+    }
+    return -1;
 }
