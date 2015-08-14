@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <string.h>
 #define BUFFERSIZE 16
 
 int is_fileexist(char *comm, char *buffer);
@@ -25,9 +26,9 @@ int main(int argc, char *argv[])
 
     while (1) {
 	/*input instructior*/
-	memset(buffer,0,sizeof(buffer));
+	memset(buffer, 0, sizeof(buffer));
 	li_inputlen = 0;
-	path = get_current_dir_name();
+	path = (char *)get_current_dir_name();
 	printf("%s>$", path);
 
 	lc_char = getchar();
@@ -40,8 +41,9 @@ int main(int argc, char *argv[])
 	    printf("command too long! Re-enter!\n");
 	    li_inputlen = 0;
 	    continue;
-	}
-	else {
+	} else if (0 == li_inputlen) {
+	    continue;
+	} else {
 	    buffer[li_inputlen] = '\0';
 	}
 	input = (char *)malloc(sizeof(char) * (li_inputlen + 1));
@@ -71,12 +73,10 @@ int main(int argc, char *argv[])
 		    j = 0;
 		    k++;
 		}
-	    }
-	    else {
-		if (input[i] == '&' && input[i+1] == '\0') {
+	    } else if (input[i] == '&' && input[i+1] == '\0') {
 		    is_back = 1;
 		    continue;
-		}
+	    } else {
 		buffer[j++] = input[i];
 	    }
 	}
@@ -145,4 +145,68 @@ int is_fileexist(char *comm, char *buffer)
 	p++;
     }
     return -1;
+}
+
+
+void redirect(char *input, int len)
+{
+    char *argv[30],*filename[2];
+    pid_t pid;
+    int i,j,k,fd_in,fd_out;
+    int is_in = -1;
+    int is_out = -1;
+    int num = -1;
+    int is_back = 0;
+    int status = 0;
+
+    for (i=0,j=0,k=0; i<= len; i++) {
+	if (input[i] == ' ' || input[i] == '\t' || input[i] == '\0' || \
+	    input[i] == '>' || input[i] == '<') {
+	    if (input[i] == '>' || input[i] == '<') {
+		if (num < 3) {
+		    num++;
+		    if (input == '<')
+			is_in = num - 1;
+		    else
+			is_out = num -1;
+
+		    if(j > 0 && num == 1) {
+			buffer[j++] = '\0';
+			argv[k] = (char *)malloc(sizeof(char) * j);
+			strcpy(argv[k], buffer);
+			k++;
+			j = 0;
+		    }
+		} else {
+		    printf("The format is error!\n");
+		    return -1;
+		}
+	    }
+	    
+	    if (j == 0)
+		continue;
+	    else {
+		buffer[j++] = '\0';
+		if (num == 0) {
+		    argv[k] = (char *)malloc(sizeof(char) * j);
+		    strcpy(argv[k], buffer);
+		    k++;
+		} else {
+		    filename[status] = (char *)malloc(sizeof(char) * j);
+		    strcpy(filename[status++], buffer);
+		}
+		j = 0;
+	    }
+	} else if(input[i] == '&' && input[i+1] == '\0') {
+	    is_back = 1;
+	    continue;
+	} else {
+	    buffer[j++] = input[i];
+	}
+    }
+    
+    argv[k] = (char *)0;
+
+    if (is_fileexist(argv[0]) == -1) {
+    }
 }
