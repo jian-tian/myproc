@@ -8,7 +8,7 @@
 #define BUFFERSIZE 16
 
 int is_fileexist(char *comm, char *buffer);
-void pipel(char *input, int li_inputlen);
+int pipel(char *input, int li_inputlen);
 int redirect(char *input, int li_inputlen);
 
 int main(int argc, char *argv[])
@@ -84,12 +84,14 @@ int main(int argc, char *argv[])
 	    }
 	}
 	free(input);
+	
 	/*search instruction*/
-	if (0 == strcmp(arg[0], "leave")) {
-	    printf("Bye-bye\n");
-	    break;
-	}
 	if (0 == is_bj) {
+	    if (0 == strcmp(arg[0], "leave")) {
+		printf("Bye-bye\n");
+		break;
+	    }
+
 	    arg[k] = (char *)0;
 	    if (-1 == is_fileexist(arg[0], dirpath)) {
 		printf("this command is not found!\n");
@@ -107,16 +109,11 @@ int main(int argc, char *argv[])
 		if(is_back == 0)
 		    waitpid(pid, &status,0);
 	    }
-	    
+
 	    for(i=0; i<k; i++)
 		free(arg[i]);
 	}
     }
-}
-
-void pipel(char *input, int li_inputlen)
-{
-    printf("pipel\n");
 }
 
 int is_fileexist(char *comm, char *buffer)
@@ -270,10 +267,11 @@ printf("is_out is %d, is_in is %d\n", is_out,is_in);
     return 0;
 }
 
-void pipel(char *input, int li_inputlen)
+int  pipel(char *input, int li_inputlen)
 {
-    char *argv[2][30];
+    char *argv[2][30];/*两个命令组，一个存储管道前命令，一个存储管道后命令*/
     int i,j,k,count;
+    char buffer[BUFFERSIZE] = {'\0'};
     int is_back=0;
     int li_comm = 0;
     int fd[2],fpip[2];
@@ -281,8 +279,8 @@ void pipel(char *input, int li_inputlen)
     char lc_char,lc_end[1];
     pid_t child1,child2;
 
-    for (i=0,j=0,k=0; i<=len; i++) {
-	if (input[i] == ' ' || input[i] == '\t' || input[i] == '|') {
+    for (i=0,j=0,k=0; i<=li_inputlen; i++) {
+	if (input[i] == ' ' || input[i] == '\t' || input[i] == '|' || input[i] == '\0') {
 	    if (input[i] == '|') {
 		if(j > 0) {
 		    buffer[j++] = '\0';
@@ -300,7 +298,7 @@ void pipel(char *input, int li_inputlen)
 	    else {
 		buffer[j++] = '\0';
 		argv[li_comm][k] = (char *)malloc(sizeof(char) * j);
-		strcpy(argv[li_comm][k]);
+		strcpy(argv[li_comm][k], buffer);
 		k++;
 	    }
 	    j = 0;
@@ -312,12 +310,67 @@ void pipel(char *input, int li_inputlen)
 	    }
 	    buffer[j++] = input[i];
 	}
-
-	if (is_fileexist(argv[0][0],dirpath) == -1) {
-	    printf("This first command is not found\n");
-	    for (i=0; i<count, i++)
-		free(argv[0][i]);
-	    return 0;
-	}
     }
+    argv[li_comm][k++] = (char *)0;
+
+    if (is_fileexist(argv[0][0],dirpath) == -1) {
+	printf("This first command is not found\n");
+	for (i=0; i<count; i++)
+	    free(argv[0][i]);
+	return 0;
+    }
+	/*建立管道*/
+	if (pipe(fd) == -1) {
+	    printf("open pipe error\n");
+	    return -1;
+	}
+
+	if ((child1 = fork()) == 0) {/*第一个子进程，标准输出到管道*/
+	    close(fd[0]);
+	    if (fd[1] != STDOUT_FILENO) {
+		if (dup2(fd[1], STDOUT_FILENO) == -1) {
+		    printf("Redirect Standard Out Error\n");
+		    return -1;
+		}
+		close(fd[1]);
+	    }
+	    execv(dirpath, argv[0]);
+	}
+	else {/*父进程*/
+	    waitpid(child1, &li_comm, 0);
+	    lc_end[0] = 0x1a;
+	    write(fd[1], lc_end, 1);
+	    close(fd[1]);
+	    
+	    if (is_fileexist(argv[1][0], dirpath) == -1) {
+		printf("This command is not founded\n");
+		for (i=0; i<k; i++)
+		    free(argv[1][i]);
+		return 0;
+	    }
+
+	    if ((child2 = fork()) == 0) {/*第二个子进程，标准输入为管道*/
+		if (fd[0] != STDIN_FILENO) {
+		    if (dup2(fd[0], STDIN_FILENO) == -1) {
+			printf("Redirect Standard In Error\n");
+			return -1;
+		    }
+		    close(fd[0]);
+		}
+		execv(dirpath, argv[1]);
+	    }
+	    else {/*父进程*/
+		if (is_back == 0)
+		    waitpid(child2, NULL, 0);
+	    }
+	}
+	/*释放资源*/
+	for (i=0; i<count; i++) { 
+	    free(argv[0][i]);
+	}
+	for (i=0; i<k; i++) {
+	    free(argv[1][i]);
+	}
+	
+	return 0;
 }
