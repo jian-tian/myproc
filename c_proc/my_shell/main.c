@@ -7,6 +7,13 @@
 #include <string.h>
 #define BUFFERSIZE 16
 
+#undef DEBUG
+
+#ifdef DEBUG
+#define PRINT_DEBUG(format, ...)	printf("[File:"__FILE__",line:%05d] "format, __LINE__, ##__VA_ARGS__)
+#else
+#define PRINT_DEBUG(format, ...)
+#endif
 int is_fileexist(char *comm, char *buffer);
 int pipel(char *input, int li_inputlen);
 int redirect(char *input, int li_inputlen);
@@ -52,7 +59,7 @@ int main(int argc, char *argv[])
 	input = (char *)malloc(sizeof(char) * (li_inputlen + 1));
 	strcpy(input, buffer);
 	
-	printf("buffer is %s, input is %s, li_inputlen is %d\n", buffer, input, li_inputlen);	
+	PRINT_DEBUG("buffer is %s, input is %s, li_inputlen is %d\n", buffer, input, li_inputlen);	
 	/*profile instruction*/
 	for (i = 0,j = 0,k = 0; i <= li_inputlen; i++) {
 	    if (input[i] == '<' || input[i] == '>' || input[i] == '|') {
@@ -68,11 +75,11 @@ int main(int argc, char *argv[])
 		    continue;
 		else {
 		    buffer[j++] = '\0';
-		    printf("i=%d, k=%d\n", i,k);
+		    PRINT_DEBUG("i=%d, k=%d\n", i,k);
 		    arg[k] = (char *)malloc(sizeof(char) * j);
-		    printf("buffer is %s\n", buffer);
+		    PRINT_DEBUG("buffer is %s\n", buffer);
 		    strcpy(arg[k], buffer);
-		    printf("i=%d, k=%d, arg[k]=%s\n", i, k, arg[k]);
+		    PRINT_DEBUG("i=%d, k=%d, arg[k]=%s\n", i, k, arg[k]);
 		    j = 0;
 		    k++;
 		}
@@ -122,7 +129,6 @@ int is_fileexist(char *comm, char *buffer)
     int i = 0;
 
     path = getenv("PATH");
-    //printf("path is %s\n", path);
     p = path;
     while (*p != '\0') {
 	if(*p != ':')
@@ -131,7 +137,6 @@ int is_fileexist(char *comm, char *buffer)
 	    buffer[i++] = '/';
 	    buffer[i] = '\0';
 	    strcat(buffer,comm);
-	   // printf("buffer is %s\n", buffer);
 	    if (access(buffer, F_OK) == 0)
 		return 0;
 	    else
@@ -156,7 +161,7 @@ int redirect(char *input, int len)
     int is_back = 0;
     int status = 0;
 
-    printf("input is %s\n", input);
+    PRINT_DEBUG("input is %s\n", input);
     for (i=0,j=0,k=0; i<= len; i++) {
 	if (input[i] == ' ' || input[i] == '\t' || input[i] == '\0' || \
 	    input[i] == '>' || input[i] == '<') {/*特殊字符*/
@@ -167,12 +172,12 @@ int redirect(char *input, int len)
 			is_in++;
 		    else
 			is_out++;
-		    printf("j =%d,is_in is %d, is_out is %d, num is %d\n", j,is_in,is_out,num);
+		    PRINT_DEBUG("j =%d,is_in is %d, is_out is %d, num is %d\n", j,is_in,is_out,num);
 		    if(j > 0 && num == -1) {/*二次重定向*/
 			buffer[j++] = '\0';
 			argv[k] = (char *)malloc(sizeof(char) * j);
 			strcpy(argv[k], buffer);
-			printf("--arv[%d] is %s\n", k, argv[k]);
+			PRINT_DEBUG("--arv[%d] is %s\n", k, argv[k]);
 			k++;
 			j = 0;
 		    }
@@ -186,16 +191,16 @@ int redirect(char *input, int len)
 		continue;
 	    else {
 		buffer[j++] = '\0';
-		printf("num is %d, buffer is %s\n", num, buffer);
+		PRINT_DEBUG("num is %d, buffer is %s\n", num, buffer);
 		if (num == -1) {/*重定向前的命令*/
 		    argv[k] = (char *)malloc(sizeof(char) * j);
 		    strcpy(argv[k], buffer);
-		    printf("arv[%d] is %s\n", k, argv[k]);
+		    PRINT_DEBUG("arv[%d] is %s\n", k, argv[k]);
 		    k++;
 		} else {/*获取重定向文件*/
 		    filename[status] = (char *)malloc(sizeof(char) * j);
 		    strcpy(filename[status++], buffer);
-		    printf("filename[%d] is %s\n", status-1,filename[status-1]);
+		    PRINT_DEBUG("filename[%d] is %s\n", status-1,filename[status-1]);
 		}
 		j = 0;/*每次copy结束后j置零，表示清空buffer*/
 	    }
@@ -217,7 +222,7 @@ int redirect(char *input, int len)
 	    free(argv[i]);
 	return 0;
     }
-printf("is_out is %d, is_in is %d\n", is_out,is_in);
+
     /*创建子进程*/
     if ((pid = fork()) == 0) {/*子进程*/
 	/*打开重定向文件*/
