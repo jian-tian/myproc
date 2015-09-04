@@ -62,7 +62,7 @@ static void sig_handler(int signo)
 	    printf("user time = %.ld secs %ld usecs\n", 9 - v.it_value.tv_sec, 999999 - v.it_value.tv_usec);
 	    t1 = (9 - u.it_value.tv_sec) * 1000000 + (1000000 - u.it_value.tv_usec);
 	    t2 = (9 - v.it_value.tv_sec) * 1000000 + (1000000 - v.it_value.tv_usec);
-	    printf("Kernel time = %ld secs %ld usecs\n\n", (t1-t2)/1000000, (t1-t2)%1000000);
+	    printf("Kernel time = %ld secs %ld usecs\n\n", (t2-t1)/1000000, (t2-t1)%1000000);
 	    break;
 	case SIGALRM:
 	    printf("Timer has been zero, elapsed %d seconds\n", countsec);
