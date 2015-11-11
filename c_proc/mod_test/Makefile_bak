@@ -1,0 +1,13 @@
+objects = main.o
+
+INC := -I/usr/src/kernels/2.6.25-14.fc9.i686/include/
+helloWorld: $(objects)
+	gcc -g $(objects) -o $@
+
+$(objects): %.o: %.c
+	$(CC) -c $(CFLAGS) $(INC) $< 
+
+.PHONY : clean
+
+clean :
+	-rm myShell $(objects)
