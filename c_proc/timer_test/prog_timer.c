@@ -10,15 +10,15 @@ static void c2_sig(int signo);
 
 static long p_realt_secs = 0, c1_realt_secs = 0, c2_realt_secs = 0;
 static long p_virtt_secs = 0, c1_virtt_secs = 0, c2_virtt_secs = 0;
-static long p_proftt_secs = 0, c1_proftt_secs = 0, c2_proftt_secs = 0;
+static long p_proft_secs = 0, c1_proft_secs = 0, c2_proft_secs = 0;
 static struct itimerval p_realt, c1_realt, c2_realt; 
 static struct itimerval p_virtt, c1_virtt, c2_virtt; 
-static struct itimerval p_proftt, c1_proftt, c2_proftt; 
+static struct itimerval p_proft, c1_proft, c2_proft; 
 
 int main()
 {
 
-    long unsigned lib = 0;
+    long unsigned fib = 0;
     int pid1,pid2;
     unsigned int fibarg = 39;
     int status;
@@ -59,7 +59,7 @@ int main()
 
 	moresec = (t1 - t2) / 1000;
 	moremsec = (t1 - t2) % 1000;
-	printf("Child1 fib=%ld, kernel_time=%ld sec,%ld msec\n", fib, moresec, moremsec);
+	printf("Child1 fib = %ld, kernel_timei = %ld sec,%ld msec\n", fib, moresec, moremsec);
 	
 	fflush(stdout);
 	exit(0);
@@ -88,7 +88,7 @@ int main()
 
 	    moresec = 9 - c2_proft.it_value.tv_sec;
 	    moremsec = (1000000 - c2_proft.it_value.tv_usec)/1000;
-	    printf("Child1 fib = %ld, real_time = %ld sec, %ld msec %ld\n", fib, c2_proft_secs + moresec, moremsec);
+	    printf("Child2 fib = %ld, real_time = %ld sec, %ld msec %ld\n", fib, c2_proft_secs + moresec, moremsec);
 
 	    moresec = 9 - c2_proft.it_value.tv_sec;
 	    moremsec = (1000000 - c2_proft.it_value.tv_usec)/1000;
@@ -99,7 +99,7 @@ int main()
 
 	    moresec = (t1 - t2) / 1000;
 	    moremsec = (t1 - t2) % 1000;
-	    printf("Child2 fib=%ld, kernel_time=%ld sec,%ld msec\n", fib, moresec, moremsec);
+	    printf("Child2 fib = %ld, kernel_time = %ld sec,%ld msec\n", fib, moresec, moremsec);
 	
 	    fflush(stdout);
 	    exit(0);
@@ -137,7 +137,7 @@ int main()
 
 	    moresec = (t1 - t2) / 1000;
 	    moremsec = (t1 - t2) % 1000;
-	    printf("Parent fib=%ld, kernel_time=%ld sec,%ld msec\n", fib, moresec, moremsec);
+	    printf("Parent fib = %ld, kernel_time = %ld sec,%ld msec\n", fib, moresec, moremsec);
 	
 	    fflush(stdout);
 	    waitpid(0, &status, 0);
@@ -158,7 +158,7 @@ long unsigned fibonacci(unsigned int n)
 	return fibonacci(n-1) + fibonacci(n-2);
 }
 
-static par_sig(int signo)
+static void par_sig(int signo)
 {
     switch (signo) {
 	case SIGALRM:
@@ -168,12 +168,12 @@ static par_sig(int signo)
 	    p_virtt_secs += 10;
 	    break;
 	case SIGPROF:
-	    p_proftt_secs += 10;
+	    p_proft_secs += 10;
 	    break;
     }
 }
 
-static c1_sig(int signo)
+static void c1_sig(int signo)
 {
     switch (signo) {
 	case SIGALRM:
@@ -183,12 +183,12 @@ static c1_sig(int signo)
 	    c1_virtt_secs += 10;
 	    break;
 	case SIGPROF:
-	    c1_proftt_secs += 10;
+	    c1_proft_secs += 10;
 	    break;
     }
 }
 
-static c2_sig(int signo)
+static void c2_sig(int signo)
 {
     switch (signo) {
 	case SIGALRM:
@@ -198,7 +198,7 @@ static c2_sig(int signo)
 	    c2_virtt_secs += 10;
 	    break;
 	case SIGPROF:
-	    c2_proftt_secs += 10;
+	    c2_proft_secs += 10;
 	    break;
     }
 }
