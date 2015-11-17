@@ -1,6 +1,7 @@
 ifneq ($(KERNELRELEASE),)
 # kbuild part of makefile
-obj-m  := proc_example.o  
+#obj-m  := proc_example.o  
+obj-m  := mod_time.o  
 
 else
 
