@@ -1,5 +1,5 @@
 ######################
-    krnlbuidcmd自动编译配置文件 Makefile
+#    krnlbuidcmd自动编译配置文件 Makefile
 ######################
 
 CC	    = arm-linux-gcc

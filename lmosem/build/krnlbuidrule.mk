@@ -1,5 +1,5 @@
 #######################
-	krnlbuidrule自动化编译配置文件Makefile
+#	krnlbuidrule自动化编译配置文件Makefile
 #######################
 
 CCSTR		= 'CC -[M] 正在构建... ' $<
