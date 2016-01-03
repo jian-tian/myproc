@@ -1,18 +1,18 @@
-########################
-#   ld 自动化编译配置文件Makefile
-########################
+/***********************
+   ld 自动化编译配置文件Makefile
+***********************/
 
 #include "config.h"
 #include "platform_t.h"
 #include "buildfile.h"
 
-INPUT(LINKR_INPUT_FILE)
+INPUT(LINKR_IPUT_FILE)
 OUTPUT(LINKR_OPUT_FILE)
 OUTPUT_FORMAT("elf32-littlearm", "elf32-littlearm", "elf32-littlearm")
 OUTPUT_ARCH(arm)
 ENTRY(_start)
 SECTIONS
-(
+{
     . = 0x30008000;
     __begin_kernel = .;
 
@@ -63,4 +63,4 @@ SECTIONS
     /DISCARD/ : { *(.plt*) }
     /DISCARD/ : { *(.interp*) }
     /DISCARD/ : { *(.gnu*) }
-)
+}

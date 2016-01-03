@@ -1,6 +1,3 @@
-/*********************
-*    init.s
-*********************/
 #include "config.h"
 #include "platform_t.h"
 
@@ -35,9 +32,8 @@ _start:
     str r1, [r0]
     ldr r0, tstw
     b .
-    /*ldr sp, =INIT_HEAD_STACK_ADDR*/
-    b .
-    /*bl lmosemhal_start*/
+    ldr sp, =INIT_HEAD_STACK_ADDR
+    bl lmosemhal_start
 
 lmde:
     b .

@@ -60,7 +60,7 @@ knlexc : cpkrnl downkrnl #writekrl cpkrnlUIMAGE
 	#$(CD) $(EXKNL_PATH) && $(VM) $(VMFLAGES)
 
 cpkrnl :
-	$(CD) $(BUILD_PATH) && $(CP) $(CPFLAGS) $(SRCFILE) $(DSTPATH)
+	$(CD) $(BUILD_PATH) && $(CP) $(CPFLAGES) $(SRCFILE) $(DSTPATH)
 
 writekrl :
 	$(CD) $(BUILD_PATH) && $(CP) bs=512 if=$(BOOTEXCIMG) of=$(DSKIMG) conv\=notrunc

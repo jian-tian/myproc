@@ -8,19 +8,20 @@ PRINTCSTR	= @echo $(CCSTR)
 %.krnl : $(CCBUILDPATH)%.c
 	$(CC) $(CFLAGS) -o $@ $<
 	$(PRINTCSTR)
-%.krnl : $(CCBUILDPATH)%.s
+%.krnl : $(CCBUILDPATH)%.S
 	$(CC) $(CFLAGS) -o $@ $<
 	$(PRINTCSTR)
 %.o : $(CCBUILDPATH)%.c
 	$(CC) $(CFLAGS) -o $@ $<
 	$(PRINTCSTR)
-%.o : $(CCBUILDPATH)%.s
-	$(CC) $(CFLAGS) -o $@ $<
-	$(PRINTCSTR)
-%.lds : $(CCBUILDPATH)%.S
+%.o : $(CCBUILDPATH)%.S
+	@echo $@ $<
 	$(CC) $(CFLAGS) -o $@ $<
 	$(PRINTCSTR)
 
+%.lds : $(CCBUILDPATH)%.S
+	$(CC) $(CPPFLAGSLDS) -o $@ $<
+	$(PRINTCSTR)
 %.mkh : $(CCBUILDPATH)%.S
-	$(CC) $(CFLAGS) -o $@ $<
+	$(CC) $(CPPFLAGSLDS) -o $@ $<
 	$(PRINTCSTR)
