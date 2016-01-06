@@ -1,0 +1,294 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.7	//
+ALIGN	include/bastypeinc/bastype_t.h	49;"	d
+ARMDRIVMFLGS	Makefile	/^ARMDRIVMFLGS = -C $(BUILD_PATH) -f lmosemdrv.mk$/;"	m
+ARMHALYMFLGS	Makefile	/^ARMHALYMFLGS = -C $(BUILD_PATH) -f lmosemhal.mk$/;"	m
+ARMKRNLMFLGS	Makefile	/^ARMKRNLMFLGS = -C $(BUILD_PATH) -f lmosemkrl.mk $/;"	m
+ARMLIBSMFLGS	Makefile	/^ARMLIBSMFLGS = -C $(BUILD_PATH) -f lmosemlib.mk$/;"	m
+ARMLINKMFLGS	Makefile	/^ARMLINKMFLGS = -C $(BUILD_PATH) -f lmosemlink.mk$/;"	m
+ARMTASKMFLGS	Makefile	/^ARMTASKMFLGS = -C $(BUILD_PATH) -f lmosemtask.mk$/;"	m
+BOOTEXCIMG	Makefile	/^BOOTEXCIMG = lmosem.bin$/;"	m
+BUIKD_MK_HALY_OBJS	script/krnlobjs.S	/^BUIKD_MK_HALY_OBJS :=$/;"	d
+BUILD_BOOT_OBJS	include/script/buildfile.h	4;"	d
+BUILD_DRIV_OBJS	include/script/buildfile.h	12;"	d
+BUILD_FSYS_OBJS	include/script/buildfile.h	11;"	d
+BUILD_HALY_OBJS	include/script/buildfile.h	5;"	d
+BUILD_KRNL_OBJS	include/script/buildfile.h	7;"	d
+BUILD_LIBS_OBJS	include/script/buildfile.h	13;"	d
+BUILD_LINK_OBJS	include/script/buildfile.h	15;"	d
+BUILD_MEMY_OBJS	include/script/buildfile.h	9;"	d
+BUILD_MK_BOOT_OBJS	script/krnlobjs.S	/^BUILD_MK_BOOT_OBJS += BUILD_BOOT_OBJS$/;"	l
+BUILD_MK_BOOT_OBJS	script/krnlobjs.S	/^BUILD_MK_BOOT_OBJS :=$/;"	d
+BUILD_MK_DRIV_OBJS	script/krnlobjs.S	/^BUILD_MK_DRIV_OBJS += BUILD_DRIV_OBJS$/;"	l
+BUILD_MK_DRIV_OBJS	script/krnlobjs.S	/^BUILD_MK_DRIV_OBJS :=$/;"	d
+BUILD_MK_FSYS_OBJS	script/krnlobjs.S	/^BUILD_MK_FSYS_OBJS += BUILD_FSYS_OBJS$/;"	l
+BUILD_MK_FSYS_OBJS	script/krnlobjs.S	/^BUILD_MK_FSYS_OBJS :=$/;"	d
+BUILD_MK_HALY_OBJS	script/krnlobjs.S	/^BUILD_MK_HALY_OBJS += BUILD_HALY_OBJS$/;"	l
+BUILD_MK_KRNL_OBJS	script/krnlobjs.S	/^BUILD_MK_KRNL_OBJS += BUILD_KRNL_OBJS$/;"	l
+BUILD_MK_KRNL_OBJS	script/krnlobjs.S	/^BUILD_MK_KRNL_OBJS :=$/;"	d
+BUILD_MK_LIBS_OBJS	script/krnlobjs.S	/^BUILD_MK_LIBS_OBJS += BUILD_LIBS_OBJS$/;"	l
+BUILD_MK_LIBS_OBJS	script/krnlobjs.S	/^BUILD_MK_LIBS_OBJS :=$/;"	d
+BUILD_MK_LINK_OBJS	script/krnlobjs.S	/^BUILD_MK_LINK_OBJS += BUILD_LINK_OBJS$/;"	l
+BUILD_MK_LINK_OBJS	script/krnlobjs.S	/^BUILD_MK_LINK_OBJS :=$/;"	d
+BUILD_MK_MEMY_OBJS	script/krnlobjs.S	/^BUILD_MK_MEMY_OBJS += BUILD_MEMY_OBJS$/;"	l
+BUILD_MK_MEMY_OBJS	script/krnlobjs.S	/^BUILD_MK_MEMY_OBJS :=$/;"	d
+BUILD_MK_TASK_OBJS	script/krnlobjs.S	/^BUILD_MK_TASK_OBJS += BUILD_TASK_OBJS$/;"	l
+BUILD_MK_TASK_OBJS	script/krnlobjs.S	/^BUILD_MK_TASK_OBJS :=$/;"	d
+BUILD_PATH	Makefile	/^BUILD_PATH = .\/build$/;"	m
+BUILD_TASK_OBJS	include/script/buildfile.h	14;"	d
+CCBUILDPATH	build/lmosemdrv.mk	/^CCBUILDPATH = $(KERNELCE_PATH)$/;"	m
+CCBUILDPATH	build/lmosemhal.mk	/^CCBUILDPATH = $(KERNELCE_PATH)$/;"	m
+CCBUILDPATH	build/lmosemkrl.mk	/^CCBUILDPATH = $(KERNELCE_PATH)$/;"	m
+CCBUILDPATH	build/lmosemlib.mk	/^CCBUILDPATH = $(KERNELCE_PATH)$/;"	m
+CCBUILDPATH	build/lmosemtask.mk	/^CCBUILDPATH = $(KERNELCE_PATH)$/;"	m
+CCBUILDPATH	build/pretreatment.mk	/^CCBUILDPATH = $(KERNELCE_PATH)$/;"	m
+CCSTR	build/krnlbuidrule.mk	/^CCSTR		= 'CC -[M] 正在构建... ' $<$/;"	m
+CD	Makefile	/^CD = cd$/;"	m
+CFG_s3c2440_PLATFORM	include/config.h	8;"	d
+CP	Makefile	/^CP = cp$/;"	m
+CP15_C5R	include/halinc/halmmu_t.h	7;"	d
+CP15_C6R	include/halinc/halmmu_t.h	8;"	d
+CPFLAGES	Makefile	/^CPFLAGES =$/;"	m
+CPUCORE_MAX	include/halinc/platform_t.h	10;"	d
+CPU_VECTOR_PHYADR	include/halinc/platform_t.h	21;"	d
+CPU_VECTOR_VIRADR	include/halinc/platform_t.h	22;"	d
+DD	Makefile	/^DD = dd$/;"	m
+DFCERRSTUS	include/bastypeinc/bastype_t.h	46;"	d
+DFCOKSTUS	include/bastypeinc/bastype_t.h	47;"	d
+DKAPFLAGS	Makefile	/^DKAPFLAGS = lmosemkrnl.bin$/;"	m
+DKAPP	Makefile	/^DKAPP = .\/dnw2$/;"	m
+DSKIMG	Makefile	/^DSKIMG = flash.img$/;"	m
+DSTPATH	Makefile	/^DSTPATH = ..\/exckrnl$/;"	m
+EXKNL_PATH	Makefile	/^EXKNL_PATH = .\/exckrnl$/;"	m
+EXTERN	include/bastypeinc/bastype_t.h	41;"	d
+FALSE	include/bastypeinc/bastype_t.h	45;"	d
+HEADFILE_PATH	build/lmosemdrv.mk	/^HEADFILE_PATH = -I ..\/include -I ..\/include\/basttypeinc\\$/;"	m
+HEADFILE_PATH	build/lmosemhal.mk	/^HEADFILE_PATH = -I ..\/include -I ..\/include\/bastypeinc -I ..\/include\/halinc -I ..\/include\/knlinc -I ..\/include\/libinc -I ..\/include\/drvinc$/;"	m
+HEADFILE_PATH	build/lmosemkrl.mk	/^HEADFILE_PATH = -I ..\/include -I ..\/include\/bastypeinc -I ..\/include\/halinc -I ..\/include\/knlinc -I ..\/include\/libinc -I ..\/include\/drvinc$/;"	m
+HEADFILE_PATH	build/lmosemlib.mk	/^HEADFILE_PATH = -I ..\/include -I ..\/include\/bastypeinc -I ..\/include\/halinc -I ..\/include\/knlinc -I ..\/include\/libinc -I ..\/include\/drvinc$/;"	m
+HEADFILE_PATH	build/lmosemtask.mk	/^HEADFILE_PATH = -I ..\/include -I ..\/include\/bastypeinc -I ..\/include\/halinc -I ..\/include\/knlinc -I ..\/include\/libinc -I ..\/include\/drvinc$/;"	m
+HEADFILE_PATH	build/pretreatment.mk	/^HEADFILE_PATH = -I ..\/include\/script\/ -I ..\/include\/ -I ..\/include\/bastypeinc -I ..\/include\/halinc$/;"	m
+INIT_HEAD_STACK_ADDR	include/halinc/platform_t.h	19;"	d
+INTSRC_MAX	include/halinc/platform_t.h	31;"	d
+JMP_ADDR	include/halinc/cpu_t.h	8;"	d
+KERNELCE_PATH	build/lmosemdrv.mk	/^KERNELCE_PATH = ..\/drvers\/$/;"	m
+KERNELCE_PATH	build/lmosemhal.mk	/^KERNELCE_PATH = ..\/hal\/$/;"	m
+KERNELCE_PATH	build/lmosemkrl.mk	/^KERNELCE_PATH = ..\/kernel\/$/;"	m
+KERNELCE_PATH	build/lmosemlib.mk	/^KERNELCE_PATH = ..\/lib\/$/;"	m
+KERNELCE_PATH	build/lmosemtask.mk	/^KERNELCE_PATH = ..\/task\/$/;"	m
+KERNELCE_PATH	build/pretreatment.mk	/^KERNELCE_PATH = ..\/script\/$/;"	m
+KERNEL_PHYI_ADDR	include/halinc/platform_t.h	16;"	d
+KERNEL_VIRT_ADDR	include/halinc/platform_t.h	15;"	d
+KERNL_BINF_FILE	include/script/buildfile.h	22;"	d
+KERNL_ELFF_FILE	include/script/buildfile.h	21;"	d
+KERNL_MK_BINF_FILE	script/krnlobjs.S	/^KERNL_MK_BINF_FILE += KERNL_BINF_FILE$/;"	l
+KERNL_MK_BINF_FILE	script/krnlobjs.S	/^KERNL_MK_BINF_FILE :=$/;"	d
+KERNL_MK_ELFF_FILE	script/krnlobjs.S	/^KERNL_MK_ELFF_FILE += KERNL_ELFF_FILE$/;"	l
+KERNL_MK_ELFF_FILE	script/krnlobjs.S	/^KERNL_MK_ELFF_FILE :=$/;"	d
+KEXTERN	include/bastypeinc/bastype_t.h	42;"	d
+KLINE	include/bastypeinc/bastype_t.h	38;"	d
+KRNL_INRAM_START	include/halinc/platform_t.h	12;"	d
+LINKR_IPUT_FILE	include/script/buildfile.h	19;"	d
+LINKR_OPUT_FILE	include/script/buildfile.h	20;"	d
+LINK_LINE_ADDR	include/halinc/platform_t.h	14;"	d
+LINK_VIRT_ADDR	include/halinc/platform_t.h	13;"	d
+LKHEAD_D	include/bastypeinc/bastype_t.h	52;"	d
+LKHEAD_T	include/bastypeinc/bastype_t.h	51;"	d
+MAKE	Makefile	/^MAKE = make$/;"	m
+MAKEFLAGS	Makefile	/^MAKEFLAGS = -sR$/;"	m
+MAKEFLAGS	build/lmosemdrv.mk	/^MAKEFLAGS = -s$/;"	m
+MAKEFLAGS	build/lmosemhal.mk	/^MAKEFLAGS = -s$/;"	m
+MAKEFLAGS	build/lmosemkrl.mk	/^MAKEFLAGS = -s$/;"	m
+MAKEFLAGS	build/lmosemlib.mk	/^MAKEFLAGS = -s$/;"	m
+MAKEFLAGS	build/lmosemlink.mk	/^MAKEFLAGS = $/;"	m
+MAKEFLAGS	build/lmosemtask.mk	/^MAKEFLAGS = -s$/;"	m
+MAKEFLAGS	build/pretreatment.mk	/^MAKEFLAGS = -s$/;"	m
+MGFLAGES	Makefile	/^MGFLAGES = -A arm -T kernel -C none -a 30007ebo -e 30008000 -d lmosemkrnl.bin lmosemkrnl.uimg$/;"	m
+MKDIR	Makefile	/^MKDIR = mkdir$/;"	m
+MKIMAGE	Makefile	/^MKIMAGE = mkimage$/;"	m
+NO_HAND	include/bastypeinc/bastype_t.h	48;"	d
+NULL	include/bastypeinc/bastype_t.h	43;"	d
+PAGE_TLB_DIR	include/halinc/platform_t.h	17;"	d
+PAGE_TLB_SIZE	include/halinc/platform_t.h	18;"	d
+PLEM_ADRSPCE_NR	include/halinc/platform_t.h	29;"	d
+PREMENTMFLGS	Makefile	/^PREMENTMFLGS = -C $(BUILD_PATH) -f pretreatment.mk$/;"	m
+PREMENT_OBJS	build/pretreatment.mk	/^PREMENT_OBJS = krnlobjs.mkh lmemknllink.lds$/;"	m
+PRINTCSTR	build/krnlbuidrule.mk	/^PRINTCSTR	= @echo $(CCSTR)$/;"	m
+PTE_SECT_AP	include/halinc/platform_t.h	24;"	d
+PTE_SECT_BIT	include/halinc/platform_t.h	27;"	d
+PTE_SECT_DOMAIN	include/halinc/platform_t.h	25;"	d
+PTE_SECT_NOCW	include/halinc/platform_t.h	26;"	d
+PUBLIC	include/bastypeinc/bastype_t.h	39;"	d
+RELEDSTPATH	Makefile	/^RELEDSTPATH = ..\/release$/;"	m
+RM	Makefile	/^RM = rm$/;"	m
+RMDIR	Makefile	/^RMDIR = rmdir$/;"	m
+SDRAM_MAPVECTPHY_ADDR	include/halinc/platform_t.h	11;"	d
+SEM_FLG_MULTI	include/bastypeinc/sem_t.h	7;"	d
+SEM_FLG_MUTEX	include/bastypeinc/sem_t.h	6;"	d
+SEM_MULTI_LOCK	include/bastypeinc/sem_t.h	9;"	d
+SEM_MUTEX_ONE_LOCK	include/bastypeinc/sem_t.h	8;"	d
+SRCFILE	Makefile	/^SRCFILE = lmosemkrnl.bin lmosemkrnl.elf$/;"	m
+SUPERUSER	Makefile	/^SUPERUSER = sudo$/;"	m
+TRUE	include/bastypeinc/bastype_t.h	44;"	d
+VM	Makefile	/^VM = qemu-system-arm -M mini2440 -kernel lmosemkrnl.uimg -serial stdio -mtdblock ndflash -show-cursor -usb -usbdevice keyboard -usbdevice mouse -net nic,vlan=0 -net tap,vlan=0,ifname=tap1,script=qemu-ifup,downscript=qemu-ifdown -monitor telnet::5555,server,nowait #-nographic$/;"	m
+VMFLAGES	Makefile	/^VMFLAGES = $/;"	m
+_BASTYPE_H	include/bastypeinc/bastype.h	5;"	d
+_BASTYPE_T_H	include/bastypeinc/bastype_t.h	5;"	d
+_BUILD_FILE_H	include/script/buildfile.h	2;"	d
+_CONFIG_H	include/config.h	6;"	d
+_CPU_H	include/halinc/cpu.h	5;"	d
+_CPU_T_H	include/halinc/cpu_t.h	6;"	d
+_DRVHEADS_H	include/drvinc/drvheads.h	5;"	d
+_DRVTYPES_H_	include/knlinc/drvtypes.h	5;"	d
+_HALHEADS_H_	include/halinc/halheads.h	5;"	d
+_HALINIT_H	include/halinc/halinit.h	5;"	d
+_HALMMU_H	include/halinc/halmmu.h	5;"	d
+_HALMMU_T_H	include/halinc/halmmu_t.h	5;"	d
+_HALTYPES_H	include/halinc/haltypes.h	5;"	d
+_HAL_INIT_T_H	include/halinc/halinit_t.h	5;"	d
+_KRLHEADS_H	include/knlinc/krlheads.h	5;"	d
+_KRLTYPES_H_	include/knlinc/krltypes.h	5;"	d
+_LIB_HEADS_H	include/libinc/libheads.h	5;"	d
+_LINK_H	include/halinc/link.h	5;"	d
+_LIST_H	include/bastypeinc/list.h	5;"	d
+_LIST_T_H	include/bastypeinc/list_t.h	5;"	d
+_LMOSEMMCTRL_H	include/lmosemmctrl.h	5;"	d
+_LMOSEMTYPES_H	include/lmosemtypes.h	6;"	d
+_PLATFORM_H	include/halinc/platform.h	5;"	d
+_PLATFORM_T_H	include/halinc/platform_t.h	6;"	d
+_SEM_T_H	include/bastypeinc/sem_t.h	5;"	d
+_SPINLOCK_T_H	include/bastypeinc/spinlock_t.h	5;"	d
+__begin_bss	script/lmemknllink.S	/^    __begin_bss = .;$/;"	d
+__begin_data	script/lmemknllink.S	/^    __begin_data = .;$/;"	d
+__begin_kernel	script/lmemknllink.S	/^    __begin_kernel = .;$/;"	d
+__begin_kstrtab	script/lmemknllink.S	/^    __begin_kstrtab = .;$/;"	d
+__begin_lmosem_hal_head_data	script/lmemknllink.S	/^    __begin_lmosem_hal_head_data = .;$/;"	d
+__begin_lmosem_hal_head_text	script/lmemknllink.S	/^    __begin_lmosem_hal_head_text = .;$/;"	d
+__begin_lmosem_hal_init	script/lmemknllink.S	/^    __begin_lmosem_hal_init = .;$/;"	d
+__begin_lmosem_hal_intvect	script/lmemknllink.S	/^    __begin_lmosem_hal_intvect = .;$/;"	d
+__begin_lmosem_hal_vector	script/lmemknllink.S	/^    __begin_lmosem_hal_vector = .;$/;"	d
+__begin_rodata	script/lmemknllink.S	/^    __begin_rodata = .;$/;"	d
+__begin_text	script/lmemknllink.S	/^    __begin_text = .;$/;"	d
+__end_bss	script/lmemknllink.S	/^    __end_bss = .;$/;"	d
+__end_data	script/lmemknllink.S	/^    __end_data = .;$/;"	d
+__end_kernel	script/lmemknllink.S	/^    __end_kernel = .;$/;"	d
+__end_kstrtab	script/lmemknllink.S	/^    __end_kstrtab = .;$/;"	d
+__end_lmosem_hal_head_test	script/lmemknllink.S	/^    __end_lmosem_hal_head_test = .;$/;"	d
+__end_lmosem_hal_init	script/lmemknllink.S	/^    __end_lmosem_hal_init = .;$/;"	d
+__end_lmosem_hal_intvect	script/lmemknllink.S	/^    __end_lmosem_hal_intvect = .;$/;"	d
+__end_lmosem_hal_vector	script/lmemknllink.S	/^    __end_lmosem_hal_vector = .;$/;"	d
+__end_rodata	script/lmemknllink.S	/^    __end_rodata = .;$/;"	d
+__end_text	script/lmemknllink.S	/^    __end_text = .;$/;"	d
+__list_add	include/bastypeinc/list.h	/^KLINE void __list_add(list_h_t *new, list_h_t *prev, list_h_t *next)$/;"	f
+__list_del	include/bastypeinc/list.h	/^KLINE void __list_del(list_h_t * prev, list_h_t * next)$/;"	f
+__list_del_entry	include/bastypeinc/list.h	/^KLINE void __list_del_entry(list_h_t *entry)$/;"	f
+_start	hal/init.S	/^_start:$/;"	l
+adr_t	include/bastypeinc/bastype_t.h	/^typedef unsigned long adr_t;$/;"	t
+armregs_t	include/halinc/cpu_t.h	/^}armregs_t;$/;"	t	typeref:struct:s_ARMREGS
+boot_t	include/bastypeinc/bastype_t.h	/^typedef sint_t boot_t;$/;"	t
+buf_t	include/bastypeinc/bastype_t.h	/^typedef void* buf_t;$/;"	t
+c_lr	include/halinc/cpu_t.h	/^    reg_t c_lr;$/;"	m	struct:s_INTSTKREGS
+char_t	include/bastypeinc/bastype_t.h	/^typedef char char_t;$/;"	t
+cpuflg_t	include/bastypeinc/bastype_t.h	/^typedef u32_t cpuflg_t;$/;"	t
+dev_t	include/bastypeinc/bastype_t.h	/^typedef u32_t dev_t;$/;"	t
+drv_t	include/bastypeinc/bastype_t.h	/^typedef unsigned long drv_t;$/;"	t
+drvstus_t	include/bastypeinc/bastype_t.h	/^typedef sint_t drvstus_t;$/;"	t
+f_handle_t	include/bastypeinc/bastype_t.h	/^typedef drv_t (*f_handle_t)(uint_t int_nr, void* sframe);$/;"	t
+hand_t	include/bastypeinc/bastype_t.h	/^typedef sint_t hand_t;$/;"	t
+i_handle_t	include/bastypeinc/bastype_t.h	/^typedef drv_t (*i_handle_t)(uint_t int_nr);$/;"	t
+init_hal	hal/halinit.c	/^LKHEAD_T void init_hal()$/;"	f
+init_platform	hal/platform.c	/^void init_platform()$/;"	f
+intflthandle_t	include/bastypeinc/bastype_t.h	/^typedef drvstus_t (*intflthandle_t)(uint_t ift_nr, void * device, void * sframe);$/;"	t
+inthandler_t	include/bastypeinc/bastype_t.h	/^typedef void (*inthandler_t)();$/;"	t
+intstkregs_t	include/halinc/cpu_t.h	/^}intstkregs_t;$/;"	t	typeref:struct:s_INTSTKREGS
+kwlst_t	include/bastypeinc/sem_t.h	/^}kwlst_t;$/;"	t	typeref:struct:s_KWLST
+list_add	include/bastypeinc/list.h	/^KLINE void list_add(list_h_t *new, list_h_t *head)$/;"	f
+list_add_tail	include/bastypeinc/list.h	/^KLINE void list_add_tail(list_h_t *new, list_h_t *head)$/;"	f
+list_del	include/bastypeinc/list.h	/^KLINE void list_del(list_h_t *entry)$/;"	f
+list_entry	include/bastypeinc/list.h	82;"	d
+list_for_each	include/bastypeinc/list.h	78;"	d
+list_for_each_dell	include/bastypeinc/list.h	80;"	d
+list_h_t	include/bastypeinc/list_t.h	/^}list_h_t;$/;"	t	typeref:struct:s_LIST_H
+list_init	include/bastypeinc/list.h	/^KLINE void list_init(list_h_t * list)$/;"	f
+list_is_empty_careful	include/bastypeinc/list.h	/^KLINE boot_t list_is_empty_careful(const list_h_t * head)$/;"	f
+list_move	include/bastypeinc/list.h	/^KLINE void list_move(list_h_t *list, list_h_t *head)$/;"	f
+list_move_tail	include/bastypeinc/list.h	/^KLINE void list_move_tail(list_h_t *list, list_h_t *head)$/;"	f
+lmde	hal/init.S	/^lmde:$/;"	l
+lmosemhal_start	hal/lmosemhal_start.c	/^LKHEAD_T void lmosemhal_start()$/;"	f
+lock	include/bastypeinc/spinlock_t.h	/^    volatile u32_t lock;$/;"	m	struct:__anon1
+mrv_t	include/bastypeinc/bastype_t.h	/^typedef unsigned long mrv_t;$/;"	t
+next	include/bastypeinc/list_t.h	/^    struct s_LIST_H *next;$/;"	m	struct:s_LIST_H	typeref:struct:s_LIST_H::s_LIST_H
+prev	include/bastypeinc/list_t.h	/^    struct s_LIST_H *prev;$/;"	m	struct:s_LIST_H	typeref:struct:s_LIST_H::s_LIST_H
+private	include/bastypeinc/bastype_t.h	40;"	d
+r0	include/halinc/cpu_t.h	/^    reg_t r0;$/;"	m	struct:s_ARMREGS
+r0	include/halinc/cpu_t.h	/^    reg_t r0;$/;"	m	struct:s_INTSTKREGS
+r1	include/halinc/cpu_t.h	/^    reg_t r1;$/;"	m	struct:s_ARMREGS
+r1	include/halinc/cpu_t.h	/^    reg_t r1;$/;"	m	struct:s_INTSTKREGS
+r10	include/halinc/cpu_t.h	/^    reg_t r10;$/;"	m	struct:s_ARMREGS
+r10	include/halinc/cpu_t.h	/^    reg_t r10;$/;"	m	struct:s_INTSTKREGS
+r11	include/halinc/cpu_t.h	/^    reg_t r11;$/;"	m	struct:s_ARMREGS
+r11	include/halinc/cpu_t.h	/^    reg_t r11;$/;"	m	struct:s_INTSTKREGS
+r12	include/halinc/cpu_t.h	/^    reg_t r12;$/;"	m	struct:s_ARMREGS
+r12	include/halinc/cpu_t.h	/^    reg_t r12;$/;"	m	struct:s_INTSTKREGS
+r13	include/halinc/cpu_t.h	/^    reg_t r13;$/;"	m	struct:s_ARMREGS
+r13	include/halinc/cpu_t.h	/^    reg_t r13;$/;"	m	struct:s_INTSTKREGS
+r14	include/halinc/cpu_t.h	/^    reg_t r14;$/;"	m	struct:s_ARMREGS
+r14	include/halinc/cpu_t.h	/^    reg_t r14;$/;"	m	struct:s_INTSTKREGS
+r2	include/halinc/cpu_t.h	/^    reg_t r2;$/;"	m	struct:s_ARMREGS
+r2	include/halinc/cpu_t.h	/^    reg_t r2;$/;"	m	struct:s_INTSTKREGS
+r3	include/halinc/cpu_t.h	/^    reg_t r3;$/;"	m	struct:s_ARMREGS
+r3	include/halinc/cpu_t.h	/^    reg_t r3;$/;"	m	struct:s_INTSTKREGS
+r4	include/halinc/cpu_t.h	/^    reg_t r4;$/;"	m	struct:s_ARMREGS
+r4	include/halinc/cpu_t.h	/^    reg_t r4;$/;"	m	struct:s_INTSTKREGS
+r5	include/halinc/cpu_t.h	/^    reg_t r5;$/;"	m	struct:s_ARMREGS
+r5	include/halinc/cpu_t.h	/^    reg_t r5;$/;"	m	struct:s_INTSTKREGS
+r6	include/halinc/cpu_t.h	/^    reg_t r6;$/;"	m	struct:s_ARMREGS
+r6	include/halinc/cpu_t.h	/^    reg_t r6;$/;"	m	struct:s_INTSTKREGS
+r7	include/halinc/cpu_t.h	/^    reg_t r7;$/;"	m	struct:s_ARMREGS
+r7	include/halinc/cpu_t.h	/^    reg_t r7;$/;"	m	struct:s_INTSTKREGS
+r8	include/halinc/cpu_t.h	/^    reg_t r8;$/;"	m	struct:s_ARMREGS
+r8	include/halinc/cpu_t.h	/^    reg_t r8;$/;"	m	struct:s_INTSTKREGS
+r9	include/halinc/cpu_t.h	/^    reg_t r9;$/;"	m	struct:s_ARMREGS
+r9	include/halinc/cpu_t.h	/^    reg_t r9;$/;"	m	struct:s_INTSTKREGS
+reg_t	include/bastypeinc/bastype_t.h	/^typedef u32_t reg_t;$/;"	t
+s16_t	include/bastypeinc/bastype_t.h	/^typedef short s16_t;$/;"	t
+s32_t	include/bastypeinc/bastype_t.h	/^typedef int s32_t;$/;"	t
+s3c2440mmu_enable	hal/platform.c	/^LKHEAD_T void s3c2440mmu_enable()$/;"	f
+s3c2440mmu_init	hal/platform.c	/^LKHEAD_T void s3c2440mmu_init()$/;"	f
+s3c2440mmu_invalid_dicache	hal/platform.c	/^LKHEAD_T void s3c2440mmu_invalid_dicache()$/;"	f
+s3c2440mmu_set_domain	hal/platform.c	/^LKHEAD_T void s3c2440mmu_set_domain(u32_t domain)$/;"	f
+s3c2440mmu_set_tblbass	hal/platform.c	/^LKHEAD_T void s3c2440mmu_set_tblbass(u32_t tblphyadr)$/;"	f
+s3c2440vector_copy	hal/platform.c	/^LKHEAD_T void s3c2440vector_copy()$/;"	f
+s3c2440vector_init	hal/platform.c	/^LKHEAD_T void s3c2440vector_init()$/;"	f
+s64_t	include/bastypeinc/bastype_t.h	/^typedef long long s64_t;$/;"	t
+s8_t	include/bastypeinc/bastype_t.h	/^typedef char s8_t;$/;"	t
+s_ARMREGS	include/halinc/cpu_t.h	/^typedef struct s_ARMREGS$/;"	s
+s_INTSTKREGS	include/halinc/cpu_t.h	/^typedef struct s_INTSTKREGS$/;"	s
+s_KWLST	include/bastypeinc/sem_t.h	/^typedef struct s_KWLST$/;"	s
+s_LIST_H	include/bastypeinc/list_t.h	/^typedef struct s_LIST_H {$/;"	s
+s_SEM	include/bastypeinc/sem_t.h	/^typedef struct s_SEM$/;"	s
+s_lr	include/halinc/cpu_t.h	/^    reg_t s_lr;$/;"	m	struct:s_INTSTKREGS
+s_spsr	include/halinc/cpu_t.h	/^    reg_t s_spsr;$/;"	m	struct:s_INTSTKREGS
+sem_count	include/bastypeinc/sem_t.h	/^    sint_t	sem_count;$/;"	m	struct:s_SEM
+sem_flg	include/bastypeinc/sem_t.h	/^    uint_t	sem_flg;$/;"	m	struct:s_SEM
+sem_lock	include/bastypeinc/sem_t.h	/^    spinlock_t	sem_lock;$/;"	m	struct:s_SEM
+sem_t	include/bastypeinc/sem_t.h	/^}sem_t;$/;"	t	typeref:struct:s_SEM
+sem_waitlst	include/bastypeinc/sem_t.h	/^    kwlst_t	sem_waitlst;$/;"	m	struct:s_SEM
+sint_t	include/bastypeinc/bastype_t.h	/^typedef long sint_t;$/;"	t
+size_t	include/bastypeinc/bastype_t.h	/^typedef unsigned long size_t;$/;"	t
+spinlock_t	include/bastypeinc/spinlock_t.h	/^}spinlock_t;$/;"	t	typeref:struct:__anon1
+str_t	include/bastypeinc/bastype_t.h	/^typedef const char* str_t;$/;"	t
+sysstus_t	include/bastypeinc/bastype_t.h	/^typedef sint_t sysstus_t;$/;"	t
+tstw	hal/init.S	/^tstw: .word __end_lmosem_hal_vector$/;"	l
+u16_t	include/bastypeinc/bastype_t.h	/^typedef unsigned short u16_t;$/;"	t
+u32_t	include/bastypeinc/bastype_t.h	/^typedef unsigned int u32_t;$/;"	t
+u64_t	include/bastypeinc/bastype_t.h	/^typedef unsigned long long u64_t;$/;"	t
+u8_t	include/bastypeinc/bastype_t.h	/^typedef unsigned char u8_t;$/;"	t
+uint_t	include/bastypeinc/bastype_t.h	/^typedef unsigned long uint_t;$/;"	t
+wl_list	include/bastypeinc/sem_t.h	/^    list_h_t	wl_list;$/;"	m	struct:s_KWLST
+wl_lock	include/bastypeinc/sem_t.h	/^    spinlock_t	wl_lock;$/;"	m	struct:s_KWLST
+wl_tdnr	include/bastypeinc/sem_t.h	/^    uint_t	wl_tdnr;$/;"	m	struct:s_KWLST
