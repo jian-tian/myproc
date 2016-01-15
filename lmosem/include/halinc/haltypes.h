@@ -5,6 +5,7 @@
 #define _HALTYPES_H
 
 #include "platform_t.h"
+#include "cpu_t.h"
 #include "halmmu_t.h"
 #include "halinit_t.h"
 #include "cpuctrl_t.h"
