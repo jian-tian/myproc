@@ -7,5 +7,6 @@
 LKHEAD_T void init_hal()
 {
     init_platform();
+    init_haluart();
     return;
 }

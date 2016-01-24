@@ -17,7 +17,7 @@ typedef unsigned long uint_t;
 typedef u32_t cpuflg_t;
 typedef unsigned long adr_t;
 
-typedef sint_t boot_t;
+typedef sint_t bool_t;
 typedef u32_t dev_t;
 typedef const char* str_t;
 typedef char char_t;

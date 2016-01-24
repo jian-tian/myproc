@@ -26,7 +26,7 @@
 #define PTE_SECT_NOCW	    (0<<2)
 #define PTE_SECT_BIT	    (2)
 
-#define PLEM_ADRSPCE_NR	    (2)
+#define PLEM_ADRSPCE_NR	    (29)
 
 #define INTSRC_MAX	    32
 

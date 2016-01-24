@@ -4,4 +4,5 @@
 #ifndef _HAL_INIT_T_H
 #define _HAL_INIT_T_H
 
+LKHEAD_T void init_hal();
 #endif

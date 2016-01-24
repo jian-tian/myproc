@@ -65,7 +65,7 @@ KLINE void list_move_tail(list_h_t *list, list_h_t *head)
     return;
 }
 
-KLINE boot_t list_is_empty_careful(const list_h_t * head)
+KLINE bool_t list_is_empty_careful(const list_h_t * head)
 {
     list_h_t * next = head->next;
     if(next == head && next == head->prev)
