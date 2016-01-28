@@ -13,7 +13,7 @@ OUTPUT_ARCH(arm)
 ENTRY(_start)
 SECTIONS
 {
-    . = 0x30008000;
+    . = 0x30010000;
     __begin_kernel = .;
 
     __begin_lmosem_hal_head_text = .;

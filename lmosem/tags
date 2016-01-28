@@ -7,13 +7,13 @@
 ADDT_EMTP_FLG	include/halinc/halmm_t.h	32;"	d
 ADDT_FUEM_FLG	include/halinc/halmm_t.h	33;"	d
 ADDT_FULL_FLG	include/halinc/halmm_t.h	34;"	d
-ADRSPEC_IO	include/halinc/halmm_t.h	9;"	d
-ADRSPEC_NANDFLASH	include/halinc/halmm_t.h	14;"	d
-ADRSPEC_NORFLASH	include/halinc/halmm_t.h	13;"	d
-ADRSPEC_NOT	include/halinc/halmm_t.h	8;"	d
-ADRSPEC_RAM	include/halinc/halmm_t.h	11;"	d
-ADRSPEC_ROM	include/halinc/halmm_t.h	12;"	d
-ADRSPEC_SDRAM	include/halinc/halmm_t.h	10;"	d
+ADRSPCE_IO	include/halinc/halmm_t.h	9;"	d
+ADRSPCE_NANDFLASH	include/halinc/halmm_t.h	14;"	d
+ADRSPCE_NORFLASH	include/halinc/halmm_t.h	13;"	d
+ADRSPCE_NOT	include/halinc/halmm_t.h	8;"	d
+ADRSPCE_RAM	include/halinc/halmm_t.h	11;"	d
+ADRSPCE_ROM	include/halinc/halmm_t.h	12;"	d
+ADRSPCE_SDRAM	include/halinc/halmm_t.h	10;"	d
 ALIGN	include/bastypeinc/bastype_t.h	49;"	d
 ARMDRIVMFLGS	Makefile	/^ARMDRIVMFLGS = -C $(BUILD_PATH) -f lmosemdrv.mk$/;"	m
 ARMHALYMFLGS	Makefile	/^ARMHALYMFLGS = -C $(BUILD_PATH) -f lmosemhal.mk$/;"	m
@@ -104,12 +104,20 @@ DKAPFLAGS	Makefile	/^DKAPFLAGS = lmosemkrnl.bin$/;"	m
 DKAPP	Makefile	/^DKAPP = .\/dnw2$/;"	m
 DSKIMG	Makefile	/^DSKIMG = flash.img$/;"	m
 DSTPATH	Makefile	/^DSTPATH = ..\/exckrnl$/;"	m
-EI4_7_PNDBTE	include/halinc/halintrupt_t.h	74;"	d
-EI4_7_PNDBTS	include/halinc/halintrupt_t.h	73;"	d
-EI8_23_PNDBTE	include/halinc/halintrupt_t.h	77;"	d
-EI8_23_PNDBTS	include/halinc/halintrupt_t.h	76;"	d
-EINT4_7	include/halinc/halintrupt_t.h	63;"	d
-EINT8_23	include/halinc/halintrupt_t.h	64;"	d
+Disassembly	build/lmo.asm	/^Disassembly of section .ARM.attributes:$/;"	l
+Disassembly	build/lmo.asm	/^Disassembly of section .data:$/;"	l
+Disassembly	build/lmo.asm	/^Disassembly of section .debug_frame:$/;"	l
+Disassembly	build/lmo.asm	/^Disassembly of section .head.text:$/;"	l
+Disassembly	build/lmo.asm	/^Disassembly of section .lmosem_hal.intvect:$/;"	l
+Disassembly	build/lmo.asm	/^Disassembly of section .lmosem_hal.vector:$/;"	l
+Disassembly	build/lmo.asm	/^Disassembly of section .rodata:$/;"	l
+Disassembly	build/lmo.asm	/^Disassembly of section .text:$/;"	l
+EI4_7_PNDBTE	include/halinc/halintrupt_t.h	78;"	d
+EI4_7_PNDBTS	include/halinc/halintrupt_t.h	77;"	d
+EI8_23_PNDBTE	include/halinc/halintrupt_t.h	81;"	d
+EI8_23_PNDBTS	include/halinc/halintrupt_t.h	80;"	d
+EINT4_7	include/halinc/halintrupt_t.h	67;"	d
+EINT8_23	include/halinc/halintrupt_t.h	68;"	d
 EINTMASK_R	include/halinc/halintrupt_t.h	26;"	d
 EINTNR_END	include/halinc/halintrupt_t.h	57;"	d
 EINTNR_START	include/halinc/halintrupt_t.h	56;"	d
@@ -118,6 +126,7 @@ EINTPEND_R	include/halinc/halintrupt_t.h	27;"	d
 EINTPEND_R_BIT_E	include/halinc/halintrupt_t.h	41;"	d
 EINTPEND_R_BIT_S	include/halinc/halintrupt_t.h	40;"	d
 EINT_FLG	include/halinc/halintrupt_t.h	61;"	d
+EINT_IFDNR	include/halinc/halintrupt_t.h	65;"	d
 EINT_OFFSET	include/halinc/halintrupt_t.h	47;"	d
 EXKNL_PATH	Makefile	/^EXKNL_PATH = .\/exckrnl$/;"	m
 EXTERN	include/bastypeinc/bastype_t.h	41;"	d
@@ -134,43 +143,43 @@ HEADFILE_PATH	build/lmosemkrl.mk	/^HEADFILE_PATH = -I ..\/include -I ..\/include
 HEADFILE_PATH	build/lmosemlib.mk	/^HEADFILE_PATH = -I ..\/include -I ..\/include\/bastypeinc -I ..\/include\/halinc -I ..\/include\/knlinc -I ..\/include\/libinc -I ..\/include\/drvinc$/;"	m
 HEADFILE_PATH	build/lmosemtask.mk	/^HEADFILE_PATH = -I ..\/include -I ..\/include\/bastypeinc -I ..\/include\/halinc -I ..\/include\/knlinc -I ..\/include\/libinc -I ..\/include\/drvinc$/;"	m
 HEADFILE_PATH	build/pretreatment.mk	/^HEADFILE_PATH = -I ..\/include\/script\/ -I ..\/include\/ -I ..\/include\/bastypeinc -I ..\/include\/halinc$/;"	m
-IACWDT_PNDBTE	include/halinc/halintrupt_t.h	95;"	d
-IACWDT_PNDBTS	include/halinc/halintrupt_t.h	94;"	d
-IADC_PNDBTE	include/halinc/halintrupt_t.h	89;"	d
-IADC_PNDBTS	include/halinc/halintrupt_t.h	88;"	d
-ICAM_PNDBTE	include/halinc/halintrupt_t.h	92;"	d
-ICAM_PNDBTS	include/halinc/halintrupt_t.h	91;"	d
+IACWDT_PNDBTE	include/halinc/halintrupt_t.h	99;"	d
+IACWDT_PNDBTS	include/halinc/halintrupt_t.h	98;"	d
+IADC_PNDBTE	include/halinc/halintrupt_t.h	93;"	d
+IADC_PNDBTS	include/halinc/halintrupt_t.h	92;"	d
+ICAM_PNDBTE	include/halinc/halintrupt_t.h	96;"	d
+ICAM_PNDBTS	include/halinc/halintrupt_t.h	95;"	d
 IFLG_CLXINTP	include/halinc/halintrupt_t.h	11;"	d
 IFLG_EXTINTP	include/halinc/halintrupt_t.h	9;"	d
 IFLG_INIINTP	include/halinc/halintrupt_t.h	8;"	d
 IFLG_PRESENT	include/halinc/halintrupt_t.h	7;"	d
 IFLG_SUBINTP	include/halinc/halintrupt_t.h	10;"	d
-ILCD_PNDBTE	include/halinc/halintrupt_t.h	98;"	d
-ILCD_PNDBTS	include/halinc/halintrupt_t.h	97;"	d
+ILCD_PNDBTE	include/halinc/halintrupt_t.h	102;"	d
+ILCD_PNDBTS	include/halinc/halintrupt_t.h	101;"	d
 INISRC_FLG	include/halinc/halintrupt_t.h	18;"	d
 INIT_HEAD_STACK_ADDR	include/halinc/platform_t.h	19;"	d
-INIT_LCD	include/halinc/halintrupt_t.h	68;"	d
-INPND_R	include/halinc/halintrupt_t.h	31;"	d
+INIT_LCD	include/halinc/halintrupt_t.h	72;"	d
 INTLINE_MAX	include/halinc/halintrupt_t.h	21;"	d
 INTMOD_R	include/halinc/halintrupt_t.h	33;"	d
 INTMSK_R	include/halinc/halintrupt_t.h	24;"	d
 INTOFFSET_R	include/halinc/halintrupt_t.h	30;"	d
 INTPDEVID	include/halinc/halintrupt_t.h	14;"	d
+INTPND_R	include/halinc/halintrupt_t.h	31;"	d
 INTSRC_MAX	include/halinc/platform_t.h	31;"	d
 INTSUBMSK_T	include/halinc/halintrupt_t.h	25;"	d
-INT_ADC	include/halinc/halintrupt_t.h	71;"	d
-INT_CAM	include/halinc/halintrupt_t.h	65;"	d
-INT_UART0	include/halinc/halintrupt_t.h	70;"	d
-INT_UART1	include/halinc/halintrupt_t.h	69;"	d
-INT_UART2	include/halinc/halintrupt_t.h	67;"	d
-INT_WDT_AC97	include/halinc/halintrupt_t.h	66;"	d
+INT_ADC	include/halinc/halintrupt_t.h	75;"	d
+INT_CAM	include/halinc/halintrupt_t.h	69;"	d
+INT_UART0	include/halinc/halintrupt_t.h	74;"	d
+INT_UART1	include/halinc/halintrupt_t.h	73;"	d
+INT_UART2	include/halinc/halintrupt_t.h	71;"	d
+INT_WDT_AC97	include/halinc/halintrupt_t.h	70;"	d
 IRQ_MAX	include/halinc/halintrupt_t.h	48;"	d
-IUART0_PNDBTE	include/halinc/halintrupt_t.h	80;"	d
-IUART0_PNDBTS	include/halinc/halintrupt_t.h	79;"	d
-IUART1_PNDBTE	include/halinc/halintrupt_t.h	83;"	d
-IUART1_PNDBTS	include/halinc/halintrupt_t.h	82;"	d
-IUART2_PNDBTE	include/halinc/halintrupt_t.h	86;"	d
-IUART2_PNDBTS	include/halinc/halintrupt_t.h	85;"	d
+IUART0_PNDBTE	include/halinc/halintrupt_t.h	84;"	d
+IUART0_PNDBTS	include/halinc/halintrupt_t.h	83;"	d
+IUART1_PNDBTE	include/halinc/halintrupt_t.h	87;"	d
+IUART1_PNDBTS	include/halinc/halintrupt_t.h	86;"	d
+IUART2_PNDBTE	include/halinc/halintrupt_t.h	90;"	d
+IUART2_PNDBTS	include/halinc/halintrupt_t.h	89;"	d
 JMP_ADDR	include/halinc/cpu_t.h	8;"	d
 KERNELCE_PATH	build/lmosemdrv.mk	/^KERNELCE_PATH = ..\/drvers\/$/;"	m
 KERNELCE_PATH	build/lmosemhal.mk	/^KERNELCE_PATH = ..\/hal\/$/;"	m
@@ -223,6 +232,7 @@ MGFLAGES	Makefile	/^MGFLAGES = -A arm -T kernel -C none -a 30007ebo -e 30008000 
 MINTNR_END	include/halinc/halintrupt_t.h	51;"	d
 MINTNR_START	include/halinc/halintrupt_t.h	50;"	d
 MINT_FLG	include/halinc/halintrupt_t.h	59;"	d
+MINT_IFDNR	include/halinc/halintrupt_t.h	63;"	d
 MINT_OFFSET	include/halinc/halintrupt_t.h	45;"	d
 MKDIR	Makefile	/^MKDIR = mkdir$/;"	m
 MKIMAGE	Makefile	/^MKIMAGE = mkimage$/;"	m
@@ -252,6 +262,7 @@ SEM_MUTEX_ONE_LOCK	include/bastypeinc/sem_t.h	8;"	d
 SINTNR_END	include/halinc/halintrupt_t.h	54;"	d
 SINTNR_START	include/halinc/halintrupt_t.h	53;"	d
 SINT_FLG	include/halinc/halintrupt_t.h	60;"	d
+SINT_IFDNR	include/halinc/halintrupt_t.h	64;"	d
 SINT_OFFSET	include/halinc/halintrupt_t.h	46;"	d
 SRCFILE	Makefile	/^SRCFILE = lmosemkrnl.bin lmosemkrnl.elf$/;"	m
 SRCPND_R	include/halinc/halintrupt_t.h	32;"	d
@@ -361,8 +372,15 @@ __end_text	script/lmemknllink.S	/^    __end_text = .;$/;"	d
 __list_add	include/bastypeinc/list.h	/^KLINE void __list_add(list_h_t *new, list_h_t *prev, list_h_t *next)$/;"	f
 __list_del	include/bastypeinc/list.h	/^KLINE void __list_del(list_h_t * prev, list_h_t * next)$/;"	f
 __list_del_entry	include/bastypeinc/list.h	/^KLINE void __list_del_entry(list_h_t *entry)$/;"	f
+_data_abort	hal/init.S	/^_data_abort:$/;"	l
 _err	hal/vector.S	/^_err:$/;"	l
+_fiq	hal/init.S	/^_fiq:$/;"	l
+_irq	hal/init.S	/^_irq:$/;"	l
+_not_used	hal/init.S	/^_not_used:$/;"	l
+_prefetch_abort	hal/init.S	/^_prefetch_abort:$/;"	l
+_software_struction	hal/init.S	/^_software_struction:$/;"	l
 _start	hal/init.S	/^_start:$/;"	l
+_undefined_struction	hal/init.S	/^_undefined_struction:$/;"	l
 adr_t	include/bastypeinc/bastype_t.h	/^typedef unsigned long adr_t;$/;"	t
 afl_fulllsth	include/halinc/halmm_t.h	/^    list_h_t	afl_fulllsth;$/;"	m	struct:s_ALCFRELST
 afl_lock	include/halinc/halmm_t.h	/^    spinlock_t	afl_lock;$/;"	m	struct:s_ALCFRELST
@@ -378,6 +396,8 @@ ap_flgs	include/halinc/halmm_t.h	/^    u32_t ap_flgs;$/;"	m	struct:s_PHYADRSPEC
 armregs_t	include/halinc/cpu_t.h	/^}armregs_t;$/;"	t	typeref:struct:s_ARMREGS
 bool_t	include/bastypeinc/bastype_t.h	/^typedef sint_t bool_t;$/;"	t
 buf_t	include/bastypeinc/bastype_t.h	/^typedef void* buf_t;$/;"	t
+c	build/lmo.asm	/^   c:	00000022 	andeq	r0, r0, r2, lsr #32$/;"	l
+c	build/lmo.asm	/^   c:	000d0c0e 	.word	0x000d0c0e$/;"	l
 c_lr	include/halinc/cpu_t.h	/^    reg_t c_lr;$/;"	m	struct:s_INTSTKREGS
 char_t	include/bastypeinc/bastype_t.h	/^typedef char char_t;$/;"	t
 char_write_uart	hal/printfk.c	/^void char_write_uart(char_t * buf)$/;"	f
@@ -469,7 +489,7 @@ ild_devid	include/halinc/halintrupt_t.h	/^    u32_t ild_devid;$/;"	m	struct:s_IL
 ild_modflg	include/halinc/halintrupt_t.h	/^    u32_t ild_modflg;$/;"	m	struct:s_ILNEDSC
 ild_physid	include/halinc/halintrupt_t.h	/^    u32_t ild_physid;$/;"	m	struct:s_ILNEDSC
 ilnedsc_t	include/halinc/halintrupt_t.h	/^}ilnedsc_t;$/;"	t	typeref:struct:s_ILNEDSC
-init_hal	hal/halinit.c	/^LKHEAD_T void init_hal()$/;"	f
+init_hal	hal/halinit.c	/^void init_hal()$/;"	f
 init_haluart	hal/haluart.c	/^void init_haluart()$/;"	f
 init_platform	hal/platform.c	/^void init_platform()$/;"	f
 init_uart0	hal/haluart.c	/^void init_uart0()$/;"	f
@@ -499,7 +519,7 @@ lmosem_prefabt_l	hal/vector.S	/^lmosem_prefabt_l: .word hal_prefabt$/;"	l
 lmosem_restart_l	hal/vector.S	/^lmosem_restart_l: .word _start$/;"	l
 lmosem_swi_l	hal/vector.S	/^lmosem_swi_l: .word hal_swi$/;"	l
 lmosem_undefins_l	hal/vector.S	/^lmosem_undefins_l: .word hal_undefins$/;"	l
-lmosemhal_start	hal/lmosemhal_start.c	/^LKHEAD_T void lmosemhal_start()$/;"	f
+lmosemhal_start	hal/lmosemhal_start.c	/^void lmosemhal_start()$/;"	f
 lock	include/bastypeinc/spinlock_t.h	/^    volatile u32_t lock;$/;"	m	struct:__anon1
 mach_t	include/halinc/halmach_t.h	/^}mach_t;$/;"	t	typeref:struct:s_MACH
 map_allcount	include/halinc/halmm_t.h	/^    u32_t	map_allcount;$/;"	m	struct:s_MMAPDSC
@@ -564,6 +584,7 @@ r9	include/halinc/cpu_t.h	/^    reg_t r9;$/;"	m	struct:s_ARMREGS
 r9	include/halinc/cpu_t.h	/^    reg_t r9;$/;"	m	struct:s_INTSTKREGS
 raise	hal/lmosemhal_start.c	/^LKHEAD_T void raise(uint_t signum)$/;"	f
 reg_t	include/bastypeinc/bastype_t.h	/^typedef u32_t reg_t;$/;"	t
+reset	hal/init.S	/^reset:$/;"	l
 s16_t	include/bastypeinc/bastype_t.h	/^typedef short s16_t;$/;"	t
 s32_t	include/bastypeinc/bastype_t.h	/^typedef int s32_t;$/;"	t
 s3c2440mmu_enable	hal/platform.c	/^LKHEAD_T void s3c2440mmu_enable()$/;"	f

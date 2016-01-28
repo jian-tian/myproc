@@ -6,7 +6,14 @@
 
 void init_haluart()
 {
-    init_uart0();
+//    init_uart0();
+ //   uint_t vall = 12;
+//    char_t * str = "test printf";
+//    printfk("vald is %d, valx is %x, str is %s", vall, vall, str);
+//    printfk("%d%x", vall, vall);
+    char_t c = 'a';
+    hal_uart0_putc(c);
+    for(;;);
     return;
 }
 

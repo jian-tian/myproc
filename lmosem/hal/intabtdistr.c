@@ -36,6 +36,7 @@ void hal_dbug_print_reg(intstkregs_t * intstkp)
 
 void hal_undefins_distr(void * sframe)
 {
+    init_hal();
     hal_sysdie("undefins runing!!");
     return;
 }
@@ -86,7 +87,7 @@ void hal_dbugint2(uint_t lr)
 
 void hal_irq_distr(void * sframe)
 {
-    uint_t intoset = hal_retn_intnr();
+    uint_t intoset = 0;//hal_retn_intnr();
 
     switch(intoset)
     {
@@ -100,7 +101,7 @@ void hal_irq_distr(void * sframe)
 	    hal_int_distr(sframe, intoset);
 	    break;
     }
-    hal_clear_intpnd(intoset);
+    //hal_clear_intpnd(intoset);
 //    krlsched_chkneed_pmptsched();
     return;
 }
@@ -121,7 +122,7 @@ void hal_eint_distr(void * sframe, uint_t mintnr, uint_t pndbts, uint_t pndbte)
 	if(((pnd>>bi)&1)==1)
 	{
 	    hal_run_intflthandle(EINT_IFDNR(bi), sframe);
-	    hal_clear_srcpnd(EINT_IFDNR(bi));
+	    //hal_clear_srcpnd(EINT_IFDNR(bi));
 	}
     }
     return;
@@ -137,7 +138,7 @@ void hal_sint_distr(void * sframe, uint_t mintnr, uint_t pndbts, uint_t pndbte)
 	if(((pnd>>bi)&1)==1)
 	{
 	    hal_run_intflthandle(EINT_IFDNR(bi), sframe);
-	    hal_clear_srcpnd(EINT_IFDNR(bi));
+	    //hal_clear_srcpnd(EINT_IFDNR(bi));
 	}
     }
     return;
@@ -161,7 +162,7 @@ void hal_lcdint_distr(void * sframe, uint_t mintnr, uint_t pndbts, uint_t pndbte
 void hal_int_distr(void * sframe, uint_t mintnr)
 {
     hal_run_intflthandle(MINT_IFDNR(mintnr), sframe);
-    hal_clear_srcpnd(MINT_IFDNR(mintnr));
+    //hal_clear_srcpnd(MINT_IFDNR(mintnr));
     return;
 }
 
@@ -169,14 +170,14 @@ void hal_run_intflthandle(uint_t ifdnr, void * sframe)
 {
     intserdsc_t * isdscp;
     list_h_t * lst;
-    intfltdsc_t * ifdscp = hal_retn_intfltdsc(ifdnr);
+    intfltdsc_t * ifdscp = NULL;//hal_retn_intfltdsc(ifdnr);
 
     if(ifdscp == NULL)
     {
 	hal_sysdie("hal_run_intfltdsc err");
 	return;
     }
-    list_for_each(lst, &ifdscp_>i_serlist)
+    list_for_each(lst, &ifdscp->i_serlist)
     {
 	isdscp = list_entry(lst ,intserdsc_t, s_list);
 	isdscp->s_handle(ifdnr, isdscp->s_device, sframe);

@@ -28,7 +28,7 @@
 #define LCDINTPND_R 0x4d000054
 
 #define INTOFFSET_R 0x4a000014
-#define INPND_R	    0x4a000010
+#define INTPND_R    0x4a000010
 #define SRCPND_R    0x4a000000
 #define INTMOD_R    0x4a000004
 #define SUBSRCPND_R 0x4a000018
@@ -51,14 +51,18 @@
 #define MINTNR_END	(31+MINT_OFFSET)
 
 #define SINTNR_START	(0+SINT_OFFSET)
-#define SINTNR_END	(31+SINT_OFFSET)
+#define SINTNR_END	(14+SINT_OFFSET)
 
 #define EINTNR_START	(0+EINT_OFFSET)
-#define EINTNR_END	(31+EINT_OFFSET)
+#define EINTNR_END	(23+EINT_OFFSET)
 
 #define MINT_FLG    1
 #define SINT_FLG    2
 #define EINT_FLG    3
+
+#define MINT_IFDNR(x)	(x+MINT_OFFSET)
+#define SINT_IFDNR(x)	(x+SINT_OFFSET)
+#define EINT_IFDNR(x)	(x+EINT_OFFSET)
 
 #define EINT4_7	4
 #define EINT8_23    5

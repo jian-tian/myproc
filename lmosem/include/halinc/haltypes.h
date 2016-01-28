@@ -8,6 +8,7 @@
 #include "cpu_t.h"
 #include "halmmu_t.h"
 #include "halintrupt_t.h"
+#include "intabtdistr_t.h"
 #include "halmm_t.h"
 #include "halmach_t.h"
 #include "halinit_t.h"
