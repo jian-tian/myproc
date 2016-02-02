@@ -10,11 +10,11 @@ void printfk(const char_t * fmt, ...)
     cpuflg_t cpuflg;
     va_list ap;
     va_start(ap, fmt);
-    hal_disableirqfiq_savecpuflg(&cpuflg);
+    hal_disableirq_savecpuflg(&cpuflg);
 
     vsprintfk(buf, fmt, ap);
     hal_uart_write(0, buf, 0);
-    hal_enableirqfiq_restcpuflg(&cpuflg);
+    hal_enableirq_restcpuflg(&cpuflg);
     va_end(ap);
     return;
 }

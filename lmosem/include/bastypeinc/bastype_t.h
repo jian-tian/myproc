@@ -48,7 +48,9 @@ typedef drvstus_t (*intflthandle_t)(uint_t ift_nr, void * device, void * sframe)
 #define NO_HAND	    (-1)
 #define ALIGN(x, a)	((x) + (a) - 1) & ~((a) - 1)
 
-#define LKHEAD_T __attribute__((section(".head.text")))
-#define LKHEAD_D __attribute__((section(".haed.data")))
+//#define LKHEAD_T __attribute__((section(".head.text")))
+//#define LKHEAD_D __attribute__((section(".haed.data")))
+#define LKHEAD_T __attribute__((section(".text")))
+#define LKHEAD_D __attribute__((section(".data")))
 
 #endif

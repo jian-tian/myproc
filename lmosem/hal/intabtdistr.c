@@ -8,6 +8,7 @@ __attribute__((section(".data"))) uint_t gint_indx = 0;
 
 void hal_dbug_print_reg(intstkregs_t * intstkp)
 {
+    return 0;
     printfk("USR_REG r0:%x\n\r", intstkp->r0);
     printfk("USR_REG r1:%x\n\r", intstkp->r1);
     printfk("USR_REG r2:%x\n\r", intstkp->r2);
@@ -168,6 +169,7 @@ void hal_int_distr(void * sframe, uint_t mintnr)
 
 void hal_run_intflthandle(uint_t ifdnr, void * sframe)
 {
+/*
     intserdsc_t * isdscp;
     list_h_t * lst;
     intfltdsc_t * ifdscp = NULL;//hal_retn_intfltdsc(ifdnr);
@@ -182,7 +184,7 @@ void hal_run_intflthandle(uint_t ifdnr, void * sframe)
 	isdscp = list_entry(lst ,intserdsc_t, s_list);
 	isdscp->s_handle(ifdnr, isdscp->s_device, sframe);
     }
-
+*/
     return;
 }
 

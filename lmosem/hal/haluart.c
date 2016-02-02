@@ -4,15 +4,20 @@
 #include "lmosemtypes.h"
 #include "lmosemmctrl.h"
 
+void hello_word(void)
+{
+    printfk("\n\r");
+    printfk("/******************Lmosem***********************/\n\r");
+    printfk("/**********Hello, I miss you so much************/\n\r");
+}
+
 void init_haluart()
 {
-//    init_uart0();
- //   uint_t vall = 12;
-//    char_t * str = "test printf";
-//    printfk("vald is %d, valx is %x, str is %s", vall, vall, str);
-//    printfk("%d%x", vall, vall);
-    char_t c = 'a';
-    hal_uart0_putc(c);
+    init_uart0();
+    hello_word();  
+    uint_t vall = 12;
+    char_t * str = "/***test*****/";
+    printfk("vald is %d, valx is 0x%x, str is %s\n\r", vall, vall, str);
     for(;;);
     return;
 }
@@ -29,9 +34,9 @@ void init_uart0()
 
 void hal_uart0_putc(char_t c)
 {
-    while(!(hal_io32_read(UTRSTAT1_R)&4));
+    while(!(hal_io32_read(UTRSTAT0_R)&4));
 
-    hal_io32_write(URXH1_R, c);
+    hal_io32_write(UTXH0_R, c);
     return;
 }
 

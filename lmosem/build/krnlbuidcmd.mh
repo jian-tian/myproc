@@ -10,7 +10,7 @@ LIBPATH	    = -lgcc -L/opt/EmbedSky/4.3.3/lib/gcc/arm-none-linux-gnueabi/4.3.3/
 RM	    = rm # -ld -lgcc $(LIBPATH)
 OBJCOPY	    = arm-linux-objcopy
 OYFLAGS	    = -O binary
-CFLAGS	    = $(HEADFILE_PATH) -c -o2 -fno-builtin -ffreestanding -std=c99 -save-temps -march=armv4 -Wall -Wshadow -W -Wconversion -Wno-sign-conversion -Wno-stack-protector -fomit-frame-pointer -fno-ident -Wno-unused-parameter -Wunused-variable -mtune=arm7tdmi
+CFLAGS	    = $(HEADFILE_PATH) -c -o0 -P -fno-builtin -ffreestanding -std=c99 -save-temps -march=armv4t -Wall -W -Wconversion -Wno-sign-conversion -fno-ident -Wno-unused-parameter -Wunused-variable -mtune=arm7tdmi
 LDFLAGS	    = -Bstatic -nostdlib -T lmemknllink.lds -Map lmos_em.map $(LIBPATH)
 
 CPPFLAGSLDS = $(HEADFILE_PATH) -E -P

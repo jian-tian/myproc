@@ -1,7 +1,7 @@
 #include "lmosemtypes.h"
 #include "lmosemmctrl.h"
 
-void init_platform()
+LKHEAD_T void init_platform()
 {
     s3c2440mmu_init();
     s3c2440vector_init();
@@ -72,7 +72,7 @@ LKHEAD_T void s3c2440mmu_set_tblbass(u32_t tblphyadr)
 LKHEAD_T void s3c2440mmu_enable()
 {
     __asm__ __volatile__(
-	"mcr p15, 0, r0, c1, c0, 0 \n\t"
+	"mrc p15, 0, r0, c1, c0, 0 \n\t"
 	"orr r0, #1 \n\t"
 	"mcr p15, 0, r0, c1, c0, 0 \n\t"
 	"nop \n\t"
