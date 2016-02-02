@@ -15,7 +15,7 @@ PRINTCSTR	= @echo $(CCSTR)
 	$(CC) $(CFLAGS) -o $@ $<
 	$(PRINTCSTR)
 %.o : $(CCBUILDPATH)%.S
-	@echo $@ $<
+#	@echo $@ $<
 	$(CC) $(CFLAGS) -o $@ $<
 	$(PRINTCSTR)
 

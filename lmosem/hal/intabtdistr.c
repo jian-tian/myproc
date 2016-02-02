@@ -8,7 +8,6 @@ __attribute__((section(".data"))) uint_t gint_indx = 0;
 
 void hal_dbug_print_reg(intstkregs_t * intstkp)
 {
-    return 0;
     printfk("USR_REG r0:%x\n\r", intstkp->r0);
     printfk("USR_REG r1:%x\n\r", intstkp->r1);
     printfk("USR_REG r2:%x\n\r", intstkp->r2);

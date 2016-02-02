@@ -15,7 +15,7 @@ void init_haluart()
 {
     init_uart0();
     hello_word();  
-    uint_t vall = 12;
+    uint_t vall = 25;
     char_t * str = "/***test*****/";
     printfk("vald is %d, valx is 0x%x, str is %s\n\r", vall, vall, str);
     for(;;);

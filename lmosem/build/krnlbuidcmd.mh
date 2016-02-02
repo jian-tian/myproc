@@ -6,7 +6,7 @@ CC	    = arm-linux-gcc
 LD	    = arm-linux-ld
 
 DD	    = dd
-LIBPATH	    = -lgcc -L/opt/EmbedSky/4.3.3/lib/gcc/arm-none-linux-gnueabi/4.3.3/
+LIBPATH	    = -L/opt/EmbedSky/4.3.3/lib/gcc/arm-none-linux-gnueabi/4.3.3/
 RM	    = rm # -ld -lgcc $(LIBPATH)
 OBJCOPY	    = arm-linux-objcopy
 OYFLAGS	    = -O binary
