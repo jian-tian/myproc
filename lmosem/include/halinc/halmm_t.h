@@ -81,8 +81,8 @@ typedef struct s_ALCFRELST
     spinlock_t	afl_lock;
     size_t	afl_sz;
     list_h_t	afl_fulllsth;
-    list_h_t	alf_emptlsth;
-    list_h_t	alf_fuemlsth;
+    list_h_t	afl_emptlsth;
+    list_h_t	afl_fuemlsth;
 }alcfrelst_t;
 
 /*所有RAM空间的数据管理*/

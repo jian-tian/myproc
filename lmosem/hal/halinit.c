@@ -8,5 +8,7 @@ void init_hal()
 {
     init_platform();
     init_haluart();
+    init_halmach();
+    init_halmm();
     return;
 }

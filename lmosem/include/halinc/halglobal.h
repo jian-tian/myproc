@@ -10,9 +10,9 @@
 #endif
 
 HAL_DEFGLOB_VARIABLE(mach_t, osmach);
-HAL_DEFGLOB_VARIABLE(phymem_t, osphymen);
+HAL_DEFGLOB_VARIABLE(phymem_t, osphymem);
 
-HAL_DEFGLOB_VARIABLE(phyadrspce_t, machadrspce)[PLEM_ADRSPCE_NR];
+HAL_DEFGLOB_VARIABLE(phyadrspce_t, machadrspce)[PLFM_ADRSPCE_NR];
 HAL_DEFGLOB_VARIABLE(intfltdsc_t, machintflt)[IRQ_MAX];
 
 #endif

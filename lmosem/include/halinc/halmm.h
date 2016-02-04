@@ -7,7 +7,7 @@ void init_halmm();
 sint_t cheksum_phyadrspce(mach_t * mahp);
 void init_mmapdsc(mach_t * mahp);
 uint_t init_core_mmapdsc(adr_t adrs, adr_t adre, mmapdsc_t * gmmp, uint_t curmindx);
-void mmapdsc_t_init(mmapdsc_t mmp, adr_t phyadr, adr_t phyadre, u32_t allcount, u32_t flgs);
+void mmapdsc_t_init(mmapdsc_t* mmp, adr_t phyadr, adr_t phyadre, u32_t allcount, u32_t flgs);
 void alcfrelst_t_init(alcfrelst_t * initp, size_t bsz);
 void phymem_t_init(phymem_t * initp);
 void onmmapdsc_inkrlram(mach_t * mahp, phymem_t *pmp);

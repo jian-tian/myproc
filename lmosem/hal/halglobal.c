@@ -5,9 +5,12 @@
 #include "lmosemtypes.h"
 #include "lmosemmctrl.h"
 
+/*定义一个mach_t数据，表示全局内存数据结构*/
 HAL_DEFGLOB_VARIABLE(mach_t, osmach);
+/*定义一个phymem_t数据，包含一个内存分配数组，包含各种大小的内存*/
 HAL_DEFGLOB_VARIABLE(phymem_t, osphymem);
-HAL_DEFGLOB_VARIABLE(phyadrspce_t, machadrspce)[PLEM_ADRSPCE_NR] =
+/*定义phyadrspce_t数据，表示整个存储空间*/
+HAL_DEFGLOB_VARIABLE(phyadrspce_t, machadrspce)[PLFM_ADRSPCE_NR] =
 {
     {ADRSPCE_NORFLASH,0,0,0x001fffff},
     {ADRSPCE_IO,0,0x08000000,0x0800000f},
