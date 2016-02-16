@@ -5,19 +5,23 @@
 #include "lmosemmctrl.h"
 
 void print_mmapdsc(mach_t * mchp);
+void print_mminfo(phymem_t * pmp);
 
+/*初始化完成后，内存分为4M大小blk；其中第一个blk细分为128KB，其余blk细分为4MB*/
+/*128KB blk第一个已经给kernel使用；4MB blk为空*/
 void init_halmm()
 {
     init_mmapdsc(&osmach);
     init_phymem();
     onmmapdsc_inkrlram(&osmach, &osphymem);
     print_mmapdsc(&osmach);
+    print_mminfo(&osphymem);
 }
 
 void print_mmapdsc(mach_t * mchp)
 {
     mmapdsc_t * map = mchp->mh_mmapdscadr;
-    uint_t mnr = mchp->mh_spedscnr;
+    uint_t mnr = mchp->mh_mmapdscnr;
     for(uint_t i=0; i<mnr; i++)
     {
 	printfk("mmapdsc[%x].map_phyadr:0x%x,map_phyadrend:0x%x\n\r", i , \
@@ -25,6 +29,72 @@ void print_mmapdsc(mach_t * mchp)
     }
     return;
 }
+
+void print_mminfo(phymem_t * pmp)
+{
+    uint_t blkcnt = BLKSZ_HEAD_MAX;
+    uint_t lscnt = 3;
+    mmapdsc_t *mmap;
+    list_h_t *pos;
+    list_h_t *lsth;
+
+    for(uint_t i=0; i< blkcnt; i++)
+    {
+	switch(i)
+	{
+	    case 0:
+		printfk("blk 128KB is:\r\n");
+		break;
+	    case 1:
+		printfk("blk 256KB is:\r\n");
+		break;
+	    case 2:
+		printfk("blk 512KB is:\r\n");
+		break;
+	    case 3:
+		printfk("blk 1MB is:\r\n");
+		break;
+	    case 4:
+		printfk("blk 2MB is:\r\n");
+		break;
+	    case 5:
+		printfk("blk 4MB is:\r\n");
+		break;
+	    default:
+		break;
+	}
+
+	for(uint_t j=0; j<lscnt; j++)
+	{
+	    if(j==0)
+	    {
+		printfk("  full blk is:\r\n");
+		lsth = &pmp->pmm_sz_lsth[i].afl_fulllsth;
+	    }	
+	    else if(j==1)
+	    {
+		printfk("  empty blk is:\r\n");
+		lsth = &pmp->pmm_sz_lsth[i].afl_emptlsth;
+	    }
+	    else
+	    {
+		printfk("  part blk is:\r\n");
+		lsth = &pmp->pmm_sz_lsth[i].afl_fuemlsth;
+	    }
+	    list_for_each(pos, lsth)
+	    {
+		//printfk("pos is 0x%x, lsth is 0x%x\r\n", pos, lsth);
+		//printfk("pos->next is 0x%x, lsth->next is 0x%x\r\n", pos->next, (lsth)->next);
+		mmap = list_entry(pos, mmapdsc_t, map_list);	
+		printfk("\tmap_phyadr is 0x%x\r\n", mmap->map_phyadr);
+		printfk("\tmap_phyadrend is 0x%x\r\n", mmap->map_phyadrend);
+		printfk("\tmap_allcount is 0x%x\r\n", mmap->map_allcount);
+		printfk("\tmap_flg is 0x%x\r\n", mmap->map_flg);
+	    }
+	}
+    } 
+}
+
 /*初始化存储空间*/
 void init_mmapdsc(mach_t * mahp)
 {
@@ -44,7 +114,7 @@ void init_mmapdsc(mach_t * mahp)
     return;
 }
 
-/*将内存划分为多个内存块*/
+/*将内存按4MB大小划分为多个内存块*/
 uint_t init_core_mmapdsc(adr_t adrs, adr_t adre, mmapdsc_t * gmmp, uint_t curmindx)
 {
     uint_t mindx = curmindx;
@@ -80,7 +150,20 @@ void mmapdsc_t_init(mmapdsc_t * mmp, adr_t phyadrs, adr_t phyadre, u32_t allcoun
 void init_phymem()
 {
     phymem_t_init(&osphymem);
-    //pmmlist_init(&osmach, &osphymem);
+    //print_mminfo(&osphymem);
+    pmmlist_init(&osmach, &osphymem);
+}
+
+/*初始化时把4-64的内存划分到4M的链表中，即这些内存blk没有再细分*/
+void pmmlist_init(mach_t * mahp, phymem_t * pmp)
+{
+    mmapdsc_t * mapp = mahp->mh_mmapdscadr;
+    uint_t mapnr = mahp->mh_mmapdscnr;
+    for(uint_t mr=1; mr< mapnr; mr++)
+    {
+	mapdsc_addto_memlst(&pmp->pmm_sz_lsth[BLKSZ_HEAD_MAX-1], &mapp[mr], ADDT_EMTP_FLG);
+    }
+    return;
 }
 
 void alcfrelst_t_init(alcfrelst_t * initp, size_t bsz)
@@ -125,6 +208,7 @@ void mapdsc_addto_memlst(alcfrelst_t * aflp, mmapdsc_t * mmp, uint_t aftflg)
     return;
 }
 
+/*第一个4Mblk中按128KB划分，第一个blk作为kernel表示已经使用的地址,加到128kb的链表中*/
 void onmmapdsc_inkrlram(mach_t * mahp, phymem_t * pmp)
 {
     mmapdsc_t * mapp = mahp->mh_mmapdscadr;
@@ -138,7 +222,7 @@ void onmmapdsc_inkrlram(mach_t * mahp, phymem_t * pmp)
 
     u32_t cut = 1;
     u32_t flg = MAP_FLAGS_VAL(0, MAPF_ACSZ_128KB, MAPF_SZ_4MB);
-    mapp[0].map_allcount = cut;
+    mapp[0].map_allcount = cut;/*表示第cut个blk已经分配*/
     mapp[0].map_flg = flg;
     mapdsc_addto_memlst(&pmp->pmm_sz_lsth[0], &mapp[0], ADDT_FUEM_FLG);
     return;
