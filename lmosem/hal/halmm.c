@@ -227,3 +227,72 @@ void onmmapdsc_inkrlram(mach_t * mahp, phymem_t * pmp)
     mapdsc_addto_memlst(&pmp->pmm_sz_lsth[0], &mapp[0], ADDT_FUEM_FLG);
     return;
 }
+
+adr_t hal_memallocblks(size_t blksz)
+{
+    if(blksz < BLK128KB_SIZE || blksz > BLK4MB_SIZE)
+    {
+	return NULL;
+    }
+
+    return hal_memallocblks_core(blksz);
+}
+
+boot_t hal_memfreeblks(adr_t freadr, size_t blksz)
+{
+    if(freadr == NULL || blksz < BLK128KB_SIZE || blksz >BLK4MB_SIZE)
+    {
+	return FALSE;
+    }
+
+    return hal_memfreeblks_core(freadr, blksz);
+}
+
+adr_t hal_memallocblks_core(size_t blksz)
+{
+    return NULL;
+}
+
+boot_t hal_memfreeblks_core(adr_t freadr, size_t blksz)
+{
+    return TRUE;
+}
+
+alcfrelst_t * hal_onblksz_findalcfrelst(alcfrelst_t ** retalcfrl, size_t * retalcsz, size_t blksz)
+{
+    phymem_t * memp = &osphymem;
+    alcfrelst_t * aftp = NULL;
+    alcfrelst_t * aft4mbp = &memp->pmm_sz_lsth[BLKSZ_HEAD_MAX - 1];
+    for(uint_t bj=0; bj<BLKSZ_HEAD_MAX; bj++)
+    {
+	if(memp->pmm_sz_lsth[bj].afl_sz == blksz)
+	{
+	    aftp = &memp->pmm_sz_lsth[bj];
+	    *retalcfrl = aftp;
+	    *retalcsz = memp->pmm_sz_lsth[bj].afl_sz;
+	    goto next_step;
+	}
+    }
+    aftp = NULL;
+    *retalcfrl = NULL;
+    *retalcsz = 0;
+next_strp:
+    if(!aftp)
+    {
+	return NULL;
+    }
+    if(list_is_empty_careful(&aftp->afl_emptlsth)==FALSE)
+    {
+	return aftp;
+    }
+    if(list_is_empty_careful(&aftp->afl_fuemlsth)==FALSE)
+    {
+	return aftp;
+    }
+    aftp = aft4mbp;
+    if(list_is_empty_careful(&aftp->afl_emptlsth)==FALSE)
+    {
+	return aftp;
+    }
+    return NULL;
+}

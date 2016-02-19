@@ -10,5 +10,6 @@ void init_hal()
     init_haluart();
     init_halmach();
     init_halmm();
+    init_halintupt();
     return;
 }

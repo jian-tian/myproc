@@ -453,9 +453,8 @@ void hal_memcpy(void * src, void * dst, size_t n)
 
 void hal_sysdie(char_t * errmsg)
 {
-    init_uart0();
     printfk("LMOSEM SYSTEM IS DIE %s", errmsg);
-//    for(;;);
+    for(;;);
     return;
 }
 

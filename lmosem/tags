@@ -511,14 +511,17 @@ ild_physid	include/halinc/halintrupt_t.h	/^    u32_t ild_physid;$/;"	m	struct:s_
 ilnedsc_t	include/halinc/halintrupt_t.h	/^}ilnedsc_t;$/;"	t	typeref:struct:s_ILNEDSC
 init_core_mmapdsc	hal/halmm.c	/^uint_t init_core_mmapdsc(adr_t adrs, adr_t adre, mmapdsc_t * gmmp, uint_t curmindx)$/;"	f
 init_hal	hal/halinit.c	/^void init_hal()$/;"	f
+init_halintupt	hal/halintrupt.c	/^void init_halintupt()$/;"	f
 init_halmach	hal/halmach.c	/^void init_halmach(void)$/;"	f
 init_halmm	hal/halmm.c	/^void init_halmm()$/;"	f
 init_haluart	hal/haluart.c	/^void init_haluart()$/;"	f
+init_intfltdsc	hal/halintrupt.c	/^void init_intfltdsc(mach_t * machp)$/;"	f
 init_mmapdsc	hal/halmm.c	/^void init_mmapdsc(mach_t * mahp)$/;"	f
 init_phymem	hal/halmm.c	/^void init_phymem()$/;"	f
 init_platform	hal/platform.c	/^LKHEAD_T void init_platform()$/;"	f
 init_uart0	hal/haluart.c	/^void init_uart0()$/;"	f
 intfltdsc_t	include/halinc/halintrupt_t.h	/^}intfltdsc_t;$/;"	t	typeref:struct:s_INTFLTDSC
+intfltdsc_t_init	hal/halintrupt.c	/^void intfltdsc_t_init(intfltdsc_t * initp, u32_t flg, u32_t stus,u32_t pbitnr, uint_t irqnr)$/;"	f
 intflthandle_t	include/bastypeinc/bastype_t.h	/^typedef drvstus_t (*intflthandle_t)(uint_t ift_nr, void * device, void * sframe);$/;"	t
 inthandler_t	include/bastypeinc/bastype_t.h	/^typedef void (*inthandler_t)();$/;"	t
 intserdsc_t	include/halinc/halintrupt_t.h	/^}intserdsc_t;$/;"	t	typeref:struct:s_INTSERDEC
@@ -580,9 +583,11 @@ phymem_t_init	hal/halmm.c	/^void phymem_t_init(phymem_t * initp)$/;"	f
 pmm_list	include/halinc/halmm_t.h	/^    list_h_t	pmm_list;$/;"	m	struct:s_PHYMEM
 pmm_lock	include/halinc/halmm_t.h	/^    spinlock_t	pmm_lock;$/;"	m	struct:s_PHYMEM
 pmm_sz_lsth	include/halinc/halmm_t.h	/^    alcfrelst_t	pmm_sz_lsth[BLKSZ_HEAD_MAX];$/;"	m	struct:s_PHYMEM
+pmmlist_init	hal/halmm.c	/^void pmmlist_init(mach_t * mahp, phymem_t * pmp)$/;"	f
 prev	include/bastypeinc/list_t.h	/^    struct s_LIST_H *prev;$/;"	m	struct:s_LIST_H	typeref:struct:s_LIST_H::s_LIST_H
 print_mach	hal/halmach.c	/^void print_mach(mach_t * mchp)$/;"	f
 print_mmapdsc	hal/halmm.c	/^void print_mmapdsc(mach_t * mchp)$/;"	f
+print_mminfo	hal/halmm.c	/^void print_mminfo(phymem_t * pmp)$/;"	f
 printfk	hal/printfk.c	/^void printfk(const char_t * fmt, ...)$/;"	f
 private	include/bastypeinc/bastype_t.h	40;"	d
 r0	include/halinc/cpu_t.h	/^    reg_t r0;$/;"	m	struct:s_ARMREGS

@@ -13,7 +13,7 @@ void phymem_t_init(phymem_t * initp);
 void onmmapdsc_inkrlram(mach_t * mahp, phymem_t *pmp);
 void init_phymem();
 void pmmlist_init(mach_t * mahp, phymem_t * pmp);
-void mapdsc_addtp_memlst(alcfrelst_t * aflp, mmapdsc_t * mapp, uint_t atflg);
+void mapdsc_addto_memlst(alcfrelst_t * aflp, mmapdsc_t * mapp, uint_t atflg);
 alcfrelst_t * hal_onblksz_findalcfrelst(alcfrelst_t ** retalcfrl, size_t * retalcsz, size_t blksz);
 mmapdsc_t * hal_onalfl_findmapdsc(alcfrelst_t * allclh);
 adr_t hal_onmapdsc_allcblks(u32_t mflg, u32_t mask, u32_t bitls, alcfrelst_t * aflp, alcfrelst_t * mvtmaflp);
