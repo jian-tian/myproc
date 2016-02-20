@@ -6,6 +6,7 @@
 
 void print_mmapdsc(mach_t * mchp);
 void print_mminfo(phymem_t * pmp);
+void testblkalloc();
 
 /*初始化完成后，内存分为4M大小blk；其中第一个blk细分为128KB，其余blk细分为4MB*/
 /*128KB blk第一个已经给kernel使用；4MB blk为空*/
@@ -16,6 +17,7 @@ void init_halmm()
     onmmapdsc_inkrlram(&osmach, &osphymem);
     print_mmapdsc(&osmach);
     print_mminfo(&osphymem);
+    testblkalloc();
 }
 
 void print_mmapdsc(mach_t * mchp)
@@ -238,7 +240,7 @@ adr_t hal_memallocblks(size_t blksz)
     return hal_memallocblks_core(blksz);
 }
 
-boot_t hal_memfreeblks(adr_t freadr, size_t blksz)
+bool_t hal_memfreeblks(adr_t freadr, size_t blksz)
 {
     if(freadr == NULL || blksz < BLK128KB_SIZE || blksz >BLK4MB_SIZE)
     {
@@ -248,12 +250,7 @@ boot_t hal_memfreeblks(adr_t freadr, size_t blksz)
     return hal_memfreeblks_core(freadr, blksz);
 }
 
-adr_t hal_memallocblks_core(size_t blksz)
-{
-    return NULL;
-}
-
-boot_t hal_memfreeblks_core(adr_t freadr, size_t blksz)
+bool_t hal_memfreeblks_core(adr_t freadr, size_t blksz)
 {
     return TRUE;
 }
@@ -276,7 +273,7 @@ alcfrelst_t * hal_onblksz_findalcfrelst(alcfrelst_t ** retalcfrl, size_t * retal
     aftp = NULL;
     *retalcfrl = NULL;
     *retalcsz = 0;
-next_strp:
+next_step:
     if(!aftp)
     {
 	return NULL;
@@ -295,4 +292,147 @@ next_strp:
 	return aftp;
     }
     return NULL;
+}
+
+adr_t hal_onalcfrel_allocblks(alcfrelst_t * allclh, alcfrelst_t * relalch, size_t relalcsz)
+{
+    adr_t retadr = NULL;
+    switch(relalcsz)
+    {
+	case BLK128KB_SIZE:
+	    retadr = hal_onmapdsc_allcblks(MAPF_ACSZ_128KB, BLK128KB_MASK, BLK128KB_BITL, allclh, relalch);
+	    break;
+	case BLK256KB_SIZE:
+	    retadr = hal_onmapdsc_allcblks(MAPF_ACSZ_256KB, BLK256KB_MASK, BLK256KB_BITL, allclh, relalch);
+	    break;
+	case BLK512KB_SIZE:
+	    retadr = hal_onmapdsc_allcblks(MAPF_ACSZ_512KB, BLK512KB_MASK, BLK512KB_BITL, allclh, relalch);
+	    break;
+	case BLK1MB_SIZE:
+	    retadr = hal_onmapdsc_allcblks(MAPF_ACSZ_1MB, BLK1MB_MASK, BLK1MB_BITL, allclh, relalch);
+	    break;
+	case BLK2MB_SIZE:
+	    retadr = hal_onmapdsc_allcblks(MAPF_ACSZ_2MB, BLK2MB_MASK, BLK2MB_BITL, allclh, relalch);
+	    break;
+	case BLK4MB_SIZE:
+	    retadr = hal_onmapdsc_allcblks(MAPF_ACSZ_4MB, BLK4MB_MASK, BLK4MB_BITL, allclh, relalch);
+	    break;
+	default:
+	    retadr = NULL;
+	    break;
+    }
+    return retadr;
+}
+
+/*在allclh中查找下一个有效的mmapdsc_t，没有返回空*/
+mmapdsc_t * hal_onalfl_findmapdsc(alcfrelst_t * allclh)
+{
+    mmapdsc_t * mp = NULL;
+    if(list_is_empty_careful(&allclh->afl_fuemlsth) == FALSE)
+    {
+	mp = list_entry(allclh->afl_fuemlsth.next, mmapdsc_t, map_list);
+	return mp;
+    }/*先找非满队列，然后找空队列*/
+    if(list_is_empty_careful(&allclh->afl_emptlsth) == FALSE)
+    {
+	mp = list_entry(allclh->afl_emptlsth.next, mmapdsc_t, map_list);
+	return mp;
+    }
+    return NULL;
+}
+
+adr_t hal_onmapdsc_allcblks(u32_t mflg, u32_t mask, u32_t bitls, alcfrelst_t * aflp, alcfrelst_t * mvtoaflp)
+{
+    adr_t retadr = NULL;
+    mmapdsc_t * map = NULL;
+    uint_t bi = 0;
+    u32_t fg = 0xffffff0f;
+    if(bitls > 32)
+    {
+	return NULL;
+    }
+
+    map = hal_onalfl_findmapdsc(aflp);
+    if(!map)
+    {
+	return NULL;
+    }
+
+    for(; bi<bitls; bi++)
+    {
+	if(((map->map_allcount>>bi)&1)==0)
+	    goto next_step;
+    }
+    bi = 0xffffffff;
+next_step:
+    if(bi == 0xffffffff)
+	return NULL;
+    /*计算返回地址，并且做合法性检查*/
+    retadr = map->map_phyadr + (mvtoaflp->afl_sz * bi);
+    if(retadr<map->map_phyadr || retadr >=map->map_phyadrend)
+	return NULL;
+    /*将map_allcount中对应bi位置1，表示已经分配*/
+    (map->map_allcount) |= (1<<bi);
+    /*清除mmapdsc_t中的标志位*/
+    (map->map_flg) &= fg;
+    /*设置新的标志位，该标志位表示其中内存细分大小的位*/
+    (map->map_flg) |= mflg;
+    //如果分配后map_allcount中的位和mask码相等，表示其中没有空闲内存块了，所以需要移动到
+    //mvtoaflp->afl_fulllsth队中去
+    if((map->map_allcount & mask) == mask)
+    {
+	list_move_tail(&map->map_list, &mvtoaflp->afl_fulllsth);
+	return retadr;
+    }
+    //否则移动到mvtoaflp->afl_fuemlsth队列中去
+    list_move_tail(&map->map_list, &mvtoaflp->afl_fuemlsth);
+    return retadr;
+}
+
+adr_t hal_memallocblks_core(size_t blksz)
+{
+    phymem_t * memp = &osphymem;
+    size_t retbsz = 0;
+    cpuflg_t cpuflg;
+    adr_t retadr = NULL;
+    alcfrelst_t	* allcflp = NULL;
+    alcfrelst_t * aftp = NULL;
+    hal_spinlock_saveflg_cli(&memp->pmm_lock, &cpuflg);
+    /*allcflp存储想找的alcfrelst_t, aftp表示实际找到的，二者可能不一致*/
+    aftp = hal_onblksz_findalcfrelst(&allcflp, &retbsz, blksz);
+    if(aftp == NULL || allcflp == NULL || retbsz == 0)
+    {
+	retadr = NULL;
+	goto return_step;
+    }
+    //afl_sz == retbsz 表示在已有的链表中找到
+    //afl_sz = 4MB 表示需要已有的链表中没有，需要将一块4MB的内存细分
+    if(aftp->afl_sz != retbsz && aftp->afl_sz != BLK4MB_SIZE)
+    {
+	retadr = NULL;
+	goto return_step;
+    }
+    retadr = hal_onalcfrel_allocblks(aftp, allcflp, retbsz);
+return_step:
+    hal_spinunlock_restflg_sti(&memp->pmm_lock, &cpuflg);
+    return retadr; 
+}
+
+void testblkalloc()
+{
+    size_t ablksz = 0;
+    adr_t retadr = NULL;
+    for(uint_t bli = 0; bli<6; bli++)
+    {
+	ablksz = BLK128KB_SIZE << bli;
+	for(uint_t i=0; i<2; i++)
+	{
+	    retadr = hal_memallocblks(ablksz);
+	    if(!retadr)
+	    {
+		hal_sysdie("NOT MEMBLK;return NULL");
+	    }
+	    printfk("allocblksz:%x return adrr:%x \n\r", ablksz, retadr);
+	}
+    }
 }

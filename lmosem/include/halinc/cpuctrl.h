@@ -35,6 +35,7 @@ void hal_spinlock_init(spinlock_t * lock);
 void hal_spinlock_lock(spinlock_t * lock);
 void hal_spinlock_unlock(spinlock_t * lock);
 void hal_spinlock_saveflg_cli(spinlock_t * lock, cpuflg_t * cpuflg);
+void hal_spinunlock_restflg_sti(spinlock_t* lock, cpuflg_t* cpuflg);
 void hal_memset(void * setp, size_t n, u8_t setval);
 void hal_memcpy(void * src, void * dst, size_t n);
 void hal_sysdie(char_t * errmsg);
