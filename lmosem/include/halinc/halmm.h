@@ -22,7 +22,7 @@ adr_t hal_memallocblks_core(size_t blksz);
 adr_t hal_memallocblks(size_t blksz);
 mmapdsc_t * hal_free_findmapdsc(adr_t frebadr, alcfrelst_t * allclh);
 bool_t hal_onmapdsc_freeblks(adr_t frebadr, u32_t mflg, u32_t mask, alcfrelst_t * aflp, alcfrelst_t *mvtoalp);
-bool_t hal_onalcfrel_freeblks(adr_t frebadr, alcfrelst_t * allclh, alcfrelst_t * mvaflh, size_t relalcsz);
+bool_t hal_onalcfre_freeblks(adr_t frebadr, alcfrelst_t * allclh, alcfrelst_t * mvaflh, size_t relalcsz);
 bool_t hal_memfreeblks_core(adr_t frebadr, size_t blksz);
 bool_t hal_memfreeblks(adr_t frebadr, size_t blksz);
 void test_halmm();

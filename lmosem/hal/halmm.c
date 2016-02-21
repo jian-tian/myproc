@@ -7,6 +7,7 @@
 void print_mmapdsc(mach_t * mchp);
 void print_mminfo(phymem_t * pmp);
 void testblkalloc();
+void test_blkmm();
 
 /*初始化完成后，内存分为4M大小blk；其中第一个blk细分为128KB，其余blk细分为4MB*/
 /*128KB blk第一个已经给kernel使用；4MB blk为空*/
@@ -17,7 +18,8 @@ void init_halmm()
     onmmapdsc_inkrlram(&osmach, &osphymem);
     print_mmapdsc(&osmach);
     print_mminfo(&osphymem);
-    testblkalloc();
+    //testblkalloc();
+    test_blkmm();
 }
 
 void print_mmapdsc(mach_t * mchp)
@@ -240,21 +242,6 @@ adr_t hal_memallocblks(size_t blksz)
     return hal_memallocblks_core(blksz);
 }
 
-bool_t hal_memfreeblks(adr_t freadr, size_t blksz)
-{
-    if(freadr == NULL || blksz < BLK128KB_SIZE || blksz >BLK4MB_SIZE)
-    {
-	return FALSE;
-    }
-
-    return hal_memfreeblks_core(freadr, blksz);
-}
-
-bool_t hal_memfreeblks_core(adr_t freadr, size_t blksz)
-{
-    return TRUE;
-}
-
 alcfrelst_t * hal_onblksz_findalcfrelst(alcfrelst_t ** retalcfrl, size_t * retalcsz, size_t blksz)
 {
     phymem_t * memp = &osphymem;
@@ -435,4 +422,174 @@ void testblkalloc()
 	    printfk("allocblksz:%x return adrr:%x \n\r", ablksz, retadr);
 	}
     }
+}
+
+bool_t hal_memfreeblks(adr_t freadr, size_t blksz)
+{
+    if(freadr == NULL || blksz < BLK128KB_SIZE || blksz >BLK4MB_SIZE)
+    {
+	return FALSE;
+    }
+
+    return hal_memfreeblks_core(freadr, blksz);
+}
+
+bool_t hal_memfreeblks_core(adr_t frebadr, size_t blksz)
+{
+    phymem_t * memp=&osphymem;
+    bool_t retstus = FALSE;
+    cpuflg_t cpuflg;
+    alcfrelst_t * aftp = NULL;
+    alcfrelst_t * mvtoaflp = &memp->pmm_sz_lsth[BLKSZ_HEAD_MAX-1];
+    hal_spinlock_saveflg_cli(&memp->pmm_lock, &cpuflg);
+    for(uint_t fi=0; fi<BLKSZ_HEAD_MAX; fi++)
+    {
+	if(memp->pmm_sz_lsth[fi].afl_sz == blksz)
+	{
+	    aftp = &memp->pmm_sz_lsth[fi];
+	    goto next_step;
+	}
+    }
+    aftp = NULL;
+next_step:
+    if(aftp == NULL)
+    {
+	retstus = FALSE;
+	goto return_step;
+    } 
+    retstus = hal_onalcfre_freeblks(frebadr, aftp, mvtoaflp, blksz);
+return_step:
+    hal_spinunlock_restflg_sti(&memp->pmm_lock, &cpuflg);
+    return retstus;
+}
+
+bool_t hal_onalcfre_freeblks(adr_t freadr, alcfrelst_t * allclh, alcfrelst_t * mvaflh, size_t relalcsz)
+{
+    bool_t retstus = FALSE;
+    switch(relalcsz)
+    {
+	case BLK128KB_SIZE:
+	    retstus = hal_onmapdsc_freeblks(freadr, MAPF_ACSZ_4MB, BLK128KB_MASK, allclh, mvaflh);
+	    break;
+	case BLK256KB_SIZE:
+	    retstus = hal_onmapdsc_freeblks(freadr, MAPF_ACSZ_4MB, BLK256KB_MASK, allclh, mvaflh);
+	    break;
+	case BLK512KB_SIZE:
+	    retstus = hal_onmapdsc_freeblks(freadr, MAPF_ACSZ_4MB, BLK512KB_MASK, allclh, mvaflh);
+	    break;
+	case BLK1MB_SIZE:
+	    retstus = hal_onmapdsc_freeblks(freadr, MAPF_ACSZ_4MB, BLK1MB_MASK, allclh, mvaflh);
+	    break;
+	case BLK2MB_SIZE:
+	    retstus = hal_onmapdsc_freeblks(freadr, MAPF_ACSZ_4MB, BLK2MB_MASK, allclh, mvaflh);
+	    break;
+	case BLK4MB_SIZE:
+	    retstus = hal_onmapdsc_freeblks(freadr, MAPF_ACSZ_4MB, BLK4MB_MASK, allclh, mvaflh);
+	    break;
+	default:
+	    retstus = FALSE;
+	    break;
+    }
+    return retstus;
+}
+
+bool_t hal_onmapdsc_freeblks(adr_t frebadr, u32_t mflg, u32_t mask, alcfrelst_t * aflp, alcfrelst_t * mvtoaflp)
+{
+    mmapdsc_t * map = NULL;
+    uint_t bitnr;
+    u32_t fg = 0xffffff0f;
+    /*根据内存空间地址和所在aflp结构，找到mmapdsc_t结构体*/
+    map = hal_free_findmapdsc(frebadr, aflp);
+    if(map == NULL)
+	return FALSE;
+    /*根据内存空间块地址计算该空间在map_allcount中的bit位*/
+    bitnr = (uint_t)(frebadr-map->map_phyadr)/(uint_t)(aflp->afl_sz);
+    if(bitnr > 31)
+	return FALSE;
+    /*检查对应的bit位是否为0*/
+    if(((map->map_allcount>>bitnr)&1)!=1)
+	return FALSE;
+    /*对应bit位清0，表示空间释放*/
+    (map->map_allcount) &= (~(1<<bitnr));
+    /*如果map_allcount所有bit都为0，表示一整块空闲内存，需要将该
+      mmapdsc 移动到最后一个alcfrelst_t 中*/
+    if((map->map_allcount & mask) == 0)
+    {
+	map->map_flg &= fg;
+	map->map_flg |= mflg;
+	list_move(&map->map_list, &mvtoaflp->afl_emptlsth);
+    }
+    return TRUE;
+}
+
+mmapdsc_t * hal_free_findmapdsc(adr_t frebadr, alcfrelst_t * allclh)
+{
+    mmapdsc_t * mp = NULL;
+    list_h_t * tmplst = NULL;
+    if(list_is_empty_careful(&allclh->afl_fuemlsth) == FALSE)
+    {
+	list_for_each(tmplst, &allclh->afl_fuemlsth)
+	{
+	    mp = list_entry(tmplst, mmapdsc_t, map_list);
+	    if(frebadr < mp->map_phyadrend && frebadr >= mp->map_phyadr)
+	    {
+		return mp;
+	    }
+	}
+    }
+    if(list_is_empty_careful(&allclh->afl_fulllsth) == FALSE)
+    {
+	list_for_each(tmplst, &allclh->afl_fulllsth)
+	{
+	    mp = list_entry(tmplst, mmapdsc_t, map_list);
+	    if(frebadr < mp->map_phyadrend && frebadr >= mp->map_phyadr)
+	    {
+		return mp;
+	    }
+	}
+    }
+    return NULL;
+}
+
+void test_blkmm()
+{
+    adr_t retadra[14];
+    adr_t retadr = 0;
+    adr_t retadrold = 0;
+    adr_t retadrend = 0;
+    size_t ablksz = 0;
+    bool_t retstus = FALSE;
+
+    retadrold = hal_memallocblks(BLK128KB_SIZE);
+    if(!retadrold)
+	hal_sysdie("blkalloc 128KB failed, return NULL\n\r");
+    if(hal_memfreeblks(retadrold, BLK128KB_SIZE) == FALSE)
+	hal_sysdie("blkfree 128KB failed, return NULL\n\r");
+
+    for(uint_t bli=0; bli<6; bli++)
+    {
+	ablksz = BLK128KB_SIZE<<bli;
+	for(uint_t i=0; i<14; i++)
+	{
+	    retadr = hal_memallocblks(ablksz);
+	    if(!retadr)
+		hal_sysdie("blkalloc failed");
+	    printfk("allocblksz:%x return adrr:%x \n\r",ablksz, retadr);
+	    retadra[i] = retadr;
+	}
+	for(uint_t j=0; j<14; j++)
+	{
+	    retstus = hal_memfreeblks(retadra[j], ablksz);
+	    if(retstus == FALSE)
+		hal_sysdie("blkfree failed");
+	    printfk("freeblksz:%x free adrr:%x\n\r", ablksz, retadra[j]);
+	}
+    }
+    retadrend = hal_memallocblks(BLK128KB_SIZE);
+    if(!retadrend)
+	hal_sysdie("blkalloc 128 failed");
+    if(retadrend == retadrold)
+	printfk("Test blkmm OK!!\n\r");
+
+    return;
 }
