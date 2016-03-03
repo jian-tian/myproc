@@ -19,7 +19,7 @@ void init_halmm()
     print_mmapdsc(&osmach);
     print_mminfo(&osphymem);
     //testblkalloc();
-    test_blkmm();
+    //test_blkmm();
 }
 
 void print_mmapdsc(mach_t * mchp)

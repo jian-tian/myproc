@@ -223,6 +223,8 @@ MAKEFLAGS	build/lmosemlib.mk	/^MAKEFLAGS = -s$/;"	m
 MAKEFLAGS	build/lmosemlink.mk	/^MAKEFLAGS = $/;"	m
 MAKEFLAGS	build/lmosemtask.mk	/^MAKEFLAGS = -s$/;"	m
 MAKEFLAGS	build/pretreatment.mk	/^MAKEFLAGS = -s$/;"	m
+MALCSZ_MAX	include/knlinc/krlmm_t.h	9;"	d
+MALCSZ_MIN	include/knlinc/krlmm_t.h	8;"	d
 MAPF_ACSZ_128KB	include/halinc/halmm_t.h	22;"	d
 MAPF_ACSZ_1MB	include/halinc/halmm_t.h	25;"	d
 MAPF_ACSZ_256KB	include/halinc/halmm_t.h	23;"	d
@@ -254,6 +256,8 @@ OBJALST_MAX	include/knlinc/krlobjsmpol_t.h	7;"	d
 OBJSORPAGE	include/knlinc/krlpagempol_t.h	13;"	d
 OBJS_ALIGN	include/knlinc/krlpagempol_t.h	19;"	d
 ONEHANDLE_FLG	include/halinc/halintrupt_t.h	16;"	d
+PAGE_ALIGN	include/knlinc/krlmm_t.h	10;"	d
+PAGE_SIZE	include/knlinc/krlmm_t.h	7;"	d
 PAGE_TLB_DIR	include/halinc/platform_t.h	17;"	d
 PAGE_TLB_SIZE	include/halinc/platform_t.h	18;"	d
 PLFM_ADRSPCE_NR	include/halinc/platform_t.h	30;"	d
@@ -350,6 +354,7 @@ _INTABTDISTR_H	hal/intabtdistr.h	5;"	d
 _INTABTDISTR_H	include/halinc/intabtdistr.h	5;"	d
 _INTABTDISTR_T_H	include/halinc/intabtdistr_t.h	5;"	d
 _KRLHEADS_H	include/knlinc/krlheads.h	5;"	d
+_KRLMM_T_H	include/knlinc/krlmm_t.h	5;"	d
 _KRLPAGEMPOL_H	include/knlinc/krlpagempol.h	5;"	d
 _KRLTYPES_H_	include/knlinc/krltypes.h	5;"	d
 _KRL_INIT_H	include/knlinc/krlinit.h	5;"	d
@@ -556,8 +561,12 @@ intserdsc_t	include/halinc/halintrupt_t.h	/^}intserdsc_t;$/;"	t	typeref:struct:s
 intstkregs_t	include/halinc/cpu_t.h	/^}intstkregs_t;$/;"	t	typeref:struct:s_INTSTKREGS
 kmempool_delete	kernel/krlpagempol.c	/^bool_t kmempool_delete(adr_t fradr, size_t frsz)$/;"	f
 kmempool_new	kernel/krlpagempol.c	/^adr_t kmempool_new(size_t msize)$/;"	f
+kmempool_onsize_delete	kernel/krlpagempol.c	/^bool_t kmempool_onsize_delete(adr_t fradr, size_t frsz)$/;"	f
 kmempool_onsize_new	kernel/krlpagempol.c	/^adr_t kmempool_onsize_new(size_t msize)$/;"	f
-kmempool_pages_new	kernel/krlpagempol.c	/^bool_t kmempool_pages_new(size_t msize)$/;"	f
+kmempool_page_delete_callhalmm	kernel/krlpagempol.c	/^bool_t kmempool_page_delete_callhalmm(adr_t fradr, size_t frsz)$/;"	f
+kmempool_page_new_callhalmm	kernel/krlpagempol.c	/^adr_t kmempool_page_new_callhalmm(size_t msize)$/;"	f
+kmempool_pages_delete	kernel/krlpagempol.c	/^bool_t kmempool_pages_delete(adr_t fradr, size_t frsz)$/;"	f
+kmempool_pages_new	kernel/krlpagempol.c	/^adr_t kmempool_pages_new(size_t msize)$/;"	f
 kmempool_t	include/knlinc/krlpagempol_t.h	/^}kmempool_t;$/;"	t	typeref:struct:s_KMEMPOOL
 kwlst_t	include/bastypeinc/sem_t.h	/^}kwlst_t;$/;"	t	typeref:struct:s_KWLST
 list_add	include/bastypeinc/list.h	/^KLINE void list_add(list_h_t *new, list_h_t *head)$/;"	f

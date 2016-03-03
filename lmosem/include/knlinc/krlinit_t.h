@@ -4,4 +4,5 @@
 #ifndef _KRL_INIT_T_H
 #define _KRL_INIT_T_H
 
+#include "krlpagempol_t.h"
 #endif

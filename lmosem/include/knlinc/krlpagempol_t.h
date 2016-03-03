@@ -59,4 +59,3 @@ typedef struct s_KMEMPOOL
 }kmempool_t;
 
 #endif
-}
