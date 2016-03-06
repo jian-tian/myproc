@@ -5,9 +5,11 @@
 #include "lmosemmctrl.h"
 
 extern void testpgmpool();
+extern void testpagemgr();
 void init_krl()
 {
     init_krlmm();
-    testpgmpool();
+    testpagemgr();
+    //testpgmpool();
     hal_sysdie("LMOSEM RUN!");
 }

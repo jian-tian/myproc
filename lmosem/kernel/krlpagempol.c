@@ -10,6 +10,87 @@ typedef struct s_adrsz
     size_t sz;
 }adrsz_t;
 
+/*alloc 地址范围比较*/
+void cmp_adrsz(adrsz_t * assp, uint_t nr)
+{
+    uint_t i,j;
+    for(i=0; i<nr; i++)
+    {
+	for(j=0; j<nr; j++)
+	{
+	    if(i != j)
+	    {
+		if(assp[i].adr == assp[j].adr)
+		{
+		    hal_sysdie("cmp adr start err");
+		}
+	    }
+	}
+    }
+    for(i=0; i<nr; i++)
+    {
+	for(j=0; j<nr; j++)
+	{
+	    if(i != j)
+	    {
+		if(assp[i].adr + assp[i].sz == assp[j].adr + assp[j].sz)
+		{
+		    hal_sysdie("cmp adr end err");
+		}
+	    }
+	}
+    }
+    for(i=0; i<nr; i++)
+    {
+	for(j=0; j<nr; j++)
+	{
+	    if(i != j)
+	    {
+		if((assp[i].adr >= assp[j].adr) && ((assp[i].adr + assp[i].sz) <= assp[j].adr + assp[j].sz))
+		{
+		    hal_sysdie("cmp adr in err");
+		}
+	    }
+	}
+    }
+    return;
+}
+
+void testpagemgr()
+{
+#define TEST_COUNT 2
+    adrsz_t adsz[TEST_COUNT];
+    size_t alcsz = 0x1000;
+    uint_t i;
+    for(; alcsz < 0x19000; alcsz += 0x1000)
+    {
+	/*分配空间*/
+	for(i=0; i<TEST_COUNT; i++)
+	{
+	    adsz[i].sz = alcsz;
+	    adsz[i].adr = kmempool_new(alcsz);
+	    if(adsz[i].adr == NULL)
+	    {
+		hal_sysdie("testpagemgr kmempool_new err");
+	    }
+	    printfk("adsz[%d] sz: 0x%x adr: 0x%x\n\r", i, adsz[i].sz, adsz[i].adr); 
+	}
+	/*比较*/
+	 cmp_adrsz(adsz, TEST_COUNT);
+	/*释放空间*/
+	for(i = 0; i<TEST_COUNT; i++)
+	{
+	    if(kmempool_delete(adsz[i].adr, adsz[i].sz) == FALSE)
+	    {
+		hal_sysdie("testpagemgr kmempool_delete err");
+	    }
+	    printfk("delete adsz[%d] sz: 0x%x adr: 0x%x\n\r", i, adsz[i].sz, adsz[i].adr); 
+	}
+    }
+    printfk("oskmempool.mp_pgmplnr: 0x%x\n\r", oskmempool.mp_pgmplnr);
+    return;
+}
+
 void testpgmpool()
 {
     adrsz_t adsz[10];
@@ -80,7 +161,7 @@ void kmempool_t_init(kmempool_t * initp)
 
 adr_t kmempool_new(size_t msize)
 {
-    printfk("%s\n\r", __func__);
+    //printfk("%s\n\r", __func__);
     if(msize < KMEMPALCSZ_MIN || msize > KMEMPALCSZ_MAX)
 	return NULL;
 
@@ -89,7 +170,8 @@ adr_t kmempool_new(size_t msize)
 
 bool_t kmempool_delete(adr_t fradr, size_t frsz)
 {
-    if(fradr == NULL || fradr < KMEMPALCSZ_MIN || fradr > KMEMPALCSZ_MAX)
+    //printfk("%s\n\r", __func__);
+    if(fradr == NULL || frsz < KMEMPALCSZ_MIN || frsz > KMEMPALCSZ_MAX)
 	return NULL;
 
     return kmempool_onsize_delete(fradr, frsz);
@@ -97,7 +179,7 @@ bool_t kmempool_delete(adr_t fradr, size_t frsz)
 
 adr_t kmempool_onsize_new(size_t msize)
 {
-    printfk("%s\n\r", __func__);
+    //printfk("%s\n\r", __func__);
     if(msize > OBJSORPAGE)
 	return kmempool_pages_new(msize);
 
@@ -111,6 +193,7 @@ adr_t kmempool_objsz_new(size_t msize)
 
 bool_t kmempool_onsize_delete(adr_t fradr, size_t frsz)
 {
+    //printfk("%s\n\r", __func__);
     if(frsz > OBJSORPAGE)
 	return kmempool_pages_delete(fradr, frsz);
 
@@ -124,7 +207,7 @@ bool_t kmempool_objsz_delete(adr_t fradr, size_t frsz)
 
 adr_t kmempool_pages_new(size_t msize)
 {
-    printfk("%s\n\r", __func__);
+    //printfk("%s\n\r", __func__);
     size_t sz = PAGE_ALIGN(msize);
     if(sz > KPMPORHALM)
 	return kmempool_page_new_callhalmm(sz);
@@ -134,6 +217,7 @@ adr_t kmempool_pages_new(size_t msize)
 
 bool_t kmempool_pages_delete(adr_t fradr, size_t frsz)
 {
+    //printfk("%s\n\r", __func__);
     size_t sz = PAGE_ALIGN(frsz);
     if(sz > KPMPORHALM)
 	return kmempool_page_delete_callhalmm(fradr, sz);
@@ -194,10 +278,27 @@ mplhead_t * pagenew_mplhead_isok(mplhead_t * mhp, size_t msize)
     return mhp;
 }
 
+mplhead_t * pagedel_mplhead_isok(mplhead_t * mhp, adr_t fradr, size_t msize)
+{
+    if(mhp->mh_hedty != MPLHTY_PAGE)
+	return NULL;
+
+    if(mhp->mh_aliobsz != msize)
+	return NULL;
+
+    if(mhp->mh_afindx == 0)
+	return NULL;
+
+    if(fradr < (mhp->mh_start + PAGE_SIZE) || (fradr + msize - 1) > mhp->mh_end)
+    return NULL;
+
+    return mhp;
+}
+
 /*在内存池中查找合适大小的mplhead_t结构*/
 mplhead_t * kmemplpg_retn_mplhead(kmempool_t * kmplockp, size_t msize)
 {
-    printfk("%s %d\n\r", __func__, __LINE__);
+    //printfk("%s %d\n\r", __func__, __LINE__);
     mplhead_t * retmhp;
     list_h_t * list;
     /*检查上次操作的mplhead_t是否符合要求，以缩短查找时间*/
@@ -208,11 +309,11 @@ mplhead_t * kmemplpg_retn_mplhead(kmempool_t * kmplockp, size_t msize)
 	if(retmhp != NULL)
 	    return retmhp;
     }
-    printfk("%s %d\n\r", __func__, __LINE__);
+    //printfk("%s %d\n\r", __func__, __LINE__);
     /*否则遍历链表，寻址合适结构*/
     list_for_each(list, &kmplockp->mp_pgmplmheadl)
     {
-	printfk("list is 0x%x, list->next is 0x%x\n\r", list, list->next);
+	//printfk("list is 0x%x, list->next is 0x%x\n\r", list, list->next);
 	retmhp = list_entry(list, mplhead_t, mh_list);
 	retmhp = pagenew_mplhead_isok(retmhp, msize);
 	if(retmhp != NULL)
@@ -221,7 +322,34 @@ mplhead_t * kmemplpg_retn_mplhead(kmempool_t * kmplockp, size_t msize)
 	    return retmhp;
 	}
     }
-    printfk("%s %d\n\r", __func__, __LINE__);
+    //printfk("%s %d\n\r", __func__, __LINE__);
+    return NULL;
+}
+
+mplhead_t * kmempldelpg_retn_mplhead(kmempool_t * kmplockp, adr_t fradr, size_t msize)
+{
+    //printfk("%s\n\r", __func__);
+    mplhead_t * retmhp;
+    list_h_t * list;
+
+    if(kmplockp->mp_pgmplmhcach != NULL)
+    {
+	retmhp = kmplockp->mp_pgmplmhcach;
+	retmhp = pagedel_mplhead_isok(retmhp, fradr, msize);
+	if(retmhp != NULL)
+	{
+	    return retmhp;
+	}
+    }
+    list_for_each(list, &kmplockp->mp_pgmplmheadl)
+    {
+	retmhp = list_entry(list, mplhead_t, mh_list);
+	retmhp = pagedel_mplhead_isok(retmhp, fradr, msize);
+	if(retmhp != NULL)
+	{
+	    return retmhp;
+	}
+    }
     return NULL;
 }
 
@@ -258,6 +386,31 @@ mplhead_t * new_page_mpool(kmempool_t * kmplockp, size_t msize)
 	return mphdp;
     }
     return NULL;
+}
+
+bool_t del_page_mpool(kmempool_t * kmplockp, mplhead_t * mphdp)
+{
+    if(mphdp->mh_afindx > 0)
+	return TRUE;
+    size_t frsz = mphdp->mh_end - mphdp->mh_start + 1;
+    adr_t fradr = mphdp->mh_start;
+    list_del(&mphdp->mh_list);
+    if(kmplockp->mp_pgmplnr < 1)
+    {
+	hal_sysdie("del_page_mpool kmplockp->mp_pgmplnr < 1");
+    }
+    kmplockp->mp_pgmplnr--;
+    /*如果上次使用mphdp,一定要将cach置空*/
+    if(kmplockp->mp_pgmplmhcach == mphdp)
+    {
+	kmplockp->mp_pgmplmhcach = NULL;
+    }
+    /*删除块内存*/
+    if(hal_memfreeblks(fradr, frsz) == NULL)
+    {
+	hal_sysdie("del_page_mpool hal_memfreeblks err");
+    }
+    return TRUE;
 }
 
 void mplhead_t_init(mplhead_t * initp)
@@ -337,9 +490,38 @@ adr_t page_new_on_mplhead(mplhead_t * mplhdp)
     return NULL;
 }
 
+bool_t page_delete_on_mplhead(mplhead_t * mplhdp, adr_t fradr)
+{
+    pglmap_t * map;
+    /*没有分配过，没有pglmap_t数据结构*/
+    if(mplhdp->mh_afindx < 1 || mplhdp->mh_pmnr < 1)
+    {
+	return FALSE;
+    }
+
+    for(uint_t i=0; i<mplhdp->mh_pmnr; i++)
+    {
+	if(fradr == mplhdp->mh_pmap[i].pgl_start)
+	{
+	    map = &mplhdp->mh_pmap[i];
+	    if(map->pgl_next != NULL)
+	    {
+		return FALSE;
+	    }
+	    goto del_step;
+	}
+    }
+    return FALSE;
+del_step:
+    map->pgl_next = mplhdp->mh_firtpmap;
+    mplhdp->mh_firtpmap = map;
+    mplhdp->mh_afindx--;
+    return TRUE;
+}
+
 adr_t kmempool_pages_core_new(size_t msize)
 {
-    printfk("%s begin\n\r", __func__);
+    //printfk("%s begin\n\r", __func__);
     cpuflg_t cpufg;
     mplhead_t * mplhdp;
     adr_t retadr = NULL;
@@ -348,7 +530,7 @@ adr_t kmempool_pages_core_new(size_t msize)
     mplhdp = kmemplpg_retn_mplhead(kmplp, msize);
     if(mplhdp == NULL)
     {
-	printfk("kmemplpg_retn_mplhead get NULL\n\r");
+	//printfk("kmemplpg_retn_mplhead get NULL\n\r");
 	mplhdp = new_page_mpool(kmplp, msize);
 	if(mplhdp == NULL)
 	{
@@ -365,5 +547,30 @@ return_step:
 
 bool_t kmempool_pages_core_delete(adr_t fradr, size_t frsz)
 {
-    return TRUE;
+    //printfk("%s\n\r", __func__);
+    cpuflg_t cpuflg;
+    mplhead_t * mplhdp;
+    bool_t rets = FALSE;
+    kmempool_t * kmplp = &oskmempool;
+    hal_spinlock_saveflg_cli(&kmplp->mp_pglock, &cpuflg);
+    mplhdp = kmempldelpg_retn_mplhead(kmplp, fradr, frsz);
+    if(mplhdp == NULL)
+    {
+	rets = FALSE;
+	goto return_step;
+    }
+    if(page_delete_on_mplhead(mplhdp, fradr) == FALSE)
+    {
+	rets = FALSE;
+	goto return_step;
+    }
+    if(del_page_mpool(kmplp, mplhdp) == FALSE)
+    {
+	rets = FALSE;
+	goto return_step;
+    }
+    rets = TRUE;
+return_step:
+    hal_spinunlock_restflg_sti(&kmplp->mp_pglock, &cpuflg);
+    return rets;
 }
