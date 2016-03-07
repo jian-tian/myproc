@@ -14,7 +14,7 @@
 #define KPMPORHALM  (PAGE_SIZE*31)
 
 #define MPLHTY_PAGE 1
-#define MPLHTH_OBJS 2
+#define MPLHTY_OBJS 2
 
 #define OBJS_ALIGN(x)	ALIGN(x,4)
 

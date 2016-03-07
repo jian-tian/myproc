@@ -91,6 +91,48 @@ void testpagemgr()
     return;
 }
 
+void testobjsmgr()
+{
+#define OBJTESTCOUNT	64
+    adrsz_t adsz[OBJTESTCOUNT];
+    size_t alcsz = 0x20;
+    u8_t * adrbytp = NULL;
+    u8_t bytval = 0;
+
+    for(; alcsz < 0x800; alcsz += 0x10)
+    {
+	for(uint_t i=0; i<OBJTESTCOUNT; i++)
+	{
+	    adsz[i].sz = alcsz;
+	    adsz[i].adr = kmempool_new(alcsz);
+	    if(adsz[i].adr == NULL)
+	    {
+		hal_sysdie("testobjsmgr kmempool_new err");
+	    }
+	    printfk("objs alloc adsz[%x] sz:0x%x adr:0x%x\n\r", i, adsz[i].sz, adsz[i].adr);
+	    adrbytp = (u8_t *)adsz[i].adr;
+	    bytval = (u8_t)(adsz[i].adr & 0xff);
+	    for(uint_t k=0; k<adsz[i].sz; k++)
+	    {
+		adrbytp[k] = bytval;
+	    }
+	}
+    }
+
+    cmp_adrsz(adsz, OBJTESTCOUNT);
+
+    for(uint_t j=0; j<OBJTESTCOUNT; j++)
+    {
+	if(kmempool_delete(adsz[j].adr, adsz[j].sz) == FALSE)
+	{
+	    hal_sysdie("testobjsmgr kmempool_delete err");
+	}
+	printfk("objs delete adsz[%x] sz:0x%x adr:0x%x\n\r", j, adsz[j].sz, adsz[j].adr);
+    }
+    printfk("oskmempool.mp_pgmplnr:%x\n\r", oskmempool.mp_pgmplnr);
+    return;
+}
+
 void testpgmpool()
 {
     adrsz_t adsz[10];
@@ -278,6 +320,20 @@ mplhead_t * pagenew_mplhead_isok(mplhead_t * mhp, size_t msize)
     return mhp;
 }
 
+mplhead_t * objsnew_mplhead_isok(mplhead_t * mph, size_t msize)
+{
+    if(mph->mh_firtpmap == NULL)
+	return NULL;
+    if(mph->mh_hedty != MPLHTY_OBJS)
+	return NULL;
+    if(mph->mh_aliobsz != msize)
+	return NULL;
+    if(mph->mh_afindx >= mph->mh_objnr)
+	return NULL;
+
+    return NULL;
+}
+
 mplhead_t * pagedel_mplhead_isok(mplhead_t * mhp, adr_t fradr, size_t msize)
 {
     if(mhp->mh_hedty != MPLHTY_PAGE)
@@ -292,6 +348,19 @@ mplhead_t * pagedel_mplhead_isok(mplhead_t * mhp, adr_t fradr, size_t msize)
     if(fradr < (mhp->mh_start + PAGE_SIZE) || (fradr + msize - 1) > mhp->mh_end)
     return NULL;
 
+    return mhp;
+}
+
+mplhead_t * objdel_mplhead_isok(mplhead_t * mhp, adr_t fradr, size_t msize)
+{
+    if(mhp->mh_hedty != MPLHTY_OBJS)
+	return NULL;
+    if(mhp->mh_aliobsz != msize)
+	return NULL;
+    if(mhp->mh_afindx == 0)
+	return NULL;
+    if(fradr < (mhp->mh_start + sizeof(mplhead_t)) || (fradr + msize - 1) > mhp->mh_end)
+	return NULL;
     return mhp;
 }
 
@@ -326,6 +395,32 @@ mplhead_t * kmemplpg_retn_mplhead(kmempool_t * kmplockp, size_t msize)
     return NULL;
 }
 
+mplhead_t * kmemplob_retn_mplhead(kmempool_t * kmplockp, size_t msize)
+{
+    mplhead_t * retmhp;
+    list_h_t * list;
+    if(kmplockp->mp_obmplmhcach != NULL)
+    {
+	retmhp = kmplockp->mp_obmplmhcach;
+	retmhp = objsnew_mplhead_isok(retmhp, msize);
+	if(retmhp != NULL)
+	{
+	    return retmhp;
+	}
+    }
+    list_for_each(list, &kmplockp->mp_obmplmheadl)
+    {
+	retmhp = list_entry(list, mplhead_t, mh_list);
+	retmhp = objsnew_mplhead_isok(retmhp, msize);
+	if(retmhp != NULL)
+	{
+	    kmplockp->mp_obmplmhcach = retmhp;
+	    return retmhp;
+	}
+    }
+    return NULL;
+}
+
 mplhead_t * kmempldelpg_retn_mplhead(kmempool_t * kmplockp, adr_t fradr, size_t msize)
 {
     //printfk("%s\n\r", __func__);
@@ -345,6 +440,31 @@ mplhead_t * kmempldelpg_retn_mplhead(kmempool_t * kmplockp, adr_t fradr, size_t 
     {
 	retmhp = list_entry(list, mplhead_t, mh_list);
 	retmhp = pagedel_mplhead_isok(retmhp, fradr, msize);
+	if(retmhp != NULL)
+	{
+	    return retmhp;
+	}
+    }
+    return NULL;
+}
+
+mplhead_t * kmempldelob_retn_mplhead(kmempool_t * kmplockp, adr_t fradr, size_t msize)
+{
+    mplhead_t * retmhp;
+    list_h_t * list;
+    if(kmplockp->mp_obmplmhcach != NULL)
+    {
+	retmhp = kmplockp->mp_obmplmhcach;
+	retmhp = objdel_mplhead_isok(retmhp, fradr, msize);
+	if(retmhp != NULL)
+	{
+	    return retmhp;
+	}
+    }
+    list_for_each(list, &kmplockp->mp_obmplmheadl)
+    {
+	retmhp = list_entry(list, mplhead_t, mh_list);
+	retmhp = objdel_mplhead_isok(retmhp, fradr, msize);
 	if(retmhp != NULL)
 	{
 	    return retmhp;
@@ -388,6 +508,23 @@ mplhead_t * new_page_mpool(kmempool_t * kmplockp, size_t msize)
     return NULL;
 }
 
+mplhead_t * new_objs_mpool(kmempool_t * kmplockp, size_t msize)
+{
+    mplhead_t * mphdp = NULL;
+    adr_t pgadr = kmempool_pages_new(0x4000);
+    if(pgadr == NULL)
+    {
+	return NULL;
+    }
+    mphdp = (mplhead_t *)pgadr;
+    mphdp = objs_mpool_init(kmplockp, mphdp, msize, pgadr, (pgadr + 0x4000 - 1));
+    if(mphdp == NULL)
+    {
+	hal_sysdie("new objs mpool err");
+    }
+    return mphdp;
+}
+
 bool_t del_page_mpool(kmempool_t * kmplockp, mplhead_t * mphdp)
 {
     if(mphdp->mh_afindx > 0)
@@ -409,6 +546,34 @@ bool_t del_page_mpool(kmempool_t * kmplockp, mplhead_t * mphdp)
     if(hal_memfreeblks(fradr, frsz) == NULL)
     {
 	hal_sysdie("del_page_mpool hal_memfreeblks err");
+    }
+    return TRUE;
+}
+
+bool_t del_objs_mpool(kmempool_t * kmplockp, mplhead_t * mphdp)
+{
+    if(mphdp->mh_afindx > 0)
+	return TRUE;
+    /*计算需要释放内存大小*/
+    size_t frsz = mphdp->mh_end - mphdp->mh_start + 1;
+    adr_t fradr = mphdp->mh_start;
+    /*从链表中删除*/
+    list_del(&mphdp->mh_list);
+    if(kmplockp->mp_obmplnr < 1)
+    {
+	hal_sysdie(" kmplockp->mp_obmplnr < 1");
+    }
+    /*内存池计数减少*/
+    kmplockp->mp_obmplnr--;
+    /*注意obmplhcach的处理*/
+    if(kmplockp->mp_obmplmhcach == mphdp)
+    {
+	kmplockp->mp_obmplmhcach = NULL;
+    }
+    /*释放内存池占用的页面*/
+    if(kmempool_pages_delete(fradr, frsz) == FALSE)
+    {
+	hal_sysdie(" page delete err");
     }
     return TRUE;
 }
@@ -474,6 +639,66 @@ add_step:
     return initp;
 }
 
+mplhead_t * objs_mpool_init(kmempool_t * kmplockp, mplhead_t * initp, size_t msize, adr_t start, adr_t end)
+{
+    /*入参合法性检查*/
+    if(((start & 0xfff)!=0) || ((end-start) < (PAGE_SIZE - 1)))
+    {
+	return NULL;
+    }
+    /*计算第一个对象开始地址,四字节对其*/
+    adr_t sadr = start + sizeof(mplhead_t);
+    if((sadr & 3) != 0)
+    {
+	hal_sysdie("objs_mpool_init: sadr not align dword");
+	return NULL;
+    }
+    /*初始化mplhead_t数据结构*/
+    uint_t objnr = 0;
+    mplhead_t_init(initp);
+    initp->mh_hedty = MPLHTY_OBJS;
+    initp->mh_start = start;
+    initp->mh_end = end;
+    initp->mh_firtfreadr = sadr;
+    initp->mh_aliobsz = msize;/*本内存池中所有对象大小都为msize*/
+    initp->mh_objsz = msize;
+    initp->mh_nxtpsz = msize + sizeof(adr_t);/*每个对象后有个head，每个对象实际占用空间*/
+
+    adr_t * nexp = NULL;
+    adr_t adrsz = msize;
+    adr_t npsz = initp->mh_nxtpsz;/*每个对象大小*/
+    if((initp->mh_nxtpsz & 3) != 0)
+    {
+	hal_sysdie("objs_mpool_init:initp->mh_nxtpsz not align dword");
+	return NULL;
+    }
+
+    for(;;)
+    {
+	if((sadr + npsz - 1) < end)
+	    break;
+	nexp = (adr_t *)(sadr + adrsz);//下一个对象地址
+	*nexp = (sadr + npsz);//先放对象指针
+	sadr += npsz;         //sadr变为下一个对象实际开始地址
+	objnr++;
+    }
+    /*r如果对象计数为0，表示没有初始化内存池对象，卡死*/
+    if(objnr == 0)
+    {
+	hal_sysdie("objs_mpool_init: objnr err");
+	return NULL;
+    }
+    /*取出最后一个对象,其下一个对象指针为NULL，表示没有对象了*/
+    sadr -= npsz;
+    nexp = (adr_t *)(sadr + adrsz);
+    *nexp = NULL;
+    /*设置内存池对象个数，并加入到kmempool_t全局数据链中*/
+    initp->mh_objnr = objnr;
+    list_add(&initp->mh_list, &kmplockp->mp_obmplmheadl);
+    kmplockp->mp_obmplnr++;
+    return initp;
+}
+
 adr_t page_new_on_mplhead(mplhead_t * mplhdp)
 {
     pglmap_t * map;
@@ -488,6 +713,27 @@ adr_t page_new_on_mplhead(mplhead_t * mplhdp)
 	return map->pgl_start;
     }
     return NULL;
+}
+
+adr_t objs_new_on_mplhead(mplhead_t * mplhdp)
+{
+    if(mplhdp->mh_afindx >= mplhdp->mh_objnr || mplhdp->mh_firtpmap == NULL)
+    {
+	return NULL;
+    }
+    adr_t retadr = NULL;
+    adr_t *nextp = NULL;
+    /*实际对象大小*/
+    adr_t adrsz = (adr_t)(mplhdp->mh_aliobsz);
+    /*获取对象地址*/
+    retadr = mplhdp->mh_firtfreadr;
+    /*mh_firtfreadr指向下一个未分配对象，切获取到对象从链表中断开*/
+    nextp = (adr_t *)(retadr + adrsz);
+    mplhdp->mh_firtfreadr = *nextp;
+    *nextp = NULL;
+    /*对象分配数增加*/
+    mplhdp->mh_afindx++;
+    return retadr;
 }
 
 bool_t page_delete_on_mplhead(mplhead_t * mplhdp, adr_t fradr)
@@ -519,6 +765,30 @@ del_step:
     return TRUE;
 }
 
+bool_t objs_delete_on_mplhead(mplhead_t * mplhdp, adr_t fradr)
+{
+    /*入参检查*/
+    if(mplhdp->mh_afindx < 1 || fradr < (mplhdp->mh_start + sizeof(mplhead_t)) || (fradr + mplhdp->mh_aliobsz) >= mplhdp->mh_end)
+	return FALSE;
+    adr_t retadr = NULL;
+    adr_t *nextp = NULL;
+    adr_t adrsz = (adr_t)(mplhdp->mh_aliobsz);
+    /*计算释放对象的下一个对象指针域的地址*/
+    nextp = (adr_t *)(fradr + adrsz);
+    if(*nextp != NULL)
+    {
+	return FALSE;
+    }
+    /*将firt_freadr的值赋值给retadr*/
+    retadr = mplhdp->mh_firtfreadr;
+    *nextp = retadr;
+    /*被释放的地址入链*/
+    mplhdp->mh_firtfreadr = fradr;
+    /*计数器递减*/
+    mplhdp->mh_afindx--;
+    return TRUE;
+}
+
 adr_t kmempool_pages_core_new(size_t msize)
 {
     //printfk("%s begin\n\r", __func__);
@@ -542,6 +812,29 @@ adr_t kmempool_pages_core_new(size_t msize)
     retadr = page_new_on_mplhead(mplhdp);
 return_step:
     hal_spinunlock_restflg_sti(&kmplp->mp_pglock, &cpufg);
+    return retadr;
+}
+
+adr_t kmempool_objsz_core_new(size_t msize)
+{
+    adr_t retadr = NULL;
+    cpuflg_t cpuflg;
+    mplhead_t * mplhdp;
+    kmempool_t * kmplp = &oskmempool;
+    hal_spinlock_saveflg_cli(&kmplp->mp_pglock, &cpuflg);
+    mplhdp = kmemplob_retn_mplhead(kmplp, msize);
+    if(mplhdp == NULL)
+    {
+	mplhdp = new_objs_mpool(kmplp, msize);
+	if(mplhdp == NULL)
+	{
+	    retadr = NULL;
+	    goto return_step;
+	}
+    }
+    retadr = objs_new_on_mplhead(mplhdp);
+return_step:
+    hal_spinunlock_restflg_sti(&kmplp->mp_pglock, &cpuflg);
     return retadr;
 }
 
@@ -572,5 +865,35 @@ bool_t kmempool_pages_core_delete(adr_t fradr, size_t frsz)
     rets = TRUE;
 return_step:
     hal_spinunlock_restflg_sti(&kmplp->mp_pglock, &cpuflg);
+    return rets;
+}
+
+bool_t kmempool_objsz_core_delete(adr_t fradr, size_t frsz)
+{
+    bool_t rets = FALSE;
+    cpuflg_t cpufg;
+    kmempool_t * kmplp = &oskmempool;
+    mplhead_t * mplhdp;
+
+    hal_spinlock_saveflg_cli(&kmplp->mp_oblock, &cpufg);
+    mplhdp = kmempldelob_retn_mplhead(kmplp, fradr, frsz);
+    if(mplhdp == NULL)
+    {
+	rets = FALSE;
+	goto return_step;
+    }
+    if(objs_delete_on_mplhead(mplhdp, fradr) == NULL)
+    {
+	rets = FALSE;
+	goto return_step;
+    }
+    if(del_objs_mpool(kmplp, mplhdp) == NULL)
+    {
+	rets = FALSE;
+	goto return_step;
+    }
+    rets = TRUE;
+return_step:
+    hal_spinunlock_restflg_sti(&kmplp->mp_pglock, &cpufg);
     return rets;
 }
