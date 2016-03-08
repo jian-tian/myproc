@@ -189,10 +189,15 @@ KERNL_MK_BINF_FILE	script/krnlobjs.S	/^KERNL_MK_BINF_FILE :=$/;"	d
 KERNL_MK_ELFF_FILE	script/krnlobjs.S	/^KERNL_MK_ELFF_FILE += KERNL_ELFF_FILE$/;"	l
 KERNL_MK_ELFF_FILE	script/krnlobjs.S	/^KERNL_MK_ELFF_FILE :=$/;"	d
 KEXTERN	include/bastypeinc/bastype_t.h	42;"	d
+KEXTERN	include/knlinc/krlglobal.h	8;"	d
+KEXTERN	include/knlinc/krlglobal.h	9;"	d
 KLINE	include/bastypeinc/bastype_t.h	38;"	d
 KMEMPALCSZ_MAX	include/knlinc/krlpagempol_t.h	11;"	d
 KMEMPALCSZ_MIN	include/knlinc/krlpagempol_t.h	10;"	d
 KPMPORHALM	include/knlinc/krlpagempol_t.h	14;"	d
+KRLGLOBAL_H_	include/knlinc/krlglobal.h	5;"	d
+KRLGOBAL_HEAD	kernel/krlglobal.c	4;"	d	file:
+KRL_DEFGLOB_VARIABLE	include/knlinc/krlglobal_t.h	7;"	d
 KRL_PAGEMPOL_T_H	include/knlinc/krlobjsmpol_t.h	5;"	d
 KRNL_INRAM_START	include/halinc/platform_t.h	12;"	d
 LCDINTPND_R	include/halinc/halintrupt_t.h	28;"	d
@@ -247,7 +252,7 @@ MINT_OFFSET	include/halinc/halintrupt_t.h	45;"	d
 MKDIR	Makefile	/^MKDIR = mkdir$/;"	m
 MKIMAGE	Makefile	/^MKIMAGE = mkimage$/;"	m
 MPALCLST_MAX	include/knlinc/krlpagempol_t.h	7;"	d
-MPLHTH_OBJS	include/knlinc/krlpagempol_t.h	17;"	d
+MPLHTY_OBJS	include/knlinc/krlpagempol_t.h	17;"	d
 MPLHTY_PAGE	include/knlinc/krlpagempol_t.h	16;"	d
 MULHANDLE_FLG	include/halinc/halintrupt_t.h	17;"	d
 NO_HAND	include/bastypeinc/bastype_t.h	48;"	d
@@ -255,6 +260,7 @@ NULL	include/bastypeinc/bastype_t.h	43;"	d
 OBJALST_MAX	include/knlinc/krlobjsmpol_t.h	7;"	d
 OBJSORPAGE	include/knlinc/krlpagempol_t.h	13;"	d
 OBJS_ALIGN	include/knlinc/krlpagempol_t.h	19;"	d
+OBJTESTCOUNT	kernel/krlpagempol.c	96;"	d	file:
 ONEHANDLE_FLG	include/halinc/halintrupt_t.h	16;"	d
 PAGE_ALIGN	include/knlinc/krlmm_t.h	10;"	d
 PAGE_SIZE	include/knlinc/krlmm_t.h	7;"	d
@@ -292,6 +298,7 @@ SUBSRCPND_R	include/halinc/halintrupt_t.h	34;"	d
 SUBSRCPND_R_BIT_E	include/halinc/halintrupt_t.h	43;"	d
 SUBSRCPND_R_BIT_S	include/halinc/halintrupt_t.h	42;"	d
 SUPERUSER	Makefile	/^SUPERUSER = sudo$/;"	m
+TEST_COUNT	kernel/krlpagempol.c	61;"	d	file:
 TRUE	include/bastypeinc/bastype_t.h	44;"	d
 UBRDIV0_R	include/halinc/haluart_t.h	45;"	d
 UBRDIV1_R	include/halinc/haluart_t.h	46;"	d
@@ -353,7 +360,9 @@ _HAL_UART_H	include/halinc/haluart.h	5;"	d
 _INTABTDISTR_H	hal/intabtdistr.h	5;"	d
 _INTABTDISTR_H	include/halinc/intabtdistr.h	5;"	d
 _INTABTDISTR_T_H	include/halinc/intabtdistr_t.h	5;"	d
+_KRLGLOBAL_T_H	include/knlinc/krlglobal_t.h	5;"	d
 _KRLHEADS_H	include/knlinc/krlheads.h	5;"	d
+_KRLMM_H	include/knlinc/krlmm.h	5;"	d
 _KRLMM_T_H	include/knlinc/krlmm_t.h	5;"	d
 _KRLPAGEMPOL_H	include/knlinc/krlpagempol.h	5;"	d
 _KRLTYPES_H_	include/knlinc/krltypes.h	5;"	d
@@ -414,7 +423,9 @@ _prefetch_abort	hal/init.S	/^ _prefetch_abort:$/;"	l
 _software_struction	hal/init.S	/^ _software_struction:$/;"	l
 _start	hal/init.S	/^_start:$/;"	l
 _undefined_struction	hal/init.S	/^ _undefined_struction:$/;"	l
+adr	kernel/krlpagempol.c	/^    adr_t adr;$/;"	m	struct:s_adrsz	file:
 adr_t	include/bastypeinc/bastype_t.h	/^typedef unsigned long adr_t;$/;"	t
+adrsz_t	kernel/krlpagempol.c	/^}adrsz_t;$/;"	t	typeref:struct:s_adrsz	file:
 afl_emptlsth	include/halinc/halmm_t.h	/^    list_h_t	afl_emptlsth;$/;"	m	struct:s_ALCFRELST
 afl_fuemlsth	include/halinc/halmm_t.h	/^    list_h_t	afl_fuemlsth;$/;"	m	struct:s_ALCFRELST
 afl_fulllsth	include/halinc/halmm_t.h	/^    list_h_t	afl_fulllsth;$/;"	m	struct:s_ALCFRELST
@@ -435,11 +446,14 @@ char_t	include/bastypeinc/bastype_t.h	/^typedef char char_t;$/;"	t
 char_write_uart	hal/printfk.c	/^void char_write_uart(char_t * buf)$/;"	f
 clbss_l	hal/init.S	/^clbss_l:$/;"	l
 clear_bss	hal/init.S	/^clear_bss:$/;"	l
+cmp_adrsz	kernel/krlpagempol.c	/^void cmp_adrsz(adrsz_t * assp, uint_t nr)$/;"	f
 cp15_read_c5	hal/halmmu.c	/^u32_t cp15_read_c5()$/;"	f
 cp15_read_c6	hal/halmmu.c	/^u32_t cp15_read_c6()$/;"	f
 cpuflg_t	include/bastypeinc/bastype_t.h	/^typedef u32_t cpuflg_t;$/;"	t
 curbit	hal/_udivsi3.S	/^curbit		.req	r3$/;"	l
 curbit	hal/_umodsi3.S	/^curbit		.req	r3$/;"	l
+del_objs_mpool	kernel/krlpagempol.c	/^bool_t del_objs_mpool(kmempool_t * kmplockp, mplhead_t * mphdp)$/;"	f
+del_page_mpool	kernel/krlpagempol.c	/^bool_t del_page_mpool(kmempool_t * kmplockp, mplhead_t * mphdp)$/;"	f
 dev_t	include/bastypeinc/bastype_t.h	/^typedef u32_t dev_t;$/;"	t
 dividend	hal/_udivsi3.S	/^dividend	.req	r0$/;"	l
 dividend	hal/_umodsi3.S	/^dividend	.req	r0$/;"	l
@@ -549,6 +563,8 @@ init_halmm	hal/halmm.c	/^void init_halmm()$/;"	f
 init_haluart	hal/haluart.c	/^void init_haluart()$/;"	f
 init_intfltdsc	hal/halintrupt.c	/^void init_intfltdsc(mach_t * machp)$/;"	f
 init_krl	kernel/krlinit.c	/^void init_krl()$/;"	f
+init_krlmm	kernel/krlmm.c	/^void init_krlmm()$/;"	f
+init_krlpagempol	kernel/krlpagempol.c	/^void init_krlpagempol()$/;"	f
 init_mmapdsc	hal/halmm.c	/^void init_mmapdsc(mach_t * mahp)$/;"	f
 init_phymem	hal/halmm.c	/^void init_phymem()$/;"	f
 init_platform	hal/platform.c	/^LKHEAD_T void init_platform()$/;"	f
@@ -559,15 +575,26 @@ intflthandle_t	include/bastypeinc/bastype_t.h	/^typedef drvstus_t (*intflthandle
 inthandler_t	include/bastypeinc/bastype_t.h	/^typedef void (*inthandler_t)();$/;"	t
 intserdsc_t	include/halinc/halintrupt_t.h	/^}intserdsc_t;$/;"	t	typeref:struct:s_INTSERDEC
 intstkregs_t	include/halinc/cpu_t.h	/^}intstkregs_t;$/;"	t	typeref:struct:s_INTSTKREGS
+kmempldelob_retn_mplhead	kernel/krlpagempol.c	/^mplhead_t * kmempldelob_retn_mplhead(kmempool_t * kmplockp, adr_t fradr, size_t msize)$/;"	f
+kmempldelpg_retn_mplhead	kernel/krlpagempol.c	/^mplhead_t * kmempldelpg_retn_mplhead(kmempool_t * kmplockp, adr_t fradr, size_t msize)$/;"	f
+kmemplob_retn_mplhead	kernel/krlpagempol.c	/^mplhead_t * kmemplob_retn_mplhead(kmempool_t * kmplockp, size_t msize)$/;"	f
+kmemplpg_retn_mplhead	kernel/krlpagempol.c	/^mplhead_t * kmemplpg_retn_mplhead(kmempool_t * kmplockp, size_t msize)$/;"	f
 kmempool_delete	kernel/krlpagempol.c	/^bool_t kmempool_delete(adr_t fradr, size_t frsz)$/;"	f
 kmempool_new	kernel/krlpagempol.c	/^adr_t kmempool_new(size_t msize)$/;"	f
+kmempool_objsz_core_delete	kernel/krlpagempol.c	/^bool_t kmempool_objsz_core_delete(adr_t fradr, size_t frsz)$/;"	f
+kmempool_objsz_core_new	kernel/krlpagempol.c	/^adr_t kmempool_objsz_core_new(size_t msize)$/;"	f
+kmempool_objsz_delete	kernel/krlpagempol.c	/^bool_t kmempool_objsz_delete(adr_t fradr, size_t frsz)$/;"	f
+kmempool_objsz_new	kernel/krlpagempol.c	/^adr_t kmempool_objsz_new(size_t msize)$/;"	f
 kmempool_onsize_delete	kernel/krlpagempol.c	/^bool_t kmempool_onsize_delete(adr_t fradr, size_t frsz)$/;"	f
 kmempool_onsize_new	kernel/krlpagempol.c	/^adr_t kmempool_onsize_new(size_t msize)$/;"	f
 kmempool_page_delete_callhalmm	kernel/krlpagempol.c	/^bool_t kmempool_page_delete_callhalmm(adr_t fradr, size_t frsz)$/;"	f
 kmempool_page_new_callhalmm	kernel/krlpagempol.c	/^adr_t kmempool_page_new_callhalmm(size_t msize)$/;"	f
+kmempool_pages_core_delete	kernel/krlpagempol.c	/^bool_t kmempool_pages_core_delete(adr_t fradr, size_t frsz)$/;"	f
+kmempool_pages_core_new	kernel/krlpagempol.c	/^adr_t kmempool_pages_core_new(size_t msize)$/;"	f
 kmempool_pages_delete	kernel/krlpagempol.c	/^bool_t kmempool_pages_delete(adr_t fradr, size_t frsz)$/;"	f
 kmempool_pages_new	kernel/krlpagempol.c	/^adr_t kmempool_pages_new(size_t msize)$/;"	f
 kmempool_t	include/knlinc/krlpagempol_t.h	/^}kmempool_t;$/;"	t	typeref:struct:s_KMEMPOOL
+kmempool_t_init	kernel/krlpagempol.c	/^void kmempool_t_init(kmempool_t * mph)$/;"	f
 kwlst_t	include/bastypeinc/sem_t.h	/^}kwlst_t;$/;"	t	typeref:struct:s_KWLST
 list_add	include/bastypeinc/list.h	/^KLINE void list_add(list_h_t *new, list_h_t *head)$/;"	f
 list_add_tail	include/bastypeinc/list.h	/^KLINE void list_add_tail(list_h_t *new, list_h_t *head)$/;"	f
@@ -641,7 +668,10 @@ mp_pgmplmheadl	include/knlinc/krlpagempol_t.h	/^    list_h_t	mp_pgmplmheadl;$/;"
 mp_pgmplnr	include/knlinc/krlpagempol_t.h	/^    uint_t	mp_pgmplnr;$/;"	m	struct:s_KMEMPOOL
 mp_stus	include/knlinc/krlpagempol_t.h	/^    uint_t	mp_stus;$/;"	m	struct:s_KMEMPOOL
 mplhead_t	include/knlinc/krlpagempol_t.h	/^}mplhead_t;$/;"	t	typeref:struct:s_MPLHEAD
+mplhead_t_init	kernel/krlpagempol.c	/^void mplhead_t_init(mplhead_t * initp)$/;"	f
 mrv_t	include/bastypeinc/bastype_t.h	/^typedef unsigned long mrv_t;$/;"	t
+new_objs_mpool	kernel/krlpagempol.c	/^mplhead_t * new_objs_mpool(kmempool_t * kmplockp, size_t msize)$/;"	f
+new_page_mpool	kernel/krlpagempol.c	/^mplhead_t * new_page_mpool(kmempool_t * kmplockp, size_t msize)$/;"	f
 next	include/bastypeinc/list_t.h	/^    struct s_LIST_H *next;$/;"	m	struct:s_LIST_H	typeref:struct:s_LIST_H::s_LIST_H
 numberk	hal/printfk.c	/^char_t * numberk(char_t *str, uint_t n, sint_t base)$/;"	f
 oal_cfgmsz	include/knlinc/krlobjsmpol_t.h	/^    olcfgdat_t *    oal_cfgmsz;$/;"	m	struct:s_OBJALST
@@ -651,8 +681,13 @@ oal_list	include/knlinc/krlobjsmpol_t.h	/^    list_h_t	oal_list;$/;"	m	struct:s_
 oal_lstnr	include/knlinc/krlobjsmpol_t.h	/^    uint_t	oal_lstnr;$/;"	m	struct:s_OBJALST
 oal_omhcahe	include/knlinc/krlobjsmpol_t.h	/^    objmgrhead_t * oal_omhcahe;$/;"	m	struct:s_OBJALST
 objalst_t	include/knlinc/krlobjsmpol_t.h	/^}objalst_t;$/;"	t	typeref:struct:s_OBJALST
+objdel_mplhead_isok	kernel/krlpagempol.c	/^mplhead_t * objdel_mplhead_isok(mplhead_t * mhp, adr_t fradr, size_t msize)$/;"	f
 objmgrhead_t	include/knlinc/krlobjsmpol_t.h	/^}objmgrhead_t;$/;"	t	typeref:struct:s_OBJMGRHEAD
 objmplctrl_t	include/knlinc/krlobjsmpol_t.h	/^}objmplctrl_t;$/;"	v	typeref:struct:s_OBJMPLCTRL
+objs_delete_on_mplhead	kernel/krlpagempol.c	/^bool_t objs_delete_on_mplhead(mplhead_t * mplhdp, adr_t fradr)$/;"	f
+objs_mpool_init	kernel/krlpagempol.c	/^mplhead_t * objs_mpool_init(kmempool_t * kmplockp, mplhead_t * mph, size_t msize, adr_t start, adr_t end)$/;"	f
+objs_new_on_mplhead	kernel/krlpagempol.c	/^adr_t objs_new_on_mplhead(mplhead_t * mplhdp)$/;"	f
+objsnew_mplhead_isok	kernel/krlpagempol.c	/^mplhead_t * objsnew_mplhead_isok(mplhead_t * mph, size_t msize)$/;"	f
 ocd_mnpsz	include/knlinc/krlobjsmpol_t.h	/^    size_t ocd_mnpsz;$/;"	m	struct:s_OLCFGDAT
 ocd_objsz	include/knlinc/krlobjsmpol_t.h	/^    size_t ocd_objsz;$/;"	m	struct:s_OLCFGDAT
 olcfgdat_t	include/knlinc/krlobjsmpol_t.h	/^}olcfgdat_t;$/;"	t	typeref:struct:s_OLCFGDAT
@@ -671,6 +706,11 @@ omh_paralst	include/knlinc/krlobjsmpol_t.h	/^    struct s_OBJALST * omh_paralst;
 omh_start	include/knlinc/krlobjsmpol_t.h	/^    adr_t	omh_start;$/;"	m	struct:s_OBJMGRHEAD
 onmmapdsc_inkrlram	hal/halmm.c	/^void onmmapdsc_inkrlram(mach_t * mahp, phymem_t * pmp)$/;"	f
 overdone	hal/_umodsi3.S	/^overdone	.req	r2$/;"	l
+page_delete_on_mplhead	kernel/krlpagempol.c	/^bool_t page_delete_on_mplhead(mplhead_t * mplhdp, adr_t fradr)$/;"	f
+page_mpool_init	kernel/krlpagempol.c	/^mplhead_t * page_mpool_init(kmempool_t * kmplockp, mplhead_t * mph, size_t msize, adr_t start, adr_t end)$/;"	f
+page_new_on_mplhead	kernel/krlpagempol.c	/^adr_t page_new_on_mplhead(mplhead_t * mplhdp)$/;"	f
+pagedel_mplhead_isok	kernel/krlpagempol.c	/^mplhead_t * pagedel_mplhead_isok(mplhead_t * mhp, adr_t fradr, size_t msize)$/;"	f
+pagenew_mplhead_isok	kernel/krlpagempol.c	/^mplhead_t * pagenew_mplhead_isok(mplhead_t * mhp, size_t msize)$/;"	f
 pgl_next	include/knlinc/krlpagempol_t.h	/^    struct s_PGLMAP * pgl_next;$/;"	m	struct:s_PGLMAP	typeref:struct:s_PGLMAP::s_PGLMAP
 pgl_start	include/knlinc/krlpagempol_t.h	/^    adr_t   pgl_start;$/;"	m	struct:s_PGLMAP
 pglmap_t	include/knlinc/krlpagempol_t.h	/^}pglmap_t;$/;"	t	typeref:struct:s_PGLMAP
@@ -752,6 +792,7 @@ s_PGLMAP	include/knlinc/krlpagempol_t.h	/^typedef struct s_PGLMAP$/;"	s
 s_PHYADRSPEC	include/halinc/halmm_t.h	/^typedef struct s_PHYADRSPEC$/;"	s
 s_PHYMEM	include/halinc/halmm_t.h	/^typedef struct s_PHYMEM$/;"	s
 s_SEM	include/bastypeinc/sem_t.h	/^typedef struct s_SEM$/;"	s
+s_adrsz	kernel/krlpagempol.c	/^typedef struct s_adrsz$/;"	s	file:
 s_device	include/halinc/halintrupt_t.h	/^    void * s_device;$/;"	m	struct:s_INTSERDEC
 s_flg	include/halinc/halintrupt_t.h	/^    u32_t    s_flg;$/;"	m	struct:s_INTSERDEC
 s_handle	include/halinc/halintrupt_t.h	/^    intflthandle_t s_handle;$/;"	m	struct:s_INTSERDEC
@@ -766,18 +807,23 @@ sem_flg	include/bastypeinc/sem_t.h	/^    uint_t	sem_flg;$/;"	m	struct:s_SEM
 sem_lock	include/bastypeinc/sem_t.h	/^    spinlock_t	sem_lock;$/;"	m	struct:s_SEM
 sem_t	include/bastypeinc/sem_t.h	/^}sem_t;$/;"	t	typeref:struct:s_SEM
 sem_waitlst	include/bastypeinc/sem_t.h	/^    kwlst_t	sem_waitlst;$/;"	m	struct:s_SEM
+show_mplhead	kernel/krlpagempol.c	/^void show_mplhead()$/;"	f
 sint_t	include/bastypeinc/bastype_t.h	/^typedef long sint_t;$/;"	t
 size_t	include/bastypeinc/bastype_t.h	/^typedef unsigned long size_t;$/;"	t
 spinlock_t	include/bastypeinc/spinlock_t.h	/^}spinlock_t;$/;"	t	typeref:struct:__anon1
 str_t	include/bastypeinc/bastype_t.h	/^typedef const char* str_t;$/;"	t
 strcopyk	hal/printfk.c	/^char_t * strcopyk(char_t * buf, char_t * str_s)$/;"	f
 sysstus_t	include/bastypeinc/bastype_t.h	/^typedef sint_t sysstus_t;$/;"	t
+sz	kernel/krlpagempol.c	/^    size_t sz;$/;"	m	struct:s_adrsz	file:
 test	hal/init.S	/^test:$/;"	l
 test1	hal/init.S	/^test1:$/;"	l
 test2	hal/init.S	/^test2:$/;"	l
 test3	hal/init.S	/^test3:$/;"	l
 test_blkmm	hal/halmm.c	/^void test_blkmm()$/;"	f
 testblkalloc	hal/halmm.c	/^void testblkalloc()$/;"	f
+testobjsmgr	kernel/krlpagempol.c	/^void testobjsmgr()$/;"	f
+testpagemgr	kernel/krlpagempol.c	/^void testpagemgr()$/;"	f
+testpgmpool	kernel/krlpagempol.c	/^void testpgmpool()$/;"	f
 tstbb	hal/init.S	/^tstbb: .word __begin_bss$/;"	l
 tstbe	hal/init.S	/^tstbe: .word __end_bss$/;"	l
 tstw	hal/init.S	/^tstw: .word __end_lmosem_hal_vector$/;"	l

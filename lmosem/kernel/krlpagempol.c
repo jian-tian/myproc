@@ -93,7 +93,7 @@ void testpagemgr()
 
 void testobjsmgr()
 {
-#define OBJTESTCOUNT	64
+#define OBJTESTCOUNT	2
     adrsz_t adsz[OBJTESTCOUNT];
     size_t alcsz = 0x20;
     u8_t * adrbytp = NULL;
@@ -101,6 +101,7 @@ void testobjsmgr()
 
     for(; alcsz < 0x800; alcsz += 0x10)
     {
+	/*alloc*/
 	for(uint_t i=0; i<OBJTESTCOUNT; i++)
 	{
 	    adsz[i].sz = alcsz;
@@ -117,19 +118,19 @@ void testobjsmgr()
 		adrbytp[k] = bytval;
 	    }
 	}
-    }
-
-    cmp_adrsz(adsz, OBJTESTCOUNT);
-
-    for(uint_t j=0; j<OBJTESTCOUNT; j++)
-    {
-	if(kmempool_delete(adsz[j].adr, adsz[j].sz) == FALSE)
+	/*cmp*/
+	cmp_adrsz(adsz, OBJTESTCOUNT);
+	/*delete*/
+	for(uint_t j=0; j<OBJTESTCOUNT; j++)
 	{
-	    hal_sysdie("testobjsmgr kmempool_delete err");
+	    if(kmempool_delete(adsz[j].adr, adsz[j].sz) == FALSE)
+	    {
+		hal_sysdie("testobjsmgr kmempool_delete err");
+	    }
+	    printfk("objs delete adsz[%x] sz:0x%x adr:0x%x\n\r", j, adsz[j].sz, adsz[j].adr);
 	}
-	printfk("objs delete adsz[%x] sz:0x%x adr:0x%x\n\r", j, adsz[j].sz, adsz[j].adr);
+	printfk("oskmempool.mp_pgmplnr:%x\n\r", oskmempool.mp_pgmplnr);
     }
-    printfk("oskmempool.mp_pgmplnr:%x\n\r", oskmempool.mp_pgmplnr);
     return;
 }
 
@@ -178,26 +179,40 @@ void testpgmpool()
     return;
 }
 
+void show_mplhead()
+{
+    list_h_t * list;
+    mplhead_t * mplhdp;
+    kmempool_t * kmplockp = &oskmempool;
+
+    list_for_each(list, &kmplockp->mp_obmplmheadl)
+    {
+	mplhdp = list_entry(list, mplhead_t, mh_list);
+	printfk("mplhdp->mh_aliobsz is 0x%x, mplhdp->mh_start is 0x%x, mplhdp->mh_end is 0x%x\n\r", mplhdp->mh_aliobsz, mplhdp->mh_start, mplhdp->mh_end);
+    }
+
+    return;
+}
 void init_krlpagempol()
 {
     kmempool_t_init(&oskmempool);
     return; 
 }
 
-void kmempool_t_init(kmempool_t * initp)
+void kmempool_t_init(kmempool_t * mph)
 {
-    hal_spinlock_init(&initp->mp_lock);
-    list_init(&initp->mp_list);
-    initp->mp_stus = 0;
-    initp->mp_flgs = 0;
-    hal_spinlock_init(&initp->mp_pglock);
-    hal_spinlock_init(&initp->mp_oblock);
-    initp->mp_pgmplnr = 0;
-    initp->mp_obmplnr = 0;
-    list_init(&initp->mp_pgmplmheadl);
-    list_init(&initp->mp_obmplmheadl);
-    initp->mp_pgmplmhcach = NULL;
-    initp->mp_obmplmhcach = NULL;
+    hal_spinlock_init(&mph->mp_lock);
+    list_init(&mph->mp_list);
+    mph->mp_stus = 0;
+    mph->mp_flgs = 0;
+    hal_spinlock_init(&mph->mp_pglock);
+    hal_spinlock_init(&mph->mp_oblock);
+    mph->mp_pgmplnr = 0;
+    mph->mp_obmplnr = 0;
+    list_init(&mph->mp_pgmplmheadl);
+    list_init(&mph->mp_obmplmheadl);
+    mph->mp_pgmplmhcach = NULL;
+    mph->mp_obmplmhcach = NULL;
     return;
 }
 
@@ -230,7 +245,13 @@ adr_t kmempool_onsize_new(size_t msize)
 
 adr_t kmempool_objsz_new(size_t msize)
 {
-    return NULL;
+    //printfk("%s\n\r", __func__);
+    size_t sz = OBJS_ALIGN(msize);
+
+    if(sz > OBJSORPAGE)
+	return NULL;
+
+    return kmempool_objsz_core_new(sz);
 }
 
 bool_t kmempool_onsize_delete(adr_t fradr, size_t frsz)
@@ -244,7 +265,12 @@ bool_t kmempool_onsize_delete(adr_t fradr, size_t frsz)
 
 bool_t kmempool_objsz_delete(adr_t fradr, size_t frsz)
 {
-    return TRUE;
+    size_t sz = OBJS_ALIGN(frsz);
+
+    if(sz > OBJSORPAGE)
+	return NULL;
+
+    return kmempool_objsz_core_delete(fradr, frsz);
 }
 
 adr_t kmempool_pages_new(size_t msize)
@@ -322,7 +348,7 @@ mplhead_t * pagenew_mplhead_isok(mplhead_t * mhp, size_t msize)
 
 mplhead_t * objsnew_mplhead_isok(mplhead_t * mph, size_t msize)
 {
-    if(mph->mh_firtpmap == NULL)
+    if(mph->mh_firtfreadr == NULL)
 	return NULL;
     if(mph->mh_hedty != MPLHTY_OBJS)
 	return NULL;
@@ -331,7 +357,7 @@ mplhead_t * objsnew_mplhead_isok(mplhead_t * mph, size_t msize)
     if(mph->mh_afindx >= mph->mh_objnr)
 	return NULL;
 
-    return NULL;
+    return mph;
 }
 
 mplhead_t * pagedel_mplhead_isok(mplhead_t * mhp, adr_t fradr, size_t msize)
@@ -397,6 +423,7 @@ mplhead_t * kmemplpg_retn_mplhead(kmempool_t * kmplockp, size_t msize)
 
 mplhead_t * kmemplob_retn_mplhead(kmempool_t * kmplockp, size_t msize)
 {
+    //printfk("%s %d\n\r", __func__, __LINE__);
     mplhead_t * retmhp;
     list_h_t * list;
     if(kmplockp->mp_obmplmhcach != NULL)
@@ -408,6 +435,7 @@ mplhead_t * kmemplob_retn_mplhead(kmempool_t * kmplockp, size_t msize)
 	    return retmhp;
 	}
     }
+    //printfk("%s %d\n\r", __func__, __LINE__);
     list_for_each(list, &kmplockp->mp_obmplmheadl)
     {
 	retmhp = list_entry(list, mplhead_t, mh_list);
@@ -418,6 +446,7 @@ mplhead_t * kmemplob_retn_mplhead(kmempool_t * kmplockp, size_t msize)
 	    return retmhp;
 	}
     }
+    //printfk("%s %d\n\r", __func__, __LINE__);
     return NULL;
 }
 
@@ -510,18 +539,23 @@ mplhead_t * new_page_mpool(kmempool_t * kmplockp, size_t msize)
 
 mplhead_t * new_objs_mpool(kmempool_t * kmplockp, size_t msize)
 {
+    //printfk("%s\n\r", __func__);
     mplhead_t * mphdp = NULL;
     adr_t pgadr = kmempool_pages_new(0x4000);
+    //printfk("%s %d\n\r", __func__, __LINE__);
     if(pgadr == NULL)
     {
 	return NULL;
     }
     mphdp = (mplhead_t *)pgadr;
     mphdp = objs_mpool_init(kmplockp, mphdp, msize, pgadr, (pgadr + 0x4000 - 1));
+    //show_mplhead();
+    //printfk("%s %d\n\r", __func__, __LINE__);
     if(mphdp == NULL)
     {
 	hal_sysdie("new objs mpool err");
     }
+    //printfk("%s %d\n\r", __func__, __LINE__);
     return mphdp;
 }
 
@@ -597,7 +631,7 @@ void mplhead_t_init(mplhead_t * initp)
     return;
 }
 
-mplhead_t * page_mpool_init(kmempool_t * kmplockp, mplhead_t * initp, size_t msize, adr_t start, adr_t end)
+mplhead_t * page_mpool_init(kmempool_t * kmplockp, mplhead_t * mph, size_t msize, adr_t start, adr_t end)
 {
     if(((start & 0xFFF)!=0 || ((end-start)<(PAGE_SIZE*2)-1)))
 	return NULL;
@@ -605,41 +639,41 @@ mplhead_t * page_mpool_init(kmempool_t * kmplockp, mplhead_t * initp, size_t msi
     adr_t sadr = start + PAGE_SIZE;
     uint_t pi=0,pnr=0;
 
-    mplhead_t_init(initp);
-    initp->mh_hedty = MPLHTY_PAGE;
-    initp->mh_start = start;
-    initp->mh_end = end;
-    initp->mh_aliobsz = msize;
-    initp->mh_objsz = msize;
+    mplhead_t_init(mph);
+    mph->mh_hedty = MPLHTY_PAGE;
+    mph->mh_start = start;
+    mph->mh_end = end;
+    mph->mh_aliobsz = msize;
+    mph->mh_objsz = msize;
 
     for(;;)
     {
 	if((sadr+msize-1) > end)
 	    break;
-	initp->mh_pmap[pi].pgl_start = sadr;
-	initp->mh_pmap[pi].pgl_next = &(initp->mh_pmap[pi+1]);
+	mph->mh_pmap[pi].pgl_start = sadr;
+	mph->mh_pmap[pi].pgl_next = &(mph->mh_pmap[pi+1]);
 	sadr += msize;
 	pi++;
     }
     if(pi > 0)
     {
-	initp->mh_pmap[pi-1].pgl_next = NULL;
+	mph->mh_pmap[pi-1].pgl_next = NULL;
 	pnr = pi;
-	initp->mh_firtpmap = &(initp->mh_pmap[0]);
+	mph->mh_firtpmap = &(mph->mh_pmap[0]);
 	goto add_step;
     }
-    initp->mh_pmap[pi].pgl_next = NULL;
-    initp->mh_pmap[pi].pgl_start = NULL;
+    mph->mh_pmap[pi].pgl_next = NULL;
+    mph->mh_pmap[pi].pgl_start = NULL;
     pnr = pi;
 add_step:
-    initp->mh_objnr = pnr;
-    initp->mh_pmnr = pnr;
-    list_add(&initp->mh_list, &kmplockp->mp_pgmplmheadl);
+    mph->mh_objnr = pnr;
+    mph->mh_pmnr = pnr;
+    list_add(&mph->mh_list, &kmplockp->mp_pgmplmheadl);
     kmplockp->mp_pgmplnr++;
-    return initp;
+    return mph;
 }
 
-mplhead_t * objs_mpool_init(kmempool_t * kmplockp, mplhead_t * initp, size_t msize, adr_t start, adr_t end)
+mplhead_t * objs_mpool_init(kmempool_t * kmplockp, mplhead_t * mph, size_t msize, adr_t start, adr_t end)
 {
     /*入参合法性检查*/
     if(((start & 0xfff)!=0) || ((end-start) < (PAGE_SIZE - 1)))
@@ -655,27 +689,28 @@ mplhead_t * objs_mpool_init(kmempool_t * kmplockp, mplhead_t * initp, size_t msi
     }
     /*初始化mplhead_t数据结构*/
     uint_t objnr = 0;
-    mplhead_t_init(initp);
-    initp->mh_hedty = MPLHTY_OBJS;
-    initp->mh_start = start;
-    initp->mh_end = end;
-    initp->mh_firtfreadr = sadr;
-    initp->mh_aliobsz = msize;/*本内存池中所有对象大小都为msize*/
-    initp->mh_objsz = msize;
-    initp->mh_nxtpsz = msize + sizeof(adr_t);/*每个对象后有个head，每个对象实际占用空间*/
+    mplhead_t_init(mph);
+    mph->mh_hedty = MPLHTY_OBJS;
+    mph->mh_start = start;
+    mph->mh_end = end;
+    mph->mh_firtfreadr = sadr;
+    mph->mh_aliobsz = msize;/*本内存池中所有对象大小都为msize*/
+    mph->mh_objsz = msize;
+    mph->mh_nxtpsz = msize + sizeof(adr_t);/*每个对象后有个head，每个对象实际占用空间*/
 
     adr_t * nexp = NULL;
     adr_t adrsz = msize;
-    adr_t npsz = initp->mh_nxtpsz;/*每个对象大小*/
-    if((initp->mh_nxtpsz & 3) != 0)
+    adr_t npsz = mph->mh_nxtpsz;/*每个对象大小*/
+    if((mph->mh_nxtpsz & 3) != 0)
     {
-	hal_sysdie("objs_mpool_init:initp->mh_nxtpsz not align dword");
+	hal_sysdie("objs_mpool_init:mph->mh_nxtpsz not align dword");
 	return NULL;
     }
 
     for(;;)
     {
-	if((sadr + npsz - 1) < end)
+	//printfk("sadr is 0x%x, npsz is 0x%x, end is 0x%x\n\r", sadr, npsz, end);
+	if((sadr + npsz - 1) > end)
 	    break;
 	nexp = (adr_t *)(sadr + adrsz);//下一个对象地址
 	*nexp = (sadr + npsz);//先放对象指针
@@ -693,10 +728,12 @@ mplhead_t * objs_mpool_init(kmempool_t * kmplockp, mplhead_t * initp, size_t msi
     nexp = (adr_t *)(sadr + adrsz);
     *nexp = NULL;
     /*设置内存池对象个数，并加入到kmempool_t全局数据链中*/
-    initp->mh_objnr = objnr;
-    list_add(&initp->mh_list, &kmplockp->mp_obmplmheadl);
+    mph->mh_objnr = objnr;
+    list_add(&mph->mh_list, &kmplockp->mp_obmplmheadl);
     kmplockp->mp_obmplnr++;
-    return initp;
+    //printfk("mph->mh_objnr is 0x%x, initp->mh_afindx is 0x%x, kmplockp->mp_obmplnr is 0x%x\n\r", mph->mh_objnr, mph->mh_afindx, kmplockp->mp_obmplnr);
+    
+    return mph;
 }
 
 adr_t page_new_on_mplhead(mplhead_t * mplhdp)
@@ -717,10 +754,12 @@ adr_t page_new_on_mplhead(mplhead_t * mplhdp)
 
 adr_t objs_new_on_mplhead(mplhead_t * mplhdp)
 {
-    if(mplhdp->mh_afindx >= mplhdp->mh_objnr || mplhdp->mh_firtpmap == NULL)
+    //printfk("%s %d\n\r", __func__, __LINE__);
+    if(mplhdp->mh_afindx >= mplhdp->mh_objnr || mplhdp->mh_firtfreadr == NULL)
     {
 	return NULL;
     }
+    //printfk("%s %d\n\r", __func__, __LINE__);
     adr_t retadr = NULL;
     adr_t *nextp = NULL;
     /*实际对象大小*/
@@ -800,7 +839,7 @@ adr_t kmempool_pages_core_new(size_t msize)
     mplhdp = kmemplpg_retn_mplhead(kmplp, msize);
     if(mplhdp == NULL)
     {
-	//printfk("kmemplpg_retn_mplhead get NULL\n\r");
+	printfk("kmemplpg_retn_mplhead get NULL\n\r");
 	mplhdp = new_page_mpool(kmplp, msize);
 	if(mplhdp == NULL)
 	{
@@ -817,14 +856,17 @@ return_step:
 
 adr_t kmempool_objsz_core_new(size_t msize)
 {
+    //printfk("%s\n\r", __func__);
     adr_t retadr = NULL;
     cpuflg_t cpuflg;
     mplhead_t * mplhdp;
     kmempool_t * kmplp = &oskmempool;
-    hal_spinlock_saveflg_cli(&kmplp->mp_pglock, &cpuflg);
+    hal_spinlock_saveflg_cli(&kmplp->mp_oblock, &cpuflg);
+    //show_mplhead();
     mplhdp = kmemplob_retn_mplhead(kmplp, msize);
     if(mplhdp == NULL)
     {
+	printfk("%s get NULL\n\r", __func__);
 	mplhdp = new_objs_mpool(kmplp, msize);
 	if(mplhdp == NULL)
 	{
@@ -834,7 +876,7 @@ adr_t kmempool_objsz_core_new(size_t msize)
     }
     retadr = objs_new_on_mplhead(mplhdp);
 return_step:
-    hal_spinunlock_restflg_sti(&kmplp->mp_pglock, &cpuflg);
+    hal_spinunlock_restflg_sti(&kmplp->mp_oblock, &cpuflg);
     return retadr;
 }
 
@@ -894,6 +936,6 @@ bool_t kmempool_objsz_core_delete(adr_t fradr, size_t frsz)
     }
     rets = TRUE;
 return_step:
-    hal_spinunlock_restflg_sti(&kmplp->mp_pglock, &cpufg);
+    hal_spinunlock_restflg_sti(&kmplp->mp_oblock, &cpufg);
     return rets;
 }
