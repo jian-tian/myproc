@@ -46,7 +46,7 @@ hal_undefins:
     str r1, [sp, #STKOFFSET_PC]
     stmfd sp!, {r0, lr}
     mov r0, sp
-//    bl hal_undefins_distr
+    bl hal_undefins_distr
     ldmfd sp!, {r0, lr}
     msr spsr, r0
     ldmia sp, {r0-lr}^
@@ -60,7 +60,7 @@ hal_swi:
     str lr, [sp, #STKOFFSET_PC]
     stmfd sp!, {r1, lr}
     mov r1, sp
-//    bl hal_swi_distr
+    bl hal_swi_distr
     ldmfd sp!, {r1, lr}
     msr spsr, r1
     ldmia sp, {r1-lr}^
@@ -77,7 +77,7 @@ hal_prefabt:
     str r1, [sp, #STKOFFSET_PC]
     stmfd sp!, {r0, lr}
     mov r0, sp
-//    bl hal_prefabt_distr
+    bl hal_prefabt_distr
     ldmfd sp!, {r0,lr}
     msr spsr, r0
     ldmia sp, {r0-lr}^
@@ -95,7 +95,7 @@ hal_dataabt:
     str r1, [sp, #STKOFFSET_PC]
     stmfd sp!, {r0, lr}
     mov r0, sp
-//    bl hal_dataabt_distr
+    bl hal_dataabt_distr
     ldmfd sp!, {r0,lr}
     msr spsr, r0
     ldmia sp, {r0-lr}^
@@ -116,7 +116,7 @@ hal_irq:
     str r1, [sp, #STKOFFSET_PC]
     stmfd sp!, {r0, lr}
     mov r0, sp
-//    bl hal_irq_distr
+    bl hal_irq_distr
     ldmfd sp!, {r0, lr}
     msr spsr, r0
     ldmia sp, {r0-lr}^
@@ -134,7 +134,7 @@ hal_frq:
     str r1, [sp, #STKOFFSET_PC]
     stmfd sp!, {r0,lr}
     mov r0, sp
-//    bl hal_frq_distr
+    bl hal_frq_distr
     ldmfd sp!, {r0, lr}
     msr spsr, r0
     ldmia sp, {r0-lr}^

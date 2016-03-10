@@ -36,7 +36,6 @@ void hal_dbug_print_reg(intstkregs_t * intstkp)
 
 void hal_undefins_distr(void * sframe)
 {
-    init_hal();
     hal_sysdie("undefins runing!!");
     return;
 }
@@ -87,7 +86,7 @@ void hal_dbugint2(uint_t lr)
 
 void hal_irq_distr(void * sframe)
 {
-    uint_t intoset = 0;//hal_retn_intnr();
+    uint_t intoset = hal_retn_intnr();
 
     switch(intoset)
     {
@@ -96,6 +95,24 @@ void hal_irq_distr(void * sframe)
 	    break;
 	case EINT8_23:
 	    hal_eint_distr(sframe, intoset, EI8_23_PNDBTS,EI8_23_PNDBTE);
+	    break;
+	case INT_CAM:
+	    hal_sint_distr(sframe, intoset, ICAM_PNDBTS, ICAM_PNDBTE);
+	    break;
+	case INT_WDT_AC97:
+	    hal_sint_distr(sframe, intoset, IACWDT_PNDBTS, IACWDT_PNDBTE);
+	    break;
+	case INT_UART2:
+	    hal_sint_distr(sframe, intoset, IUART2_PNDBTS, IUART2_PNDBTE);
+	    break;
+	case INT_UART1:
+	    hal_sint_distr(sframe, intoset, IUART1_PNDBTS, IUART1_PNDBTE);
+	    break;
+	case INT_UART0:
+	    hal_sint_distr(sframe, intoset, IUART0_PNDBTS, IUART0_PNDBTE);
+	    break;
+	case INT_ADC:
+	    hal_sint_distr(sframe, intoset, IADC_PNDBTS, IADC_PNDBTE);
 	    break;
 	default:
 	    hal_int_distr(sframe, intoset);
@@ -112,6 +129,7 @@ void hal_frq_distr(void * sframe)
     return;
 }
 
+/*外部中断处理*/
 void hal_eint_distr(void * sframe, uint_t mintnr, uint_t pndbts, uint_t pndbte)
 {
     u32_t pnd = hal_io32_read(EINTPEND_R);
@@ -128,6 +146,7 @@ void hal_eint_distr(void * sframe, uint_t mintnr, uint_t pndbts, uint_t pndbte)
     return;
 }
 
+/*子中断处理*/
 void hal_sint_distr(void * sframe, uint_t mintnr, uint_t pndbts, uint_t pndbte)
 {
     u32_t pnd = hal_io32_read(SUBSRCPND_R);
@@ -159,31 +178,33 @@ void hal_lcdint_distr(void * sframe, uint_t mintnr, uint_t pndbts, uint_t pndbte
     return;
 }
 
+/*主中断源*/
 void hal_int_distr(void * sframe, uint_t mintnr)
 {
     hal_run_intflthandle(MINT_IFDNR(mintnr), sframe);
-    //hal_clear_srcpnd(MINT_IFDNR(mintnr));
+    hal_clear_srcpnd(MINT_IFDNR(mintnr));
     return;
 }
 
 void hal_run_intflthandle(uint_t ifdnr, void * sframe)
 {
-/*
+
     intserdsc_t * isdscp;
-    list_h_t * lst;
-    intfltdsc_t * ifdscp = NULL;//hal_retn_intfltdsc(ifdnr);
+    list_h_t * list;
+    intfltdsc_t * ifdscp = hal_retn_intfltdsc(ifdnr);
 
     if(ifdscp == NULL)
     {
 	hal_sysdie("hal_run_intfltdsc err");
 	return;
     }
-    list_for_each(lst, &ifdscp->i_serlist)
+    list_for_each(list, &ifdscp->i_serlist)
     {
-	isdscp = list_entry(lst ,intserdsc_t, s_list);
+	isdscp = list_entry(list ,intserdsc_t, s_list);
 	isdscp->s_handle(ifdnr, isdscp->s_device, sframe);
     }
-*/
+
     return;
 }
+
 

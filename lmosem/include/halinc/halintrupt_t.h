@@ -22,7 +22,7 @@
 
 #define SUBINTLINE_MAX	14
 #define INTMSK_R    0x4a000008
-#define INTSUBMSK_T 0x4a00001c
+#define INTSUBMSK_R 0x4a00001c
 #define EINTMASK_R  0x560000a4
 #define EINTPEND_R  0x560000a8
 #define LCDINTPND_R 0x4d000054
@@ -125,7 +125,7 @@ typedef struct s_INTFLTDSC
 typedef struct s_INTSERDEC
 {
     list_h_t s_list;
-    list_h_t s_indexlst;
+    list_h_t s_indevlst;
     u32_t    s_flg;
     intfltdsc_t * s_intfltp;
     void * s_device;
