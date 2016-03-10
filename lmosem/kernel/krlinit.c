@@ -10,7 +10,7 @@ extern void testobjsmgr();
 void init_krl()
 {
     init_krlmm();
-    testpagemgr();
+    //testpagemgr();
     //testpgmpool();
     testobjsmgr();
     hal_sysdie("LMOSEM RUN!");

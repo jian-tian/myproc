@@ -51,3 +51,146 @@ void intfltdsc_t_init(intfltdsc_t * initp, u32_t flg, u32_t stus,u32_t pbitnr, u
 
     return;
 }
+
+void intserdsc_t_init(intserdsc_t * initp, u32_t flg, intfltdsc_t * intfltp, void * device, intflthandle_t handle)
+{
+    list_init(&initp->s_list);
+    list_init(&initp->s_indevlst);
+    initp->s_flg = flg;
+    initp->s_intfltp = intfltp;
+    initp->s_indx = 0;
+    initp->s_device = device;
+    initp->s_handle = handle;
+}
+
+bool_t hal_add_ihandle(intfltdsc_t * intdscp, intserdsc_t * serdscp)
+{
+    if(intdscp == NULL || serdscp == NULL)
+	return FALSE;
+
+    cpuflg_t cpuflg;
+    hal_spinlock_saveflg_cli(&intdscp->i_lock, &cpuflg);
+    list_add(&serdscp->s_list, &intdscp->i_serlist);/*链表挂载*/
+    intdscp->i_sernr++;
+    hal_spinunlock_restflg_sti(&intdscp->i_lock, &cpuflg);
+    return TRUE;
+}
+
+intfltdsc_t * hal_retn_intfltdsc(uint_t ifdnr)
+{
+    if(ifdnr >= osmach.mh_intfltnr)
+	return NULL;
+    return &osmach.mh_intfltdsc[ifdnr];
+}
+
+uint_t hal_retn_intnr()
+{
+    return (uint_t)hal_io32_read(INTOFFSET_R);
+}
+
+drvstus_t hal_clear_srcpnd(uint_t ifdnr)
+{
+    u32_t inttmp;
+    uint_t flg;
+    uint_t phylinenr;
+    intfltdsc_t * ifdp = hal_retn_intfltdsc(ifdnr);
+    if(ifdp == NULL)
+    {
+	return DFCERRSTUS;
+    }
+
+    flg = ifdp->i_flg & 0xFF;
+    phylinenr = ifdp->i_pndbitnr;
+    inttmp = (1<<phylinenr);
+
+    if(flg == MINT_FLG)
+    {
+	hal_io32_write(SRCPND_R, inttmp);
+	return DFCOKSTUS;
+    }
+    if(flg == SINT_FLG)
+    {
+	hal_io32_write(SUBSRCPND_R, inttmp);
+	return DFCOKSTUS;
+    }
+    if(flg == EINT_FLG)
+    {
+	hal_io32_write(EINTPEND_R, inttmp);
+	return DFCOKSTUS;
+    }
+    return DFCERRSTUS;
+}
+
+drvstus_t hal_enable_intline(uint_t ifdnr)
+{
+    u32_t inttmp;
+    uint_t flg;
+    uint_t phylinenr;
+    intfltdsc_t * ifdp = hal_retn_intfltdsc(ifdnr);
+    if(ifdp == NULL)
+    {
+	return DFCERRSTUS;
+    }
+
+    flg = ifdp->i_flg & 0xFF;
+    phylinenr = ifdp->i_pndbitnr;
+    if(flg == MINT_FLG)
+    {
+	inttmp = hal_io32_read(INTMSK_R);
+	inttmp &= (~(1<<phylinenr));
+	hal_io32_write(INTMSK_R, inttmp);
+	return DFCOKSTUS;
+    }
+    if(flg == SINT_FLG)
+    {
+	inttmp = hal_io32_read(INTSUBMSK_R);
+	inttmp &= (~(1<<phylinenr));
+	hal_io32_write(INTSUBMSK_R, inttmp);
+	return DFCOKSTUS;
+    }
+    if(flg == EINT_FLG)
+    {
+	inttmp = hal_io32_read(EINTMASK_R);
+	inttmp &= (~(1<<phylinenr));
+	hal_io32_write(EINTMASK_R, inttmp);
+	return DFCOKSTUS;
+    }
+    return DFCERRSTUS;
+}
+
+drvstus_t hal_disable_intline(uint_t ifdnr)
+{
+    u32_t inttmp;
+    uint_t flg;
+    uint_t phylinenr;
+    intfltdsc_t * ifdp = hal_retn_intfltdsc(ifdnr);
+    if(ifdp == NULL)
+    {
+	return DFCERRSTUS;
+    }
+
+    flg = ifdp->i_flg & 0xFF;
+    phylinenr = ifdp->i_pndbitnr;
+    if(flg == MINT_FLG)
+    {
+	inttmp = hal_io32_read(INTMSK_R);
+	inttmp |= (1<<phylinenr);
+	hal_io32_write(INTMSK_R, inttmp);
+	return DFCOKSTUS;
+    }
+    if(flg == SINT_FLG)
+    {
+	inttmp = hal_io32_read(INTSUBMSK_R);
+	inttmp |= ~(1<<phylinenr);
+	hal_io32_write(INTSUBMSK_R, inttmp);
+	return DFCOKSTUS;
+    }
+    if(flg == EINT_FLG)
+    {
+	inttmp = hal_io32_read(EINTMASK_R);
+	inttmp |= ~(1<<phylinenr);
+	hal_io32_write(EINTMASK_R, inttmp);
+	return DFCOKSTUS;
+    }
+    return DFCERRSTUS;
+}
