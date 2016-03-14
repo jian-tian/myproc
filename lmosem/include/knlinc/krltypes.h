@@ -7,5 +7,7 @@
 #include "krlinit_t.h"
 #include "krlmm_t.h"
 #include "krlglobal_t.h"
+#include "krldevice_t.h"
+#include "krlobjnode_t.h"
 
 #endif

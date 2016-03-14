@@ -13,5 +13,7 @@ void init_krl()
     //testpagemgr();
     //testpgmpool();
     testobjsmgr();
+    init_krldevice();
+    init_krldriver();
     hal_sysdie("LMOSEM RUN!");
 }
