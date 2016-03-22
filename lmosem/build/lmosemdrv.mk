@@ -3,10 +3,8 @@
 #############################
 
 MAKEFLAGS = -s
-KERNELCE_PATH = ../drvers/
-HEADFILE_PATH = -I ../include -I ../include/basttypeinc\
- -I ../include/halinc -I ../include/knlinc\
- -I ../include/libinc -I ../include/drvinc
+KERNELCE_PATH = ../drivers/
+HEADFILE_PATH = -I ../include -I ../include/bastypeinc -I ../include/halinc -I ../include/knlinc -I ../include/libinc -I ../include/drvinc
 CCBUILDPATH = $(KERNELCE_PATH)
 include krnlbuidcmd.mh
 include krnlobjs.mkh

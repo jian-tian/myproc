@@ -15,5 +15,7 @@ void init_krl()
     testobjsmgr();
     init_krldevice();
     init_krldriver();
+    hal_enable_irq();
+    for(;;);
     hal_sysdie("LMOSEM RUN!");
 }

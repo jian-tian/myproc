@@ -1,7 +1,7 @@
 /***************************
  * krlobjnode.c 2016.03.14
  * ************************/
-#include "lmosemstype.h"
+#include "lmosemtypes.h"
 #include "lmosemmctrl.h"
 
 void objnode_t_init(objnode_t * initp)

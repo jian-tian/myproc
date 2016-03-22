@@ -56,9 +56,8 @@
 
 #define DEVFLG_EXCLU	(1<<0)
 #define DEVFLG_SHARE	(1<<1)
-#define DEVFLG_NORML	(1<<0)
-#define DEVFLG_FAILU	(1<<1)
-#define DEVFLG_EXCLU	(1<<0)
+#define DEVSTS_NORML	(1<<0)
+#define DEVSTS_FAILU	(1<<1)
 #define DIDFIL_IDN  1
 #define DIDFIL_FLN  2
 
@@ -76,7 +75,7 @@ typedef struct s_DEVLIST
 typedef struct s_DEVTABLE
 {
     list_h_t	devt_list;
-    spinlock_t	*devt_lock;
+    spinlock_t	devt_lock;
     list_h_t	devt_devlist;//全局设备链表
     list_h_t	devt_drvlist;//全局驱动程序链表
     uint_t	devt_devnr;

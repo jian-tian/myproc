@@ -28,6 +28,9 @@ typedef struct s_OBJNODE
     size_t	on_bufsz;
     uint_t	on_count;
     void *	on_safedsc;
+    void *	on_fname;
+    void *	on_finode;
+    void *	on_extp;
 }objnode_t;
 
 #define OBJN_TY_DEV	1

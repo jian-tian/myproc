@@ -9,5 +9,8 @@
 #include "krlglobal.h"
 #include "krlmm.h"
 #include "krlobjnode.h"
+#include "krldevice.h"
+#include "krlsem.h"
+#include "krlintupt.h"
 
 #endif

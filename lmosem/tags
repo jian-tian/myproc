@@ -14,13 +14,18 @@ ADRSPCE_NOT	include/halinc/halmm_t.h	8;"	d
 ADRSPCE_RAM	include/halinc/halmm_t.h	11;"	d
 ADRSPCE_ROM	include/halinc/halmm_t.h	12;"	d
 ADRSPCE_SDRAM	include/halinc/halmm_t.h	10;"	d
+AHBBUS_DEVICE	include/knlinc/krldevice_t.h	9;"	d
 ALIGN	include/bastypeinc/bastype_t.h	49;"	d
+AMBABUS_DEVICE	include/knlinc/krldevice_t.h	8;"	d
+APBBUS_DEVICE	include/knlinc/krldevice_t.h	10;"	d
 ARMDRIVMFLGS	Makefile	/^ARMDRIVMFLGS = -C $(BUILD_PATH) -f lmosemdrv.mk$/;"	m
 ARMHALYMFLGS	Makefile	/^ARMHALYMFLGS = -C $(BUILD_PATH) -f lmosemhal.mk$/;"	m
 ARMKRNLMFLGS	Makefile	/^ARMKRNLMFLGS = -C $(BUILD_PATH) -f lmosemkrl.mk $/;"	m
 ARMLIBSMFLGS	Makefile	/^ARMLIBSMFLGS = -C $(BUILD_PATH) -f lmosemlib.mk$/;"	m
 ARMLINKMFLGS	Makefile	/^ARMLINKMFLGS = -C $(BUILD_PATH) -f lmosemlink.mk$/;"	m
 ARMTASKMFLGS	Makefile	/^ARMTASKMFLGS = -C $(BUILD_PATH) -f lmosemtask.mk$/;"	m
+AUDIO_DEVICE	include/knlinc/krldevice_t.h	33;"	d
+A_DCONVER_DEVICE	include/knlinc/krldevice_t.h	30;"	d
 BLK128KB_BITL	include/halinc/halmm_t.h	43;"	d
 BLK128KB_MASK	include/halinc/halmm_t.h	50;"	d
 BLK128KB_SIZE	include/halinc/halmm_t.h	36;"	d
@@ -41,6 +46,7 @@ BLK512KB_MASK	include/halinc/halmm_t.h	52;"	d
 BLK512KB_SIZE	include/halinc/halmm_t.h	38;"	d
 BLKSZ_HEAD_MAX	include/halinc/halmm_t.h	57;"	d
 BOOTEXCIMG	Makefile	/^BOOTEXCIMG = lmosem.bin$/;"	m
+BRIDGE_DEVICE	include/knlinc/krldevice_t.h	11;"	d
 BUIKD_MK_HALY_OBJS	script/krnlobjs.S	/^BUIKD_MK_HALY_OBJS :=$/;"	d
 BUILD_BOOT_OBJS	include/script/buildfile.h	4;"	d
 BUILD_DRIV_OBJS	include/script/buildfile.h	13;"	d
@@ -69,6 +75,7 @@ BUILD_MK_TASK_OBJS	script/krnlobjs.S	/^BUILD_MK_TASK_OBJS += BUILD_TASK_OBJS$/;"
 BUILD_MK_TASK_OBJS	script/krnlobjs.S	/^BUILD_MK_TASK_OBJS :=$/;"	d
 BUILD_PATH	Makefile	/^BUILD_PATH = .\/build$/;"	m
 BUILD_TASK_OBJS	include/script/buildfile.h	15;"	d
+CAMERA_DEVICE	include/knlinc/krldevice_t.h	21;"	d
 CCBUILDPATH	build/lmosemdrv.mk	/^CCBUILDPATH = $(KERNELCE_PATH)$/;"	m
 CCBUILDPATH	build/lmosemhal.mk	/^CCBUILDPATH = $(KERNELCE_PATH)$/;"	m
 CCBUILDPATH	build/lmosemkrl.mk	/^CCBUILDPATH = $(KERNELCE_PATH)$/;"	m
@@ -81,11 +88,13 @@ CFG_s3c2440_PLATFORM	include/config.h	8;"	d
 CFIQ	include/halinc/cpuctrl_t.h	15;"	d
 CIRQ	include/halinc/cpuctrl_t.h	16;"	d
 CIRQFIQ	include/halinc/cpuctrl_t.h	17;"	d
+CLOCKPOWER_DEVICE	include/knlinc/krldevice_t.h	18;"	d
 CLXSUBINR	include/halinc/halintrupt_t.h	13;"	d
 CP	Makefile	/^CP = cp$/;"	m
 CP15_C5R	include/halinc/halmmu_t.h	7;"	d
 CP15_C6R	include/halinc/halmmu_t.h	8;"	d
 CPFLAGES	Makefile	/^CPFLAGES =$/;"	m
+CPUCORE_DEVICE	include/knlinc/krldevice_t.h	12;"	d
 CPUCORE_MAX	include/halinc/platform_t.h	10;"	d
 CPU_ABT_MODE	include/halinc/cpuctrl_t.h	11;"	d
 CPU_FIQ_MODE	include/halinc/cpuctrl_t.h	8;"	d
@@ -97,11 +106,21 @@ CPU_USR_MODE	include/halinc/cpuctrl_t.h	7;"	d
 CPU_VECTOR_PHYADR	include/halinc/platform_t.h	22;"	d
 CPU_VECTOR_VIRADR	include/halinc/platform_t.h	23;"	d
 DD	Makefile	/^DD = dd$/;"	m
+DEVFLG_EXCLU	include/knlinc/krldevice_t.h	57;"	d
+DEVFLG_SHARE	include/knlinc/krldevice_t.h	58;"	d
+DEVICE_MAX	include/knlinc/krldevice_t.h	41;"	d
+DEVSTS_FAILU	include/knlinc/krldevice_t.h	60;"	d
+DEVSTS_NORML	include/knlinc/krldevice_t.h	59;"	d
 DEV_TYPE_NOT	include/halinc/halmm_t.h	7;"	d
 DFCERRSTUS	include/bastypeinc/bastype_t.h	46;"	d
 DFCOKSTUS	include/bastypeinc/bastype_t.h	47;"	d
+DIDFIL_FLN	include/knlinc/krldevice_t.h	62;"	d
+DIDFIL_IDN	include/knlinc/krldevice_t.h	61;"	d
 DKAPFLAGS	Makefile	/^DKAPFLAGS = lmosemkrnl.bin$/;"	m
 DKAPP	Makefile	/^DKAPP = .\/dnw2$/;"	m
+DMA_DEIVCE	include/knlinc/krldevice_t.h	17;"	d
+DRVTICK_H	include/drvinc/drvtick.h	5;"	d
+DRVTICK_T_H	include/drvinc/drvtick_t.h	5;"	d
 DSKIMG	Makefile	/^DSKIMG = flash.img$/;"	m
 DSTPATH	Makefile	/^DSTPATH = ..\/exckrnl$/;"	m
 EI4_7_PNDBTE	include/halinc/halintrupt_t.h	78;"	d
@@ -125,11 +144,16 @@ EXTERN	include/bastypeinc/bastype_t.h	41;"	d
 EXTERN	include/halinc/halglobal.h	8;"	d
 EXTERN	include/halinc/halglobal.h	9;"	d
 FALSE	include/bastypeinc/bastype_t.h	45;"	d
+FILESYS_DEVICE	include/knlinc/krldevice_t.h	37;"	d
+FSDEV_IOCTRCD_DELFILE	include/knlinc/krldevice_t.h	64;"	d
+FSDEV_OPENFLG_NEWFILE	include/knlinc/krldevice_t.h	65;"	d
+FSDEV_OPENFLG_OPEFILE	include/knlinc/krldevice_t.h	66;"	d
+GPIO_DEVICE	include/knlinc/krldevice_t.h	28;"	d
 HALGLOBAL_HAED	hal/halglobal.c	4;"	d	file:
 HALGLOBAL_H_	include/halinc/halglobal.h	5;"	d
 HAL_DEFGLOB_VARIABLE	include/halinc/halglobal_t.h	7;"	d
 HAL_UART_T_H	include/halinc/haluart_t.h	5;"	d
-HEADFILE_PATH	build/lmosemdrv.mk	/^HEADFILE_PATH = -I ..\/include -I ..\/include\/basttypeinc\\$/;"	m
+HEADFILE_PATH	build/lmosemdrv.mk	/^HEADFILE_PATH = -I ..\/include -I ..\/include\/bastypeinc -I ..\/include\/halinc -I ..\/include\/knlinc -I ..\/include\/libinc -I ..\/include\/drvinc$/;"	m
 HEADFILE_PATH	build/lmosemhal.mk	/^HEADFILE_PATH = -I ..\/include -I ..\/include\/bastypeinc -I ..\/include\/halinc -I ..\/include\/knlinc -I ..\/include\/libinc -I ..\/include\/drvinc$/;"	m
 HEADFILE_PATH	build/lmosemkrl.mk	/^HEADFILE_PATH = -I ..\/include -I ..\/include\/bastypeinc -I ..\/include\/halinc -I ..\/include\/knlinc -I ..\/include\/libinc -I ..\/include\/drvinc$/;"	m
 HEADFILE_PATH	build/lmosemlib.mk	/^HEADFILE_PATH = -I ..\/include -I ..\/include\/bastypeinc -I ..\/include\/halinc -I ..\/include\/knlinc -I ..\/include\/libinc -I ..\/include\/drvinc$/;"	m
@@ -147,6 +171,8 @@ IFLG_EXTINTP	include/halinc/halintrupt_t.h	9;"	d
 IFLG_INIINTP	include/halinc/halintrupt_t.h	8;"	d
 IFLG_PRESENT	include/halinc/halintrupt_t.h	7;"	d
 IFLG_SUBINTP	include/halinc/halintrupt_t.h	10;"	d
+IIC_DEVICE	include/knlinc/krldevice_t.h	26;"	d
+IIS_DEVICE	include/knlinc/krldevice_t.h	27;"	d
 ILCD_PNDBTE	include/halinc/halintrupt_t.h	102;"	d
 ILCD_PNDBTS	include/halinc/halintrupt_t.h	101;"	d
 INISRC_FLG	include/halinc/halintrupt_t.h	18;"	d
@@ -159,13 +185,27 @@ INTOFFSET_R	include/halinc/halintrupt_t.h	30;"	d
 INTPDEVID	include/halinc/halintrupt_t.h	14;"	d
 INTPND_R	include/halinc/halintrupt_t.h	31;"	d
 INTSRC_MAX	include/halinc/platform_t.h	32;"	d
-INTSUBMSK_T	include/halinc/halintrupt_t.h	25;"	d
+INTSUBMSK_R	include/halinc/halintrupt_t.h	25;"	d
+INTUPTCONTER_DEVICE	include/knlinc/krldevice_t.h	16;"	d
 INT_ADC	include/halinc/halintrupt_t.h	75;"	d
 INT_CAM	include/halinc/halintrupt_t.h	69;"	d
 INT_UART0	include/halinc/halintrupt_t.h	74;"	d
 INT_UART1	include/halinc/halintrupt_t.h	73;"	d
 INT_UART2	include/halinc/halintrupt_t.h	71;"	d
 INT_WDT_AC97	include/halinc/halintrupt_t.h	70;"	d
+IOIF_CODE_CLOSE	include/knlinc/krldevice_t.h	44;"	d
+IOIF_CODE_DEV_START	include/knlinc/krldevice_t.h	49;"	d
+IOIF_CODE_DEV_STOP	include/knlinc/krldevice_t.h	50;"	d
+IOIF_CODE_ENUM_DEV	include/knlinc/krldevice_t.h	52;"	d
+IOIF_CODE_FLUSH	include/knlinc/krldevice_t.h	53;"	d
+IOIF_CODE_IOCTRL	include/knlinc/krldevice_t.h	48;"	d
+IOIF_CODE_LSEEK	include/knlinc/krldevice_t.h	47;"	d
+IOIF_CODE_MAX	include/knlinc/krldevice_t.h	55;"	d
+IOIF_CODE_OPEN	include/knlinc/krldevice_t.h	43;"	d
+IOIF_CODE_READ	include/knlinc/krldevice_t.h	45;"	d
+IOIF_CODE_SET_POWERSTUS	include/knlinc/krldevice_t.h	51;"	d
+IOIF_CODE_SHUTDOWN	include/knlinc/krldevice_t.h	54;"	d
+IOIF_CODE_WRITE	include/knlinc/krldevice_t.h	46;"	d
 IRQ_MAX	include/halinc/halintrupt_t.h	48;"	d
 IUART0_PNDBTE	include/halinc/halintrupt_t.h	84;"	d
 IUART0_PNDBTS	include/halinc/halintrupt_t.h	83;"	d
@@ -174,7 +214,7 @@ IUART1_PNDBTS	include/halinc/halintrupt_t.h	86;"	d
 IUART2_PNDBTE	include/halinc/halintrupt_t.h	90;"	d
 IUART2_PNDBTS	include/halinc/halintrupt_t.h	89;"	d
 JMP_ADDR	include/halinc/cpu_t.h	8;"	d
-KERNELCE_PATH	build/lmosemdrv.mk	/^KERNELCE_PATH = ..\/drvers\/$/;"	m
+KERNELCE_PATH	build/lmosemdrv.mk	/^KERNELCE_PATH = ..\/drivers\/$/;"	m
 KERNELCE_PATH	build/lmosemhal.mk	/^KERNELCE_PATH = ..\/hal\/$/;"	m
 KERNELCE_PATH	build/lmosemkrl.mk	/^KERNELCE_PATH = ..\/kernel\/$/;"	m
 KERNELCE_PATH	build/lmosemlib.mk	/^KERNELCE_PATH = ..\/lib\/$/;"	m
@@ -199,7 +239,9 @@ KRLGLOBAL_H_	include/knlinc/krlglobal.h	5;"	d
 KRLGOBAL_HEAD	kernel/krlglobal.c	4;"	d	file:
 KRL_DEFGLOB_VARIABLE	include/knlinc/krlglobal_t.h	7;"	d
 KRL_PAGEMPOL_T_H	include/knlinc/krlobjsmpol_t.h	5;"	d
+KRL_SEM_T_H	include/knlinc/krlsem_t.h	5;"	d
 KRNL_INRAM_START	include/halinc/platform_t.h	12;"	d
+LCDCONTER_DEVICE	include/knlinc/krldevice_t.h	19;"	d
 LCDINTPND_R	include/halinc/halintrupt_t.h	28;"	d
 LCDSRCPND_BITS_MASK	include/halinc/halintrupt_t.h	38;"	d
 LINKR_IPUT_FILE	include/script/buildfile.h	20;"	d
@@ -255,13 +297,22 @@ MPALCLST_MAX	include/knlinc/krlpagempol_t.h	7;"	d
 MPLHTY_OBJS	include/knlinc/krlpagempol_t.h	17;"	d
 MPLHTY_PAGE	include/knlinc/krlpagempol_t.h	16;"	d
 MULHANDLE_FLG	include/halinc/halintrupt_t.h	17;"	d
+NANDFLASH_DEVICE	include/knlinc/krldevice_t.h	20;"	d
+NETWORK_DEVICE	include/knlinc/krldevice_t.h	35;"	d
+NOT_DEVICE	include/knlinc/krldevice_t.h	7;"	d
 NO_HAND	include/bastypeinc/bastype_t.h	48;"	d
 NULL	include/bastypeinc/bastype_t.h	43;"	d
 OBJALST_MAX	include/knlinc/krlobjsmpol_t.h	7;"	d
+OBJN_TY_DEV	include/knlinc/krlobjnode_t.h	36;"	d
+OBJN_TY_DEV	include/knlinc/krlobjnode_t.h	7;"	d
+OBJN_TY_FIL	include/knlinc/krlobjnode_t.h	8;"	d
+OBJN_TY_NUL	include/knlinc/krlobjnode_t.h	38;"	d
+OBJN_TY_NUL	include/knlinc/krlobjnode_t.h	9;"	d
 OBJSORPAGE	include/knlinc/krlpagempol_t.h	13;"	d
 OBJS_ALIGN	include/knlinc/krlpagempol_t.h	19;"	d
 OBJTESTCOUNT	kernel/krlpagempol.c	96;"	d	file:
 ONEHANDLE_FLG	include/halinc/halintrupt_t.h	16;"	d
+ONJN_TY_FIL	include/knlinc/krlobjnode_t.h	37;"	d
 PAGE_ALIGN	include/knlinc/krlmm_t.h	10;"	d
 PAGE_SIZE	include/knlinc/krlmm_t.h	7;"	d
 PAGE_TLB_DIR	include/halinc/platform_t.h	17;"	d
@@ -276,10 +327,14 @@ PTE_SECT_BIT	include/halinc/platform_t.h	28;"	d
 PTE_SECT_DOMAIN	include/halinc/platform_t.h	26;"	d
 PTE_SECT_NOCW	include/halinc/platform_t.h	27;"	d
 PUBLIC	include/bastypeinc/bastype_t.h	39;"	d
+RAMCONTER_DEVICE	include/knlinc/krldevice_t.h	13;"	d
+RAM_DEVICE	include/knlinc/krldevice_t.h	14;"	d
 RELEDSTPATH	Makefile	/^RELEDSTPATH = ..\/release$/;"	m
 RM	Makefile	/^RM = rm$/;"	m
 RMDIR	Makefile	/^RMDIR = rmdir$/;"	m
+RTC_DEVICE	include/knlinc/krldevice_t.h	29;"	d
 SDRAM_MAPVECTPHY_ADDR	include/halinc/platform_t.h	11;"	d
+SD_DEVICE	include/knlinc/krldevice_t.h	32;"	d
 SEM_FLG_MULTI	include/bastypeinc/sem_t.h	7;"	d
 SEM_FLG_MUTEX	include/bastypeinc/sem_t.h	6;"	d
 SEM_MULTI_LOCK	include/bastypeinc/sem_t.h	9;"	d
@@ -289,6 +344,7 @@ SINTNR_START	include/halinc/halintrupt_t.h	53;"	d
 SINT_FLG	include/halinc/halintrupt_t.h	60;"	d
 SINT_IFDNR	include/halinc/halintrupt_t.h	64;"	d
 SINT_OFFSET	include/halinc/halintrupt_t.h	46;"	d
+SPI_DEVICE	include/knlinc/krldevice_t.h	31;"	d
 SRCFILE	Makefile	/^SRCFILE = lmosemkrnl.bin lmosemkrnl.elf$/;"	m
 SRCPND_R	include/halinc/halintrupt_t.h	32;"	d
 SUBINITSRC_FLG	include/halinc/halintrupt_t.h	19;"	d
@@ -298,8 +354,17 @@ SUBSRCPND_R	include/halinc/halintrupt_t.h	34;"	d
 SUBSRCPND_R_BIT_E	include/halinc/halintrupt_t.h	43;"	d
 SUBSRCPND_R_BIT_S	include/halinc/halintrupt_t.h	42;"	d
 SUPERUSER	Makefile	/^SUPERUSER = sudo$/;"	m
+SYSTICK_DEVICE	include/knlinc/krldevice_t.h	38;"	d
+SYSTICK_PHYINTLINE	include/drvinc/drvtick_t.h	12;"	d
+TCFG0_R	include/drvinc/drvtick_t.h	7;"	d
+TCFG1_R	include/drvinc/drvtick_t.h	8;"	d
+TCNTB4_R	include/drvinc/drvtick_t.h	10;"	d
+TCON_R	include/drvinc/drvtick_t.h	9;"	d
 TEST_COUNT	kernel/krlpagempol.c	61;"	d	file:
+TIMER_DEVICE	include/knlinc/krldevice_t.h	23;"	d
+TOUCH_DEVICE	include/knlinc/krldevice_t.h	34;"	d
 TRUE	include/bastypeinc/bastype_t.h	44;"	d
+UART_DEVICE	include/knlinc/krldevice_t.h	22;"	d
 UBRDIV0_R	include/halinc/haluart_t.h	45;"	d
 UBRDIV1_R	include/halinc/haluart_t.h	46;"	d
 UBRDIV2_R	include/halinc/haluart_t.h	47;"	d
@@ -322,17 +387,22 @@ UMCON0_R	include/halinc/haluart_t.h	19;"	d
 UMCON1_R	include/halinc/haluart_t.h	20;"	d
 UMSTAT0_R	include/halinc/haluart_t.h	34;"	d
 UMSTAT1_R	include/halinc/haluart_t.h	35;"	d
+UNKNOWN_DEVICE	include/knlinc/krldevice_t.h	39;"	d
 URXH0_R	include/halinc/haluart_t.h	41;"	d
 URXH1_R	include/halinc/haluart_t.h	42;"	d
 URXH2_R	include/halinc/haluart_t.h	43;"	d
+USBHOSTCONTER_DEVICE	include/knlinc/krldevice_t.h	15;"	d
+USB_DEVICE	include/knlinc/krldevice_t.h	24;"	d
 UTRSTAT0_R	include/halinc/haluart_t.h	22;"	d
 UTRSTAT1_R	include/halinc/haluart_t.h	23;"	d
 UTRSTAT2_R	include/halinc/haluart_t.h	24;"	d
 UTXH0_R	include/halinc/haluart_t.h	37;"	d
 UTXH1_R	include/halinc/haluart_t.h	38;"	d
 UTXH2_R	include/halinc/haluart_t.h	39;"	d
+VIR_DEVICE	include/knlinc/krldevice_t.h	36;"	d
 VM	Makefile	/^VM = qemu-system-arm -M mini2440 -kernel lmosemkrnl.uimg -serial stdio -mtdblock ndflash -show-cursor -usb -usbdevice keyboard -usbdevice mouse -net nic,vlan=0 -net tap,vlan=0,ifname=tap1,script=qemu-ifup,downscript=qemu-ifdown -monitor telnet::5555,server,nowait #-nographic$/;"	m
 VMFLAGES	Makefile	/^VMFLAGES = $/;"	m
+WATCHDOG_DEVICE	include/knlinc/krldevice_t.h	25;"	d
 _BASTYPE_H	include/bastypeinc/bastype.h	5;"	d
 _BASTYPE_T_H	include/bastypeinc/bastype_t.h	5;"	d
 _BUILD_FILE_H	include/script/buildfile.h	2;"	d
@@ -342,7 +412,7 @@ _CPUCTRL_T_H	include/halinc/cpuctrl_t.h	5;"	d
 _CPU_H	include/halinc/cpu.h	5;"	d
 _CPU_T_H	include/halinc/cpu_t.h	6;"	d
 _DRVHEADS_H	include/drvinc/drvheads.h	5;"	d
-_DRVTYPES_H_	include/knlinc/drvtypes.h	5;"	d
+_DRVTYPE_H	include/drvinc/drvtypes.h	5;"	d
 _HALGLOBAL_T_H	include/halinc/halglobal_t.h	5;"	d
 _HALHEADS_H_	include/halinc/halheads.h	5;"	d
 _HALINIT_H	include/halinc/halinit.h	5;"	d
@@ -360,11 +430,17 @@ _HAL_UART_H	include/halinc/haluart.h	5;"	d
 _INTABTDISTR_H	hal/intabtdistr.h	5;"	d
 _INTABTDISTR_H	include/halinc/intabtdistr.h	5;"	d
 _INTABTDISTR_T_H	include/halinc/intabtdistr_t.h	5;"	d
+_KRLDEVICE_T_H	include/knlinc/krldevice_t.h	5;"	d
 _KRLGLOBAL_T_H	include/knlinc/krlglobal_t.h	5;"	d
 _KRLHEADS_H	include/knlinc/krlheads.h	5;"	d
+_KRLINTPUT_H	include/knlinc/krlintupt.h	5;"	d
+_KRLINTUPT_H	include/knlinc/krlintupt_t.h	5;"	d
 _KRLMM_H	include/knlinc/krlmm.h	5;"	d
 _KRLMM_T_H	include/knlinc/krlmm_t.h	5;"	d
+_KRLOBJNODE_H	include/knlinc/krlobjnode.h	5;"	d
+_KRLOBJNODE_T_H	include/knlinc/krlobjnode_t.h	5;"	d
 _KRLPAGEMPOL_H	include/knlinc/krlpagempol.h	5;"	d
+_KRLSEM_H	include/knlinc/krlsem.h	5;"	d
 _KRLTYPES_H_	include/knlinc/krltypes.h	5;"	d
 _KRL_INIT_H	include/knlinc/krlinit.h	5;"	d
 _KRL_INIT_T_H	include/knlinc/krlinit_t.h	5;"	d
@@ -381,6 +457,7 @@ _PRINTFK_H	include/halinc/printfk.h	5;"	d
 _PRINTFK_T_H	include/halinc/printfk_t.h	5;"	d
 _SEM_T_H	include/bastypeinc/sem_t.h	5;"	d
 _SPINLOCK_T_H	include/bastypeinc/spinlock_t.h	5;"	d
+__KRLDEVICE_H	include/knlinc/krldevice.h	5;"	d
 ___KRLPAGEMPOL_T_H	include/knlinc/krlpagempol_t.h	5;"	d
 __aeabi_idiv	hal/_divsi3.S	/^__aeabi_idiv:$/;"	l
 __aeabi_idivmod	hal/_udivsi3.S	/^__aeabi_idivmod:$/;"	l
@@ -452,20 +529,86 @@ cp15_read_c6	hal/halmmu.c	/^u32_t cp15_read_c6()$/;"	f
 cpuflg_t	include/bastypeinc/bastype_t.h	/^typedef u32_t cpuflg_t;$/;"	t
 curbit	hal/_udivsi3.S	/^curbit		.req	r3$/;"	l
 curbit	hal/_umodsi3.S	/^curbit		.req	r3$/;"	l
+del_device_dsc	kernel/krldevice.c	/^drvstus_t del_device_dsc(device_t * devp)$/;"	f
 del_objs_mpool	kernel/krlpagempol.c	/^bool_t del_objs_mpool(kmempool_t * kmplockp, mplhead_t * mphdp)$/;"	f
 del_page_mpool	kernel/krlpagempol.c	/^bool_t del_page_mpool(kmempool_t * kmplockp, mplhead_t * mphdp)$/;"	f
+dev_attrb	include/knlinc/krldevice_t.h	/^    void * dev_attrb;$/;"	m	struct:s_DEVICE
+dev_count	include/knlinc/krldevice_t.h	/^    uint_t	dev_count;$/;"	m	struct:s_DEVICE
+dev_drv	include/knlinc/krldevice_t.h	/^    struct s_DRIVER * dev_drv;\/\/设备驱动程序数据结构$/;"	m	struct:s_DEVICE	typeref:struct:s_DEVICE::s_DRIVER
+dev_extdata	include/knlinc/krldevice_t.h	/^    void * dev_extdata;$/;"	m	struct:s_DEVICE
+dev_flgs	include/knlinc/krldevice_t.h	/^    uint_t	dev_flgs;$/;"	m	struct:s_DEVICE
+dev_id	include/knlinc/krldevice_t.h	/^    devid_t	dev_id;$/;"	m	struct:s_DEVICE
+dev_indrvlst	include/knlinc/krldevice_t.h	/^    list_h_t	dev_indrvlst;\/\/设备驱动程序链表$/;"	m	struct:s_DEVICE
+dev_intbllst	include/knlinc/krldevice_t.h	/^    list_h_t	dev_intbllst;\/\/设备表链表$/;"	m	struct:s_DEVICE
+dev_intlnenr	include/knlinc/krldevice_t.h	/^    uint_t	dev_intlnenr;\/\/中断服务例程个数$/;"	m	struct:s_DEVICE
+dev_intserlst	include/knlinc/krldevice_t.h	/^    list_h_t	dev_intserlst;\/\/中断服务例程链表$/;"	m	struct:s_DEVICE
+dev_list	include/knlinc/krldevice_t.h	/^    list_h_t	dev_list;$/;"	m	struct:s_DEVICE
+dev_lock	include/knlinc/krldevice_t.h	/^    spinlock_t	dev_lock;$/;"	m	struct:s_DEVICE
+dev_mtype	include/knlinc/krldevice_t.h	/^    uint_t dev_mtype;$/;"	m	struct:s_DEVID
+dev_name	include/knlinc/krldevice_t.h	/^    char_t * dev_name; $/;"	m	struct:s_DEVICE
+dev_nr	include/knlinc/krldevice_t.h	/^    uint_t dev_nr;$/;"	m	struct:s_DEVID
+dev_privdata	include/knlinc/krldevice_t.h	/^    void * dev_privdata;$/;"	m	struct:s_DEVICE
+dev_rqlist	include/knlinc/krldevice_t.h	/^    list_h_t	dev_rqlist;   \/\/对设备的请求服务链表$/;"	m	struct:s_DEVICE
+dev_rqlnr	include/knlinc/krldevice_t.h	/^    uint_t	dev_rqlnr;$/;"	m	struct:s_DEVICE
+dev_sem	include/knlinc/krldevice_t.h	/^    sem_t	dev_sem;$/;"	m	struct:s_DEVICE
+dev_stus	include/knlinc/krldevice_t.h	/^    uint_t	dev_stus;$/;"	m	struct:s_DEVICE
+dev_stype	include/knlinc/krldevice_t.h	/^    uint_t dev_stype;$/;"	m	struct:s_DEVID
 dev_t	include/bastypeinc/bastype_t.h	/^typedef u32_t dev_t;$/;"	t
+dev_userdata	include/knlinc/krldevice_t.h	/^    void * dev_userdata;$/;"	m	struct:s_DEVICE
+dev_waitints	include/knlinc/krldevice_t.h	/^    sem_t	dev_waitints;$/;"	m	struct:s_DEVICE
+device_t	include/knlinc/krldevice_t.h	/^}device_t;$/;"	t	typeref:struct:s_DEVICE
+device_t_init	kernel/krldevice.c	/^void device_t_init(device_t * initp)$/;"	f
+devid_t	include/knlinc/krldevice_t.h	/^}devid_t;$/;"	t	typeref:struct:s_DEVID
+devid_t_init	kernel/krldevice.c	/^void devid_t_init(devid_t * initp, uint_t mty, uint_t sty, uint_t nr)$/;"	f
+devt_devclsl	include/knlinc/krldevice_t.h	/^    devtlst_t	devt_devclsl[DEVICE_MAX];\/\/分类存放设备数据结构数组$/;"	m	struct:s_DEVTABLE
+devt_devlist	include/knlinc/krldevice_t.h	/^    list_h_t	devt_devlist;\/\/全局设备链表$/;"	m	struct:s_DEVTABLE
+devt_devnr	include/knlinc/krldevice_t.h	/^    uint_t	devt_devnr;$/;"	m	struct:s_DEVTABLE
+devt_drvlist	include/knlinc/krldevice_t.h	/^    list_h_t	devt_drvlist;\/\/全局驱动程序链表$/;"	m	struct:s_DEVTABLE
+devt_drvnr	include/knlinc/krldevice_t.h	/^    uint_t	devt_drvnr;$/;"	m	struct:s_DEVTABLE
+devt_list	include/knlinc/krldevice_t.h	/^    list_h_t	devt_list;$/;"	m	struct:s_DEVTABLE
+devt_lock	include/knlinc/krldevice_t.h	/^    spinlock_t	devt_lock;$/;"	m	struct:s_DEVTABLE
+devtable_t	include/knlinc/krldevice_t.h	/^}devtable_t;$/;"	t	typeref:struct:s_DEVTABLE
+devtable_t_init	kernel/krldevice.c	/^void devtable_t_init(devtable_t * initp)$/;"	f
+devtlst_t	include/knlinc/krldevice_t.h	/^}devtlst_t;$/;"	t	typeref:struct:s_DEVLIST
+devtlst_t_init	kernel/krldevice.c	/^void devtlst_t_init(devtlst_t * initp, uint_t dtype)$/;"	f
 dividend	hal/_udivsi3.S	/^dividend	.req	r0$/;"	l
 dividend	hal/_umodsi3.S	/^dividend	.req	r0$/;"	l
 divisor	hal/_udivsi3.S	/^divisor		.req	r1$/;"	l
 divisor	hal/_umodsi3.S	/^divisor		.req	r1$/;"	l
+drivcallfun_t	include/knlinc/krldevice_t.h	/^typedef drvstus_t (*drivcallfun_t)(device_t *, void *);$/;"	t
+driver_t	include/knlinc/krldevice_t.h	/^}driver_t;$/;"	t	typeref:struct:s_DRIVER
+driver_t_init	kernel/krldevice.c	/^void driver_t_init(driver_t * initp)$/;"	f
+drv_alldevlist	include/knlinc/krldevice_t.h	/^    list_h_t	drv_alldevlist;$/;"	m	struct:s_DRIVER
+drv_attrb	include/knlinc/krldevice_t.h	/^    void *	drv_attrb;$/;"	m	struct:s_DRIVER
+drv_count	include/knlinc/krldevice_t.h	/^    uint_t	drv_count;$/;"	m	struct:s_DRIVER
+drv_default_func	kernel/krldevice.c	/^drvstus_t drv_default_func(device_t * devp, void * iopack)$/;"	f
+drv_dipfun	include/knlinc/krldevice_t.h	/^    drivcallfun_t drv_dipfun[IOIF_CODE_MAX];$/;"	m	struct:s_DRIVER
+drv_entry	include/knlinc/krldevice_t.h	/^    drventyexit_t drv_entry;$/;"	m	struct:s_DRIVER
+drv_exit	include/knlinc/krldevice_t.h	/^    drventyexit_t drv_exit;$/;"	m	struct:s_DRIVER
+drv_extdata	include/knlinc/krldevice_t.h	/^    void * drv_extdata;$/;"	m	struct:s_DRIVER
+drv_flg	include/knlinc/krldevice_t.h	/^    uint_t	drv_flg;$/;"	m	struct:s_DRIVER
+drv_id	include/knlinc/krldevice_t.h	/^    uint_t	drv_id;$/;"	m	struct:s_DRIVER
+drv_list	include/knlinc/krldevice_t.h	/^    list_h_t	drv_list;$/;"	m	struct:s_DRIVER
+drv_lock	include/knlinc/krldevice_t.h	/^    spinlock_t	drv_lock;$/;"	m	struct:s_DRIVER
+drv_name	include/knlinc/krldevice_t.h	/^    char_t * drv_name;$/;"	m	struct:s_DRIVER
+drv_privdata	include/knlinc/krldevice_t.h	/^    void *	drv_privdata;$/;"	m	struct:s_DRIVER
+drv_safedsc	include/knlinc/krldevice_t.h	/^    void *	drv_safedsc;$/;"	m	struct:s_DRIVER
+drv_sem	include/knlinc/krldevice_t.h	/^    sem_t	drv_sem;$/;"	m	struct:s_DRIVER
+drv_stuts	include/knlinc/krldevice_t.h	/^    uint_t	drv_stuts;$/;"	m	struct:s_DRIVER
 drv_t	include/bastypeinc/bastype_t.h	/^typedef unsigned long drv_t;$/;"	t
+drv_userdata	include/knlinc/krldevice_t.h	/^    void * drv_userdata;$/;"	m	struct:s_DRIVER
+drventyexit_t	include/knlinc/krldevice_t.h	/^typedef drvstus_t (*drventyexit_t)(struct s_DRIVER *, uint_t, void *);$/;"	t
 drvstus_t	include/bastypeinc/bastype_t.h	/^typedef sint_t drvstus_t;$/;"	t
+dtl_list	include/knlinc/krldevice_t.h	/^    list_h_t	dtl_list;$/;"	m	struct:s_DEVLIST
+dtl_nr	include/knlinc/krldevice_t.h	/^    uint_t	dtl_nr;$/;"	m	struct:s_DEVLIST
+dtl_type	include/knlinc/krldevice_t.h	/^    uint_t	dtl_type;$/;"	m	struct:s_DEVLIST
 f_handle_t	include/bastypeinc/bastype_t.h	/^typedef drv_t (*f_handle_t)(uint_t int_nr, void* sframe);$/;"	t
 freeblks	include/halinc/halmm_t.h	/^    uint_t	freeblks;$/;"	m	struct:s_PHYMEM
 gint_indx	hal/intabtdistr.c	/^__attribute__((section(".data"))) uint_t gint_indx = 0;$/;"	v
+hal_add_ihandle	hal/halintrupt.c	/^bool_t hal_add_ihandle(intfltdsc_t * intdscp, intserdsc_t * serdscp)$/;"	f
 hal_bugdie	hal/interrupt.S	/^hal_bugdie:$/;"	l
 hal_bugdie_distr	hal/intabtdistr.c	/^void hal_bugdie_distr(void * sframe)$/;"	f
+hal_clear_srcpnd	hal/halintrupt.c	/^drvstus_t hal_clear_srcpnd(uint_t ifdnr)$/;"	f
 hal_cpumode_switch	hal/cpuctrl.c	/^void hal_cpumode_switch(uint_t mode)$/;"	f
 hal_cpumodeswitch_retoldmode	hal/cpuctrl.c	/^uint_t hal_cpumodeswitch_retoldmode(uint_t mode)$/;"	f
 hal_dataabt	hal/interrupt.S	/^hal_dataabt:$/;"	l
@@ -475,6 +618,7 @@ hal_dbugint	hal/intabtdistr.c	/^void hal_dbugint(uint_t lr)$/;"	f
 hal_dbugint2	hal/intabtdistr.c	/^void hal_dbugint2(uint_t lr)$/;"	f
 hal_disable_cache	hal/halmmu.c	/^void hal_disable_cache()$/;"	f
 hal_disable_fiq	hal/cpuctrl.c	/^void hal_disable_fiq()$/;"	f
+hal_disable_intline	hal/halintrupt.c	/^drvstus_t hal_disable_intline(uint_t ifdnr)$/;"	f
 hal_disable_irq	hal/cpuctrl.c	/^void hal_disable_irq()$/;"	f
 hal_disable_irqfiq	hal/cpuctrl.c	/^void hal_disable_irqfiq()$/;"	f
 hal_disablefiq_savecpuflg	hal/cpuctrl.c	/^void hal_disablefiq_savecpuflg(cpuflg_t * cpuflg)$/;"	f
@@ -482,6 +626,7 @@ hal_disableirq_savecpuflg	hal/cpuctrl.c	/^void hal_disableirq_savecpuflg(cpuflg_
 hal_disableirqfiq_savecpuflg	hal/cpuctrl.c	/^void hal_disableirqfiq_savecpuflg(cpuflg_t * cpuflg)$/;"	f
 hal_eint_distr	hal/intabtdistr.c	/^void hal_eint_distr(void * sframe, uint_t mintnr, uint_t pndbts, uint_t pndbte)$/;"	f
 hal_enable_fiq	hal/cpuctrl.c	/^void hal_enable_fiq()$/;"	f
+hal_enable_intline	hal/halintrupt.c	/^drvstus_t hal_enable_intline(uint_t ifdnr)$/;"	f
 hal_enable_irq	hal/cpuctrl.c	/^void hal_enable_irq()$/;"	f
 hal_enable_irqfiq	hal/cpuctrl.c	/^void hal_enable_irqfiq()$/;"	f
 hal_enablefiq_restcpuflg	hal/cpuctrl.c	/^void hal_enablefiq_restcpuflg(cpuflg_t * cpuflg)$/;"	f
@@ -519,6 +664,8 @@ hal_read_cpuflg	hal/cpuctrl.c	/^cpuflg_t hal_read_cpuflg()$/;"	f
 hal_read_currmodesp	hal/cpuctrl.c	/^u32_t hal_read_currmodesp()$/;"	f
 hal_read_scpuflg	hal/cpuctrl.c	/^cpuflg_t hal_read_scpuflg()$/;"	f
 hal_retn_cpuid	hal/cpuctrl.c	/^uint_t hal_retn_cpuid()$/;"	f
+hal_retn_intfltdsc	hal/halintrupt.c	/^intfltdsc_t * hal_retn_intfltdsc(uint_t ifdnr)$/;"	f
+hal_retn_intnr	hal/halintrupt.c	/^uint_t hal_retn_intnr()$/;"	f
 hal_run_intflthandle	hal/intabtdistr.c	/^void hal_run_intflthandle(uint_t ifdnr, void * sframe)$/;"	f
 hal_sint_distr	hal/intabtdistr.c	/^void hal_sint_distr(void * sframe, uint_t mintnr, uint_t pndbts, uint_t pndbte)$/;"	f
 hal_spinlock_init	hal/cpuctrl.c	/^void hal_spinlock_init(spinlock_t * lock)$/;"	f
@@ -563,17 +710,21 @@ init_halmm	hal/halmm.c	/^void init_halmm()$/;"	f
 init_haluart	hal/haluart.c	/^void init_haluart()$/;"	f
 init_intfltdsc	hal/halintrupt.c	/^void init_intfltdsc(mach_t * machp)$/;"	f
 init_krl	kernel/krlinit.c	/^void init_krl()$/;"	f
+init_krldevice	kernel/krldevice.c	/^void init_krldevice()$/;"	f
+init_krldriver	kernel/krldevice.c	/^void init_krldriver()$/;"	f
 init_krlmm	kernel/krlmm.c	/^void init_krlmm()$/;"	f
 init_krlpagempol	kernel/krlpagempol.c	/^void init_krlpagempol()$/;"	f
 init_mmapdsc	hal/halmm.c	/^void init_mmapdsc(mach_t * mahp)$/;"	f
 init_phymem	hal/halmm.c	/^void init_phymem()$/;"	f
 init_platform	hal/platform.c	/^LKHEAD_T void init_platform()$/;"	f
+init_s3c2440_timer4	drivers/drvtick.c	/^void init_s3c2440_timer4()$/;"	f
 init_uart0	hal/haluart.c	/^void init_uart0()$/;"	f
 intfltdsc_t	include/halinc/halintrupt_t.h	/^}intfltdsc_t;$/;"	t	typeref:struct:s_INTFLTDSC
 intfltdsc_t_init	hal/halintrupt.c	/^void intfltdsc_t_init(intfltdsc_t * initp, u32_t flg, u32_t stus,u32_t pbitnr, uint_t irqnr)$/;"	f
 intflthandle_t	include/bastypeinc/bastype_t.h	/^typedef drvstus_t (*intflthandle_t)(uint_t ift_nr, void * device, void * sframe);$/;"	t
 inthandler_t	include/bastypeinc/bastype_t.h	/^typedef void (*inthandler_t)();$/;"	t
 intserdsc_t	include/halinc/halintrupt_t.h	/^}intserdsc_t;$/;"	t	typeref:struct:s_INTSERDEC
+intserdsc_t_init	hal/halintrupt.c	/^void intserdsc_t_init(intserdsc_t * initp, u32_t flg, intfltdsc_t * intfltp, void * device, intflthandle_t handle)$/;"	f
 intstkregs_t	include/halinc/cpu_t.h	/^}intstkregs_t;$/;"	t	typeref:struct:s_INTSTKREGS
 kmempldelob_retn_mplhead	kernel/krlpagempol.c	/^mplhead_t * kmempldelob_retn_mplhead(kmempool_t * kmplockp, adr_t fradr, size_t msize)$/;"	f
 kmempldelpg_retn_mplhead	kernel/krlpagempol.c	/^mplhead_t * kmempldelpg_retn_mplhead(kmempool_t * kmplockp, adr_t fradr, size_t msize)$/;"	f
@@ -595,6 +746,34 @@ kmempool_pages_delete	kernel/krlpagempol.c	/^bool_t kmempool_pages_delete(adr_t 
 kmempool_pages_new	kernel/krlpagempol.c	/^adr_t kmempool_pages_new(size_t msize)$/;"	f
 kmempool_t	include/knlinc/krlpagempol_t.h	/^}kmempool_t;$/;"	t	typeref:struct:s_KMEMPOOL
 kmempool_t_init	kernel/krlpagempol.c	/^void kmempool_t_init(kmempool_t * mph)$/;"	f
+krladd_irqhandle	kernel/krlintupt.c	/^intserdsc_t * krladd_irqhandle(void * device, intflthandle_t handle, uint_t phyline)$/;"	f
+krlcmp_devid	kernel/krldevice.c	/^bool_t krlcmp_devid(devid_t * sdidp, devid_t * cdidp)$/;"	f
+krldel_objnode	kernel/krlobjnode.c	/^bool_t krldel_objnode(objnode_t * ondp)$/;"	f
+krldelete	kernel/krlmm.c	/^bool_t krldelete(adr_t fradr, size_t frsz)$/;"	f
+krldev_add_driver	kernel/krldevice.c	/^drvstus_t krldev_add_driver(device_t * devp, driver_t * drvp)$/;"	f
+krldev_add_request	kernel/krldevice.c	/^drvstus_t krldev_add_request(device_t * devp, objnode_t * request)$/;"	f
+krldev_call_driver	kernel/krldevice.c	/^drvstus_t krldev_call_driver(device_t * devp, uint_t iocode, uint_t val1, uint_t val2, void * p1, void * p2)$/;"	f
+krldev_complete_request	kernel/krldevice.c	/^drvstus_t krldev_complete_request(device_t * devp, objnode_t * request)$/;"	f
+krldev_dec_devcount	kernel/krldevice.c	/^drvstus_t krldev_dec_devcount(device_t * devp)$/;"	f
+krldev_inc_devcount	kernel/krldevice.c	/^drvstus_t krldev_inc_devcount(device_t * devp)$/;"	f
+krldev_io	kernel/krldevice.c	/^drvstus_t krldev_io(objnode_t * nodep)$/;"	f
+krldev_retn_rqueparm	kernel/krldevice.c	/^drvstus_t krldev_retn_rqueparm(void * request, buf_t * retbuf, uint_t * retcops, uint_t * retlen, uint_t * retioclde, uint_t * retbufcops, size_t * retbufsz)$/;"	f
+krldev_retv_request	kernel/krldevice.c	/^drvstus_t krldev_retv_request(device_t *devp, uint_t iocode, objnode_t ** retreq)$/;"	f
+krldev_wait_request	kernel/krldevice.c	/^drvstus_t krldev_wait_request(device_t *devp, objnode_t * request)$/;"	f
+krldisable_intline	kernel/krlintupt.c	/^drvstus_t krldisable_intline(uint_t ifdnr)$/;"	f
+krldriver_add_system	kernel/krldevice.c	/^drvstus_t krldriver_add_system(driver_t * drvp)$/;"	f
+krlenable_intline	kernel/krlintupt.c	/^drvstus_t krlenable_intline(uint_t ifdnr)$/;"	f
+krlnew	kernel/krlmm.c	/^adr_t krlnew(size_t mmsize)$/;"	f
+krlnew_devhandle	kernel/krldevice.c	/^drvstus_t krlnew_devhandle(device_t * devp, intflthandle_t handle, uint_t phyiline)$/;"	f
+krlnew_device	kernel/krldevice.c	/^drvstus_t krlnew_device(device_t * devp)$/;"	f
+krlnew_objnode	kernel/krlobjnode.c	/^objnode_t * krlnew_objnode()$/;"	f
+krlonidfl_retn_device	kernel/krldevice.c	/^device_t * krlonidfl_retn_device(void * dfname, uint_t flgs)$/;"	f
+krlretn_driverid	kernel/krldevice.c	/^void krlretn_driverid(driver_t * dverp)$/;"	f
+krlrun_driverentry	kernel/krldevice.c	/^drvstus_t krlrun_driverentry(drventyexit_t drventry)$/;"	f
+krlsem_down	kernel/krlsem.c	/^void krlsem_down(sem_t * sem)$/;"	f
+krlsem_set_sem	kernel/krlsem.c	/^void krlsem_set_sem(sem_t * setsem, uint_t flg, size_t count)$/;"	f
+krlsem_t_init	kernel/krlsem.c	/^void krlsem_t_init(sem_t * initp)$/;"	f
+krlsem_up	kernel/krlsem.c	/^void krlsem_up(sem_t * sem)$/;"	f
 kwlst_t	include/bastypeinc/sem_t.h	/^}kwlst_t;$/;"	t	typeref:struct:s_KWLST
 list_add	include/bastypeinc/list.h	/^KLINE void list_add(list_h_t *new, list_h_t *head)$/;"	f
 list_add_tail	include/bastypeinc/list.h	/^KLINE void list_add_tail(list_h_t *new, list_h_t *head)$/;"	f
@@ -670,6 +849,8 @@ mp_stus	include/knlinc/krlpagempol_t.h	/^    uint_t	mp_stus;$/;"	m	struct:s_KMEM
 mplhead_t	include/knlinc/krlpagempol_t.h	/^}mplhead_t;$/;"	t	typeref:struct:s_MPLHEAD
 mplhead_t_init	kernel/krlpagempol.c	/^void mplhead_t_init(mplhead_t * initp)$/;"	f
 mrv_t	include/bastypeinc/bastype_t.h	/^typedef unsigned long mrv_t;$/;"	t
+new_device_dsc	kernel/krldevice.c	/^device_t * new_device_dsc()$/;"	f
+new_driver_dsc	kernel/krldevice.c	/^driver_t * new_driver_dsc()$/;"	f
 new_objs_mpool	kernel/krlpagempol.c	/^mplhead_t * new_objs_mpool(kmempool_t * kmplockp, size_t msize)$/;"	f
 new_page_mpool	kernel/krlpagempol.c	/^mplhead_t * new_page_mpool(kmempool_t * kmplockp, size_t msize)$/;"	f
 next	include/bastypeinc/list_t.h	/^    struct s_LIST_H *next;$/;"	m	struct:s_LIST_H	typeref:struct:s_LIST_H::s_LIST_H
@@ -684,6 +865,8 @@ objalst_t	include/knlinc/krlobjsmpol_t.h	/^}objalst_t;$/;"	t	typeref:struct:s_OB
 objdel_mplhead_isok	kernel/krlpagempol.c	/^mplhead_t * objdel_mplhead_isok(mplhead_t * mhp, adr_t fradr, size_t msize)$/;"	f
 objmgrhead_t	include/knlinc/krlobjsmpol_t.h	/^}objmgrhead_t;$/;"	t	typeref:struct:s_OBJMGRHEAD
 objmplctrl_t	include/knlinc/krlobjsmpol_t.h	/^}objmplctrl_t;$/;"	v	typeref:struct:s_OBJMPLCTRL
+objnode_t	include/knlinc/krlobjnode_t.h	/^}objnode_t;$/;"	t	typeref:struct:s_OBJNODE
+objnode_t_init	kernel/krlobjnode.c	/^void objnode_t_init(objnode_t * initp)$/;"	f
 objs_delete_on_mplhead	kernel/krlpagempol.c	/^bool_t objs_delete_on_mplhead(mplhead_t * mplhdp, adr_t fradr)$/;"	f
 objs_mpool_init	kernel/krlpagempol.c	/^mplhead_t * objs_mpool_init(kmempool_t * kmplockp, mplhead_t * mph, size_t msize, adr_t start, adr_t end)$/;"	f
 objs_new_on_mplhead	kernel/krlpagempol.c	/^adr_t objs_new_on_mplhead(mplhead_t * mplhdp)$/;"	f
@@ -704,6 +887,27 @@ omh_objnr	include/knlinc/krlobjsmpol_t.h	/^    uint_t	omh_objnr;$/;"	m	struct:s_
 omh_objsz	include/knlinc/krlobjsmpol_t.h	/^    size_t	omh_objsz;$/;"	m	struct:s_OBJMGRHEAD
 omh_paralst	include/knlinc/krlobjsmpol_t.h	/^    struct s_OBJALST * omh_paralst;$/;"	m	struct:s_OBJMGRHEAD	typeref:struct:s_OBJMGRHEAD::s_OBJALST
 omh_start	include/knlinc/krlobjsmpol_t.h	/^    adr_t	omh_start;$/;"	m	struct:s_OBJMGRHEAD
+on_acsflgs	include/knlinc/krlobjnode_t.h	/^    uint_t	on_acsflgs;$/;"	m	struct:s_OBJNODE
+on_acsstus	include/knlinc/krlobjnode_t.h	/^    uint_t	on_acsstus;$/;"	m	struct:s_OBJNODE
+on_buf	include/knlinc/krlobjnode_t.h	/^    buf_t	on_buf;$/;"	m	struct:s_OBJNODE
+on_bufcurops	include/knlinc/krlobjnode_t.h	/^    uint_t	on_bufcurops;$/;"	m	struct:s_OBJNODE
+on_bufsz	include/knlinc/krlobjnode_t.h	/^    size_t	on_bufsz;$/;"	m	struct:s_OBJNODE
+on_complesem	include/knlinc/krlobjnode_t.h	/^    sem_t	on_complesem;$/;"	m	struct:s_OBJNODE
+on_count	include/knlinc/krlobjnode_t.h	/^    uint_t	on_count;$/;"	m	struct:s_OBJNODE
+on_currops	include/knlinc/krlobjnode_t.h	/^    uint_t	on_currops;$/;"	m	struct:s_OBJNODE
+on_extp	include/knlinc/krlobjnode_t.h	/^    void *	on_extp;$/;"	m	struct:s_OBJNODE
+on_finode	include/knlinc/krlobjnode_t.h	/^    void *	on_finode;$/;"	m	struct:s_OBJNODE
+on_flgs	include/knlinc/krlobjnode_t.h	/^    uint_t	on_flgs;$/;"	m	struct:s_OBJNODE
+on_fname	include/knlinc/krlobjnode_t.h	/^    void *	on_fname;$/;"	m	struct:s_OBJNODE
+on_ioctrd	include/knlinc/krlobjnode_t.h	/^    uint_t	on_ioctrd;$/;"	m	struct:s_OBJNODE
+on_len	include/knlinc/krlobjnode_t.h	/^    uint_t	on_len;$/;"	m	struct:s_OBJNODE
+on_list	include/knlinc/krlobjnode_t.h	/^    list_h_t	on_list;$/;"	m	struct:s_OBJNODE
+on_lock	include/knlinc/krlobjnode_t.h	/^    spinlock_t on_lock;$/;"	m	struct:s_OBJNODE
+on_objadr	include/knlinc/krlobjnode_t.h	/^    void *	on_objadr;$/;"	m	struct:s_OBJNODE
+on_objtype	include/knlinc/krlobjnode_t.h	/^    uint_t	on_objtype;$/;"	m	struct:s_OBJNODE
+on_opercode	include/knlinc/krlobjnode_t.h	/^    sint_t	on_opercode;$/;"	m	struct:s_OBJNODE
+on_safedsc	include/knlinc/krlobjnode_t.h	/^    void *	on_safedsc;$/;"	m	struct:s_OBJNODE
+on_stus	include/knlinc/krlobjnode_t.h	/^    uint_t	on_stus;$/;"	m	struct:s_OBJNODE
 onmmapdsc_inkrlram	hal/halmm.c	/^void onmmapdsc_inkrlram(mach_t * mahp, phymem_t * pmp)$/;"	f
 overdone	hal/_umodsi3.S	/^overdone	.req	r2$/;"	l
 page_delete_on_mplhead	kernel/krlpagempol.c	/^bool_t page_delete_on_mplhead(mplhead_t * mplhdp, adr_t fradr)$/;"	f
@@ -774,6 +978,11 @@ s64_t	include/bastypeinc/bastype_t.h	/^typedef long long s64_t;$/;"	t
 s8_t	include/bastypeinc/bastype_t.h	/^typedef char s8_t;$/;"	t
 s_ALCFRELST	include/halinc/halmm_t.h	/^typedef struct s_ALCFRELST$/;"	s
 s_ARMREGS	include/halinc/cpu_t.h	/^typedef struct s_ARMREGS$/;"	s
+s_DEVICE	include/knlinc/krldevice_t.h	/^typedef struct s_DEVICE$/;"	s
+s_DEVID	include/knlinc/krldevice_t.h	/^typedef struct s_DEVID$/;"	s
+s_DEVLIST	include/knlinc/krldevice_t.h	/^typedef struct s_DEVLIST$/;"	s
+s_DEVTABLE	include/knlinc/krldevice_t.h	/^typedef struct s_DEVTABLE$/;"	s
+s_DRIVER	include/knlinc/krldevice_t.h	/^typedef struct s_DRIVER$/;"	s
 s_ILNEDSC	include/halinc/halintrupt_t.h	/^typedef struct s_ILNEDSC$/;"	s
 s_INTFLTDSC	include/halinc/halintrupt_t.h	/^typedef struct s_INTFLTDSC$/;"	s
 s_INTSERDEC	include/halinc/halintrupt_t.h	/^typedef struct s_INTSERDEC$/;"	s
@@ -787,6 +996,7 @@ s_MPLHEAD	include/knlinc/krlpagempol_t.h	/^typedef struct s_MPLHEAD$/;"	s
 s_OBJALST	include/knlinc/krlobjsmpol_t.h	/^typedef struct s_OBJALST$/;"	s
 s_OBJMGRHEAD	include/knlinc/krlobjsmpol_t.h	/^typedef struct s_OBJMGRHEAD$/;"	s
 s_OBJMPLCTRL	include/knlinc/krlobjsmpol_t.h	/^typede struct s_OBJMPLCTRL$/;"	s
+s_OBJNODE	include/knlinc/krlobjnode_t.h	/^typedef struct s_OBJNODE$/;"	s
 s_OLCFGDAT	include/knlinc/krlobjsmpol_t.h	/^typedef struct s_OLCFGDAT$/;"	s
 s_PGLMAP	include/knlinc/krlpagempol_t.h	/^typedef struct s_PGLMAP$/;"	s
 s_PHYADRSPEC	include/halinc/halmm_t.h	/^typedef struct s_PHYADRSPEC$/;"	s
@@ -796,7 +1006,7 @@ s_adrsz	kernel/krlpagempol.c	/^typedef struct s_adrsz$/;"	s	file:
 s_device	include/halinc/halintrupt_t.h	/^    void * s_device;$/;"	m	struct:s_INTSERDEC
 s_flg	include/halinc/halintrupt_t.h	/^    u32_t    s_flg;$/;"	m	struct:s_INTSERDEC
 s_handle	include/halinc/halintrupt_t.h	/^    intflthandle_t s_handle;$/;"	m	struct:s_INTSERDEC
-s_indexlst	include/halinc/halintrupt_t.h	/^    list_h_t s_indexlst;$/;"	m	struct:s_INTSERDEC
+s_indevlst	include/halinc/halintrupt_t.h	/^    list_h_t s_indevlst;$/;"	m	struct:s_INTSERDEC
 s_indx	include/halinc/halintrupt_t.h	/^    uint_t s_indx;$/;"	m	struct:s_INTSERDEC
 s_intfltp	include/halinc/halintrupt_t.h	/^    intfltdsc_t * s_intfltp;$/;"	m	struct:s_INTSERDEC
 s_list	include/halinc/halintrupt_t.h	/^    list_h_t s_list;$/;"	m	struct:s_INTSERDEC
@@ -814,6 +1024,23 @@ spinlock_t	include/bastypeinc/spinlock_t.h	/^}spinlock_t;$/;"	t	typeref:struct:_
 str_t	include/bastypeinc/bastype_t.h	/^typedef const char* str_t;$/;"	t
 strcopyk	hal/printfk.c	/^char_t * strcopyk(char_t * buf, char_t * str_s)$/;"	f
 sysstus_t	include/bastypeinc/bastype_t.h	/^typedef sint_t sysstus_t;$/;"	t
+systick_close	drivers/drvtick.c	/^drvstus_t systick_close(device_t * devp, void * iopack)$/;"	f
+systick_dev_start	drivers/drvtick.c	/^drvstus_t systick_dev_start(device_t * devp, void * iopack)$/;"	f
+systick_dev_stop	drivers/drvtick.c	/^drvstus_t systick_dev_stop(device_t * devp, void * iopack)$/;"	f
+systick_entry	drivers/drvtick.c	/^drvstus_t systick_entry(driver_t * drvp, uint_t val, void * p)$/;"	f
+systick_enum_dev	drivers/drvtick.c	/^drvstus_t systick_enum_dev(device_t * devp, void * iopack)$/;"	f
+systick_exit	drivers/drvtick.c	/^drvstus_t systick_exit(driver_t * drvp, uint_t val, void *p)$/;"	f
+systick_flush	drivers/drvtick.c	/^drvstus_t systick_flush(device_t * devp, void * iopack)$/;"	f
+systick_handle	drivers/drvtick.c	/^drvstus_t systick_handle(uint_t ift_nr, void *devp, void * sframe)$/;"	f
+systick_ioctrl	drivers/drvtick.c	/^drvstus_t systick_ioctrl(device_t * devp, void * iopack)$/;"	f
+systick_lseek	drivers/drvtick.c	/^drvstus_t systick_lseek(device_t * devp, void * iopack)$/;"	f
+systick_open	drivers/drvtick.c	/^drvstus_t systick_open(device_t * devp, void * iopack)$/;"	f
+systick_read	drivers/drvtick.c	/^drvstus_t systick_read(device_t * devp, void * iopack)$/;"	f
+systick_set_device	drivers/drvtick.c	/^void systick_set_device(device_t * devp, driver_t * drvp)$/;"	f
+systick_set_driver	drivers/drvtick.c	/^void systick_set_driver(driver_t *drvp)$/;"	f
+systick_set_powerstus	drivers/drvtick.c	/^drvstus_t systick_set_powerstus(device_t * devp, void * iopack)$/;"	f
+systick_shutdown	drivers/drvtick.c	/^drvstus_t systick_shutdown(device_t * devp, void * iopack)$/;"	f
+systick_write	drivers/drvtick.c	/^drvstus_t systick_write(device_t * devp, void * iopack)$/;"	f
 sz	kernel/krlpagempol.c	/^    size_t sz;$/;"	m	struct:s_adrsz	file:
 test	hal/init.S	/^test:$/;"	l
 test1	hal/init.S	/^test1:$/;"	l

@@ -5,12 +5,12 @@
 #define BUILD_HALY_OBJS init.o lmosemhal_start.o interrupt.o intabtdistr.o halglobal.o halinit.o vector.o platform.o printfk.o div0.o _udivsi3.o _umodsi3.o _modsi3.o _divsi3.o cpuctrl.o halmach.o halmmu.o halmm.o haluart.o halintrupt.o
 //#define BUILD_HALY_OBJS haluart.o printfk.o cpuctrl.o init.o lmosemhal_start.o interrupt.o vector.o halmmu.o halinit.o platform.o halglobal.o intabtdistr.o
 
-#define BUILD_KRNL_OBJS krlinit.o krlpagempol.o krlglobal.o krlmm.o krlintupt.o krlobjnode.o
+#define BUILD_KRNL_OBJS krlinit.o krlpagempol.o krlglobal.o krlmm.o krlintupt.o krlobjnode.o krldevice.o krlsem.o
 
 #define BUILD_MEMY_OBJS
 
 #define BUILD_FSYS_OBJS
-#define BUILD_DRIV_OBJS
+#define BUILD_DRIV_OBJS drvtick.o
 #define BUILD_LIBS_OBJS
 #define BUILD_TASK_OBJS
 #define BUILD_LINK_OBJS BUILD_BOOT_OBJS BUILD_HALY_OBJS \
