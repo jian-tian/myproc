@@ -72,13 +72,17 @@ drvstus_t systick_entry(driver_t * drvp, uint_t val, void * p)
 
     device_t * devp = new_device_dsc();
     if(!devp)
+    {
+	printfk("%s new_device_dsc failed\n\r", __func__);
 	return DFCERRSTUS;
+    }
     /*设置驱动程序数据结构和设备数据结构中的相关域*/
     systick_set_driver(drvp);
     systick_set_device(devp, drvp);
     /*向驱动程序注册设备*/
     if(krldev_add_driver(devp, drvp) == DFCERRSTUS)
     {
+	printfk("%s krldev_add_driver failed\n\r", __func__);
 	if(del_device_dsc(devp) == DFCERRSTUS)
 	    return DFCERRSTUS;
 	return DFCERRSTUS;
@@ -86,6 +90,7 @@ drvstus_t systick_entry(driver_t * drvp, uint_t val, void * p)
     /*向内核注册设备*/
     if(krlnew_device(devp) == DFCERRSTUS)
     {
+	printfk("%s krlnew_device failed\n\r", __func__);
 	if(del_device_dsc(devp) == DFCERRSTUS)
 	    return DFCERRSTUS;
 	return DFCERRSTUS;
@@ -93,6 +98,7 @@ drvstus_t systick_entry(driver_t * drvp, uint_t val, void * p)
     /*注册中断回调函数*/
     if(krlnew_devhandle(devp, systick_handle, MINT_IFDNR(SYSTICK_PHYINTLINE)) == DFCERRSTUS)
     {
+	printfk("%s krlnew_devhandle failed\n\r", __func__);
 	if(del_device_dsc(devp) == DFCERRSTUS)
 	    return DFCERRSTUS;
 	return DFCERRSTUS;
@@ -102,6 +108,7 @@ drvstus_t systick_entry(driver_t * drvp, uint_t val, void * p)
     /*解除中断屏蔽位*/
     if(krlenable_intline(MINT_IFDNR(SYSTICK_PHYINTLINE)) == DFCERRSTUS)
     {
+	printfk("%s krlenable_intline failed\n\r", __func__);
 	if(del_device_dsc(devp) == DFCERRSTUS)
 	    return DFCERRSTUS;
 	return DFCERRSTUS;
@@ -119,6 +126,7 @@ drvstus_t systick_exit(driver_t * drvp, uint_t val, void *p)
 /*中断回调函数*/
 drvstus_t systick_handle(uint_t ift_nr, void *devp, void * sframe)
 {
+    printfk("systick handle run!\n\r");
     return DFCOKSTUS;
 }
 

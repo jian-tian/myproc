@@ -114,7 +114,10 @@ driver_t * new_driver_dsc()
     /*相当于用个全局变量了*/
     driver_t * dp = (driver_t *)krlnew(sizeof(driver_t));
     if(!dp)
+    {
+	printfk("%s krlnew failed\n\r", __func__);
 	return NULL;
+    }
 
     driver_t_init(dp);
     return dp;
@@ -132,11 +135,17 @@ drvstus_t krlrun_driverentry(drventyexit_t drventry)
 
     /*调用驱动程序的入口函数*/
     if(drventry(drvp, 0, NULL) == DFCERRSTUS)
+    {
+	printfk("drventry failed\n\r");
 	return DFCERRSTUS;
+    }
 
     /*加载驱动程序数据结构到系统中*/
-    if(krldriver_add_system(drvp) == DFCOKSTUS)
+    if(krldriver_add_system(drvp) == DFCERRSTUS)
+    {
+	printfk("krldriver_add_system failed\n\r");
 	return DFCERRSTUS;
+    }
 
     return DFCOKSTUS;
 }

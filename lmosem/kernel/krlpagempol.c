@@ -220,7 +220,10 @@ adr_t kmempool_new(size_t msize)
 {
     //printfk("%s\n\r", __func__);
     if(msize < KMEMPALCSZ_MIN || msize > KMEMPALCSZ_MAX)
+    {
+	printfk("msize error in kmempool_new\n\r");
 	return NULL;
+    }
 
     return kmempool_onsize_new(msize);
 }
@@ -249,7 +252,10 @@ adr_t kmempool_objsz_new(size_t msize)
     size_t sz = OBJS_ALIGN(msize);
 
     if(sz > OBJSORPAGE)
+    {
+	printfk("sz > OBJS_ALIGN\n\r");
 	return NULL;
+    }
 
     return kmempool_objsz_core_new(sz);
 }
@@ -757,6 +763,7 @@ adr_t objs_new_on_mplhead(mplhead_t * mplhdp)
     //printfk("%s %d\n\r", __func__, __LINE__);
     if(mplhdp->mh_afindx >= mplhdp->mh_objnr || mplhdp->mh_firtfreadr == NULL)
     {
+	printfk("%s: mh_afindx, mh_firtfreadr failed\n\r", __func__);
 	return NULL;
     }
     //printfk("%s %d\n\r", __func__, __LINE__);
@@ -866,10 +873,11 @@ adr_t kmempool_objsz_core_new(size_t msize)
     mplhdp = kmemplob_retn_mplhead(kmplp, msize);
     if(mplhdp == NULL)
     {
-	printfk("%s get NULL\n\r", __func__);
+	//printfk("%s get NULL\n\r", __func__);
 	mplhdp = new_objs_mpool(kmplp, msize);
 	if(mplhdp == NULL)
 	{
+	    printfk("new_objs_mpool failed\n\r");
 	    retadr = NULL;
 	    goto return_step;
 	}

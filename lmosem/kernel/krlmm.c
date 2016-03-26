@@ -12,10 +12,20 @@ void init_krlmm()
 
 adr_t krlnew(size_t mmsize)
 {
+    adr_t ret = NULL;
     if(mmsize == MALCSZ_MIN || mmsize > MALCSZ_MAX)
+    {
+	printfk("mmsize error\n\r");
 	return NULL;
-
-    return kmempool_new(mmsize);
+    }
+ 
+    ret = kmempool_new(mmsize);
+    if(!ret)
+    {
+	printfk("kmempool_new failed\n\r");
+	return NULL;
+    }
+    return ret;
 }
 
 bool_t krldelete(adr_t fradr, size_t frsz)

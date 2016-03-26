@@ -12,7 +12,7 @@ void init_krl()
     init_krlmm();
     //testpagemgr();
     //testpgmpool();
-    testobjsmgr();
+    //testobjsmgr();
     init_krldevice();
     init_krldriver();
     hal_enable_irq();

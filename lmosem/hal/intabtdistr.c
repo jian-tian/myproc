@@ -87,6 +87,7 @@ void hal_dbugint2(uint_t lr)
 void hal_irq_distr(void * sframe)
 {
     uint_t intoset = hal_retn_intnr();
+    //printfk("irq %d\n\r", intoset);
 
     switch(intoset)
     {
@@ -192,7 +193,6 @@ void hal_run_intflthandle(uint_t ifdnr, void * sframe)
     intserdsc_t * isdscp;
     list_h_t * list;
     intfltdsc_t * ifdscp = hal_retn_intfltdsc(ifdnr);
-
     if(ifdscp == NULL)
     {
 	hal_sysdie("hal_run_intfltdsc err");

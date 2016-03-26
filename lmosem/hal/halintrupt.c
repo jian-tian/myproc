@@ -96,6 +96,7 @@ drvstus_t hal_clear_srcpnd(uint_t ifdnr)
     intfltdsc_t * ifdp = hal_retn_intfltdsc(ifdnr);
     if(ifdp == NULL)
     {
+	printfk("%s:get ifdp failed\n\r", __func__);
 	return DFCERRSTUS;
     }
 
