@@ -5,5 +5,6 @@
 #define _DRVTYPE_H
 
 #include "drvtick_t.h"
+#include "drvrtc_t.h"
 
 #endif

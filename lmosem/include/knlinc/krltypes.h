@@ -10,5 +10,6 @@
 #include "krldevice_t.h"
 #include "krlobjnode_t.h"
 #include "krlsem_t.h"
+#include "krltime_t.h"
 
 #endif

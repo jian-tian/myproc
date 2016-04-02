@@ -12,5 +12,5 @@
 #include "krldevice.h"
 #include "krlsem.h"
 #include "krlintupt.h"
-
+#include "krltime.h"
 #endif
