@@ -39,3 +39,27 @@ void krlupdate_times(uint_t year, uint_t mon, uint_t day, uint_t date, uint_t ho
     hal_spinunlock_restflg_sti(&initp->kt_lock, &cpufg);
     return;
 }
+
+sysstus_t krlsve_time(time_t * time)
+{
+    if(time == NULL)
+    {
+	//return SYSSTUSERR;
+	return -1;
+    }
+
+    ktime_t * initp = &osktime;
+    cpuflg_t cpufg;
+    hal_spinlock_saveflg_cli(&initp->kt_lock, &cpufg);
+    time->year = initp->kt_year;
+    time->mon = initp->kt_mon;
+    time->day = initp->kt_day;
+    time->date = initp->kt_date;
+    time->hour = initp->kt_hour;
+    time->min = initp->kt_min;
+    time->sec = initp->kt_sec;
+    hal_spinunlock_restflg_sti(&initp->kt_lock, &cpufg);
+
+    //return SYSSTUSOK;
+    return 0;
+}

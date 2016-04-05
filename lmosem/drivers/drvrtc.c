@@ -131,6 +131,7 @@ drvstus_t rtc_tick_handle(uint_t ift_nr, void *devp, void *frame)
 
     year += 2000;
     krlupdate_times(year, mon, day, date, hour, min, sec);
+    //printfk("min = %d, sec = %d\n\r", min, sec);
     return DFCOKSTUS;
 }
 
@@ -250,6 +251,15 @@ drvstus_t rtc_set_synsecalm(device_t * devp, void * iopack, uint_t sec)
     return DFCOKSTUS;
 }
 
+drvstus_t rtc_upfreq(uint_t freq)
+{
+    hal_io8_write(RTCCON_R, 1);
+    u8_t data = (u8_t)((freq & 0x3f) | RTCTICK_INT_EN);
+
+    hal_io8_write(TICNT_R, data);
+    return DFCOKSTUS;
+}
+
 drvstus_t rtc_ioctrl(device_t * devp, void * iopack)
 {
     uint_t retioclde = 0;
@@ -303,4 +313,49 @@ drvstus_t rtc_handle(uint_t ift_nr, void *devp, void * sframe)
 drvstus_t rtc_open(device_t * devp, void * iopack)
 {
     return krldev_inc_devcount(devp);
+}
+
+drvstus_t rtc_close(device_t * devp, void * iopack)
+{
+    return krldev_inc_devcount(devp);
+}
+
+drvstus_t rtc_write(device_t * devp, void * iopack)
+{
+    return DFCERRSTUS;
+}
+
+drvstus_t rtc_lseek(device_t * devp, void * iopack)
+{
+    return DFCERRSTUS;
+}
+
+drvstus_t rtc_dev_start(device_t * devp, void * iopack)
+{
+    return DFCERRSTUS;
+}
+
+drvstus_t rtc_dev_stop(device_t * devp, void * iopack)
+{
+    return DFCERRSTUS;
+}
+
+drvstus_t rtc_flush(device_t *devp, void * iopack)
+{
+    return DFCERRSTUS;
+}
+
+drvstus_t rtc_set_powerstus(device_t *devp, void * iopack)
+{
+    return DFCERRSTUS;
+}
+
+drvstus_t rtc_enum_dev(device_t * devp, void * iopack)
+{
+    return DFCERRSTUS;
+}
+
+drvstus_t rtc_shutdown(device_t * devp, void * iopack)
+{
+    return DFCERRSTUS;
 }
