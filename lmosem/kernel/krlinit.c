@@ -31,6 +31,7 @@ void init_krl()
     //testobjsmgr();
     init_krldevice();
     init_krldriver();
+    init_krlsched();
 
     init_ktime();
     hal_enable_irq();

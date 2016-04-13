@@ -122,6 +122,11 @@ CPU_UND_MODE	include/halinc/cpuctrl_t.h	12;"	d
 CPU_USR_MODE	include/halinc/cpuctrl_t.h	7;"	d
 CPU_VECTOR_PHYADR	include/halinc/platform_t.h	22;"	d
 CPU_VECTOR_VIRADR	include/halinc/platform_t.h	23;"	d
+DAFT_CIDLESPSR	include/knlinc/krlthread_t.h	27;"	d
+DAFT_CPSR	include/knlinc/krlthread_t.h	26;"	d
+DAFT_SPSR	include/knlinc/krlthread_t.h	25;"	d
+DAFT_TDKRLSTKSZ	include/knlinc/krlthread_t.h	23;"	d
+DAFT_TDUSRSTKSZ	include/knlinc/krlthread_t.h	22;"	d
 DD	Makefile	/^DD = dd$/;"	m
 DEVFLG_EXCLU	include/knlinc/krldevice_t.h	57;"	d
 DEVFLG_SHARE	include/knlinc/krldevice_t.h	58;"	d
@@ -257,6 +262,9 @@ KMEMPALCSZ_MIN	include/knlinc/krlpagempol_t.h	10;"	d
 KPMPORHALM	include/knlinc/krlpagempol_t.h	14;"	d
 KRLGLOBAL_H_	include/knlinc/krlglobal.h	5;"	d
 KRLGOBAL_HEAD	kernel/krlglobal.c	4;"	d	file:
+KRLSCHED_H	include/knlinc/krlsched.h	5;"	d
+KRLSCHED_T_H	include/knlinc/krlsched_t.h	5;"	d
+KRLTHREAD_H	include/knlinc/krlthread.h	5;"	d
 KRL_DEFGLOB_VARIABLE	include/knlinc/krlglobal_t.h	7;"	d
 KRL_PAGEMPOL_T_H	include/knlinc/krlobjsmpol_t.h	5;"	d
 KRL_SEM_T_H	include/knlinc/krlsem_t.h	5;"	d
@@ -307,6 +315,7 @@ MAPF_SZ_BIT	include/halinc/halmm_t.h	16;"	d
 MAPONE_SIZE	include/halinc/halmm_t.h	29;"	d
 MAP_FLAGS_VAL	include/halinc/halmm_t.h	30;"	d
 MGFLAGES	Makefile	/^MGFLAGES = -A arm -T kernel -C none -a 30007ebo -e 30008000 -d lmosemkrnl.bin lmosemkrnl.uimg$/;"	m
+MICRSTK_MAX	include/knlinc/krlthread_t.h	20;"	d
 MINTNR_END	include/halinc/halintrupt_t.h	51;"	d
 MINTNR_START	include/halinc/halintrupt_t.h	50;"	d
 MINT_FLG	include/halinc/halintrupt_t.h	59;"	d
@@ -319,7 +328,9 @@ MPLHTY_OBJS	include/knlinc/krlpagempol_t.h	17;"	d
 MPLHTY_PAGE	include/knlinc/krlpagempol_t.h	16;"	d
 MULHANDLE_FLG	include/halinc/halintrupt_t.h	17;"	d
 NANDFLASH_DEVICE	include/knlinc/krldevice_t.h	20;"	d
+NEED_SCHED_FLGS	include/knlinc/krlsched_t.h	8;"	d
 NETWORK_DEVICE	include/knlinc/krldevice_t.h	35;"	d
+NOTS_SCHED_FLGS	include/knlinc/krlsched_t.h	7;"	d
 NOT_DEVICE	include/knlinc/krldevice_t.h	7;"	d
 NO_HAND	include/bastypeinc/bastype_t.h	48;"	d
 NULL	include/bastypeinc/bastype_t.h	43;"	d
@@ -340,9 +351,14 @@ PAGE_TLB_DIR	include/halinc/platform_t.h	17;"	d
 PAGE_TLB_SIZE	include/halinc/platform_t.h	18;"	d
 PLFM_ADRSPCE_NR	include/halinc/platform_t.h	30;"	d
 PMPLMAP_MAX	include/knlinc/krlpagempol_t.h	9;"	d
+PMPT_FLGS	include/knlinc/krlsched_t.h	10;"	d
 PREMENTMFLGS	Makefile	/^PREMENTMFLGS = -C $(BUILD_PATH) -f pretreatment.mk$/;"	m
 PREMENT_OBJS	build/pretreatment.mk	/^PREMENT_OBJS = krnlobjs.mkh lmemknllink.lds$/;"	m
+PRILG_SYS	include/knlinc/krlthread_t.h	17;"	d
+PRILG_USR	include/knlinc/krlthread_t.h	18;"	d
 PRINTCSTR	build/krnlbuidrule.mk	/^PRINTCSTR	= @echo $(CCSTR)$/;"	m
+PRITY_MAX	include/knlinc/krlthread_t.h	15;"	d
+PRITY_MIN	include/knlinc/krlthread_t.h	16;"	d
 PTE_SECT_AP	include/halinc/platform_t.h	25;"	d
 PTE_SECT_BIT	include/halinc/platform_t.h	28;"	d
 PTE_SECT_DOMAIN	include/halinc/platform_t.h	26;"	d
@@ -388,6 +404,13 @@ TCFG0_R	include/drvinc/drvtick_t.h	7;"	d
 TCFG1_R	include/drvinc/drvtick_t.h	8;"	d
 TCNTB4_R	include/drvinc/drvtick_t.h	10;"	d
 TCON_R	include/drvinc/drvtick_t.h	9;"	d
+TDRUN_TICK	include/knlinc/krlthread_t.h	13;"	d
+TDSTUS_NEW	include/knlinc/krlthread_t.h	10;"	d
+TDSTUS_RUN	include/knlinc/krlthread_t.h	7;"	d
+TDSTUS_SLEEP	include/knlinc/krlthread_t.h	8;"	d
+TDSTUS_WAIT	include/knlinc/krlthread_t.h	9;"	d
+TDSTUS_ZOMB	include/knlinc/krlthread_t.h	11;"	d
+TD_HAND_MAX	include/knlinc/krlthread_t.h	29;"	d
 TEST_COUNT	kernel/krlpagempol.c	61;"	d	file:
 TICNT_R	include/drvinc/drvrtc_t.h	11;"	d
 TIMER_DEVICE	include/knlinc/krldevice_t.h	23;"	d
@@ -472,6 +495,7 @@ _KRLOBJNODE_H	include/knlinc/krlobjnode.h	5;"	d
 _KRLOBJNODE_T_H	include/knlinc/krlobjnode_t.h	5;"	d
 _KRLPAGEMPOL_H	include/knlinc/krlpagempol.h	5;"	d
 _KRLSEM_H	include/knlinc/krlsem.h	5;"	d
+_KRLTHREAD_T_H	include/knlinc/krlthread_t.h	5;"	d
 _KRLTIME_H	include/knlinc/krltime.h	5;"	d
 _KRLTYPES_H_	include/knlinc/krltypes.h	5;"	d
 _KRL_INIT_H	include/knlinc/krlinit.h	5;"	d
@@ -556,9 +580,15 @@ char_write_uart	hal/printfk.c	/^void char_write_uart(char_t * buf)$/;"	f
 clbss_l	hal/init.S	/^clbss_l:$/;"	l
 clear_bss	hal/init.S	/^clear_bss:$/;"	l
 cmp_adrsz	kernel/krlpagempol.c	/^void cmp_adrsz(adrsz_t * assp, uint_t nr)$/;"	f
+context_t	include/knlinc/krlthread_t.h	/^}context_t;$/;"	t	typeref:struct:s_CONTEXT
 cp15_read_c5	hal/halmmu.c	/^u32_t cp15_read_c5()$/;"	f
 cp15_read_c6	hal/halmmu.c	/^u32_t cp15_read_c6()$/;"	f
 cpuflg_t	include/bastypeinc/bastype_t.h	/^typedef u32_t cpuflg_t;$/;"	t
+ctx_cpsr	include/knlinc/krlthread_t.h	/^    reg_t   ctx_cpsr;$/;"	m	struct:s_CONTEXT
+ctx_lr	include/knlinc/krlthread_t.h	/^    reg_t   ctx_lr;$/;"	m	struct:s_CONTEXT
+ctx_svcsp	include/knlinc/krlthread_t.h	/^    reg_t   ctx_svcsp;$/;"	m	struct:s_CONTEXT
+ctx_svcspsr	include/knlinc/krlthread_t.h	/^    reg_t   ctx_svcspsr;$/;"	m	struct:s_CONTEXT
+ctx_usrsp	include/knlinc/krlthread_t.h	/^    reg_t   ctx_usrsp;$/;"	m	struct:s_CONTEXT
 curbit	hal/_udivsi3.S	/^curbit		.req	r3$/;"	l
 curbit	hal/_umodsi3.S	/^curbit		.req	r3$/;"	l
 date	include/knlinc/krltime_t.h	/^    uint_t  date;$/;"	m	struct:s_TIME
@@ -749,6 +779,7 @@ init_krldevice	kernel/krldevice.c	/^void init_krldevice()$/;"	f
 init_krldriver	kernel/krldevice.c	/^void init_krldriver()$/;"	f
 init_krlmm	kernel/krlmm.c	/^void init_krlmm()$/;"	f
 init_krlpagempol	kernel/krlpagempol.c	/^void init_krlpagempol()$/;"	f
+init_krlsched	kernel/krlsched.c	/^void init_krlsched()$/;"	f
 init_ktime	kernel/krltime.c	/^void init_ktime()$/;"	f
 init_mmapdsc	hal/halmm.c	/^void init_mmapdsc(mach_t * mahp)$/;"	f
 init_phymem	hal/halmm.c	/^void init_phymem()$/;"	f
@@ -811,6 +842,7 @@ krlsem_down	kernel/krlsem.c	/^void krlsem_down(sem_t * sem)$/;"	f
 krlsem_set_sem	kernel/krlsem.c	/^void krlsem_set_sem(sem_t * setsem, uint_t flg, size_t count)$/;"	f
 krlsem_t_init	kernel/krlsem.c	/^void krlsem_t_init(sem_t * initp)$/;"	f
 krlsem_up	kernel/krlsem.c	/^void krlsem_up(sem_t * sem)$/;"	f
+krlsve_time	kernel/krltime.c	/^sysstus_t krlsve_time(time_t * time)$/;"	f
 krlupdate_times	kernel/krltime.c	/^void krlupdate_times(uint_t year, uint_t mon, uint_t day, uint_t date, uint_t hour, uint_t min, uint_t sec)$/;"	f
 kt_datap	include/knlinc/krltime_t.h	/^    void *	kt_datap;$/;"	m	struct:s_KTIME
 kt_date	include/knlinc/krltime_t.h	/^    uint_t	kt_date;$/;"	m	struct:s_KTIME
@@ -881,6 +913,7 @@ mh_pmnr	include/knlinc/krlpagempol_t.h	/^    uint_t	mh_pmnr;$/;"	m	struct:s_MPLH
 mh_spedsc	include/halinc/halmach_t.h	/^    phyadrspce_t    *mh_spedsc;$/;"	m	struct:s_MACH
 mh_spedscnr	include/halinc/halmach_t.h	/^    uint_t	mh_spedscnr;$/;"	m	struct:s_MACH
 mh_start	include/knlinc/krlpagempol_t.h	/^    adr_t	mh_start;$/;"	m	struct:s_MPLHEAD
+micrstk_t	include/knlinc/krlthread_t.h	/^}micrstk_t;$/;"	t	typeref:struct:s_MICRSTK
 min	include/knlinc/krltime_t.h	/^    uint_t  min;$/;"	m	struct:s_TIME
 mmapdsc_t	include/halinc/halmm_t.h	/^}mmapdsc_t;$/;"	t	typeref:struct:s_MMAPDSC
 mmapdsc_t_init	hal/halmm.c	/^void mmapdsc_t_init(mmapdsc_t * mmp, adr_t phyadrs, adr_t phyadre, u32_t allcount, u32_t flgs)$/;"	f
@@ -900,6 +933,7 @@ mp_stus	include/knlinc/krlpagempol_t.h	/^    uint_t	mp_stus;$/;"	m	struct:s_KMEM
 mplhead_t	include/knlinc/krlpagempol_t.h	/^}mplhead_t;$/;"	t	typeref:struct:s_MPLHEAD
 mplhead_t_init	kernel/krlpagempol.c	/^void mplhead_t_init(mplhead_t * initp)$/;"	f
 mrv_t	include/bastypeinc/bastype_t.h	/^typedef unsigned long mrv_t;$/;"	t
+msk_val	include/knlinc/krlthread_t.h	/^    uint_t msk_val[MICRSTK_MAX];$/;"	m	struct:s_MICRSTK
 new_device_dsc	kernel/krldevice.c	/^device_t * new_device_dsc()$/;"	f
 new_driver_dsc	kernel/krldevice.c	/^driver_t * new_driver_dsc()$/;"	f
 new_objs_mpool	kernel/krlpagempol.c	/^mplhead_t * new_objs_mpool(kmempool_t * kmplockp, size_t msize)$/;"	f
@@ -1049,6 +1083,7 @@ s64_t	include/bastypeinc/bastype_t.h	/^typedef long long s64_t;$/;"	t
 s8_t	include/bastypeinc/bastype_t.h	/^typedef char s8_t;$/;"	t
 s_ALCFRELST	include/halinc/halmm_t.h	/^typedef struct s_ALCFRELST$/;"	s
 s_ARMREGS	include/halinc/cpu_t.h	/^typedef struct s_ARMREGS$/;"	s
+s_CONTEXT	include/knlinc/krlthread_t.h	/^typedef struct s_CONTEXT$/;"	s
 s_DEVICE	include/knlinc/krldevice_t.h	/^typedef struct s_DEVICE$/;"	s
 s_DEVID	include/knlinc/krldevice_t.h	/^typedef struct s_DEVID$/;"	s
 s_DEVLIST	include/knlinc/krldevice_t.h	/^typedef struct s_DEVLIST$/;"	s
@@ -1063,6 +1098,7 @@ s_KTIME	include/knlinc/krltime_t.h	/^typedef struct s_KTIME$/;"	s
 s_KWLST	include/bastypeinc/sem_t.h	/^typedef struct s_KWLST$/;"	s
 s_LIST_H	include/bastypeinc/list_t.h	/^typedef struct s_LIST_H {$/;"	s
 s_MACH	include/halinc/halmach_t.h	/^typedef struct s_MACH$/;"	s
+s_MICRSTK	include/knlinc/krlthread_t.h	/^typedef struct s_MICRSTK$/;"	s
 s_MMAPDSC	include/halinc/halmm_t.h	/^typedef struct s_MMAPDSC$/;"	s
 s_MPLHEAD	include/knlinc/krlpagempol_t.h	/^typedef struct s_MPLHEAD$/;"	s
 s_OBJALST	include/knlinc/krlobjsmpol_t.h	/^typedef struct s_OBJALST$/;"	s
@@ -1073,7 +1109,11 @@ s_OLCFGDAT	include/knlinc/krlobjsmpol_t.h	/^typedef struct s_OLCFGDAT$/;"	s
 s_PGLMAP	include/knlinc/krlpagempol_t.h	/^typedef struct s_PGLMAP$/;"	s
 s_PHYADRSPEC	include/halinc/halmm_t.h	/^typedef struct s_PHYADRSPEC$/;"	s
 s_PHYMEM	include/halinc/halmm_t.h	/^typedef struct s_PHYMEM$/;"	s
+s_SCHDATA	include/knlinc/krlsched_t.h	/^typedef struct s_SCHDATA$/;"	s
+s_SCHEDCLASS	include/knlinc/krlsched_t.h	/^typedef struct s_SCHEDCLASS$/;"	s
 s_SEM	include/bastypeinc/sem_t.h	/^typedef struct s_SEM$/;"	s
+s_THRDLST	include/knlinc/krlsched_t.h	/^typedef struct s_THRDLST$/;"	s
+s_THREAD	include/knlinc/krlthread_t.h	/^typedef struct s_THREAD$/;"	s
 s_TIME	include/knlinc/krltime_t.h	/^typedef struct s_TIME$/;"	s
 s_adrsz	kernel/krlpagempol.c	/^typedef struct s_adrsz$/;"	s	file:
 s_device	include/halinc/halintrupt_t.h	/^    void * s_device;$/;"	m	struct:s_INTSERDEC
@@ -1085,6 +1125,24 @@ s_intfltp	include/halinc/halintrupt_t.h	/^    intfltdsc_t * s_intfltp;$/;"	m	str
 s_list	include/halinc/halintrupt_t.h	/^    list_h_t s_list;$/;"	m	struct:s_INTSERDEC
 s_lr	include/halinc/cpu_t.h	/^    reg_t s_lr;$/;"	m	struct:s_INTSTKREGS
 s_spsr	include/halinc/cpu_t.h	/^    reg_t s_spsr;$/;"	m	struct:s_INTSTKREGS
+schdata_t	include/knlinc/krlsched_t.h	/^}schdata_t;$/;"	t	typeref:struct:s_SCHDATA
+schdata_t_init	kernel/krlsched.c	/^void schdata_t_init(schdata_t * initp)$/;"	f
+schedclass_t	include/knlinc/krlsched_t.h	/^}schedclass_t;$/;"	t	typeref:struct:s_SCHEDCLASS
+schedclass_t_init	kernel/krlsched.c	/^void schedclass_t_init(schedclass_t * initp)$/;"	f
+scls_cpunr	include/knlinc/krlsched_t.h	/^    uint_t	scls_cpunr;$/;"	m	struct:s_SCHEDCLASS
+scls_lock	include/knlinc/krlsched_t.h	/^    spinlock_t	scls_lock;$/;"	m	struct:s_SCHEDCLASS
+scls_schda	include/knlinc/krlsched_t.h	/^    schdata_t	scls_schda[CPUCORE_MAX];$/;"	m	struct:s_SCHEDCLASS
+scls_threadid_inc	include/knlinc/krlsched_t.h	/^    uint_t	scls_threadid_inc;$/;"	m	struct:s_SCHEDCLASS
+scls_threadnr	include/knlinc/krlsched_t.h	/^    uint_t	scls_threadnr;$/;"	m	struct:s_SCHEDCLASS
+sda_cpuid	include/knlinc/krlsched_t.h	/^    uint_t	sda_cpuid;$/;"	m	struct:s_SCHDATA
+sda_cpuidle	include/knlinc/krlsched_t.h	/^    thread_t *	sda_cpuidle;$/;"	m	struct:s_SCHDATA
+sda_currtd	include/knlinc/krlsched_t.h	/^    thread_t *	sda_currtd;$/;"	m	struct:s_SCHDATA
+sda_lock	include/knlinc/krlsched_t.h	/^    spinlock_t	sda_lock;$/;"	m	struct:s_SCHDATA
+sda_premptidx	include/knlinc/krlsched_t.h	/^    uint_t	sda_premptidx;$/;"	m	struct:s_SCHDATA
+sda_prityidx	include/knlinc/krlsched_t.h	/^    uint_t	sda_prityidx;$/;"	m	struct:s_SCHDATA
+sda_schdflgs	include/knlinc/krlsched_t.h	/^    uint_t	sda_schdflgs;$/;"	m	struct:s_SCHDATA
+sda_thdlst	include/knlinc/krlsched_t.h	/^    thrdlst_t	sda_thdlst[PRITY_MAX];$/;"	m	struct:s_SCHDATA
+sda_threadnr	include/knlinc/krlsched_t.h	/^    uint_t	sda_threadnr;$/;"	m	struct:s_SCHDATA
 sec	include/knlinc/krltime_t.h	/^    uint_t  sec;$/;"	m	struct:s_TIME
 sem_count	include/bastypeinc/sem_t.h	/^    sint_t	sem_count;$/;"	m	struct:s_SEM
 sem_flg	include/bastypeinc/sem_t.h	/^    uint_t	sem_flg;$/;"	m	struct:s_SEM
@@ -1116,6 +1174,29 @@ systick_set_powerstus	drivers/drvtick.c	/^drvstus_t systick_set_powerstus(device
 systick_shutdown	drivers/drvtick.c	/^drvstus_t systick_shutdown(device_t * devp, void * iopack)$/;"	f
 systick_write	drivers/drvtick.c	/^drvstus_t systick_write(device_t * devp, void * iopack)$/;"	f
 sz	kernel/krlpagempol.c	/^    size_t sz;$/;"	m	struct:s_adrsz	file:
+td_context	include/knlinc/krlthread_t.h	/^    context_t	td_context;$/;"	m	struct:s_THREAD
+td_cpuid	include/knlinc/krlthread_t.h	/^    uint_t	td_cpuid;$/;"	m	struct:s_THREAD
+td_extdatap	include/knlinc/krlthread_t.h	/^    void *	td_extdatap;$/;"	m	struct:s_THREAD
+td_flgs	include/knlinc/krlthread_t.h	/^    uint_t	td_flgs;$/;"	m	struct:s_THREAD
+td_handtbl	include/knlinc/krlthread_t.h	/^    objnode_t * td_handtbl[TD_HAND_MAX];$/;"	m	struct:s_THREAD
+td_id	include/knlinc/krlthread_t.h	/^    uint_t	td_id;$/;"	m	struct:s_THREAD
+td_krlstkstart	include/knlinc/krlthread_t.h	/^    adr_t	td_krlstkstart;$/;"	m	struct:s_THREAD
+td_krlstktop	include/knlinc/krlthread_t.h	/^    adr_t	td_krlstktop;$/;"	m	struct:s_THREAD
+td_list	include/knlinc/krlthread_t.h	/^    list_h_t	td_list;$/;"	m	struct:s_THREAD
+td_lock	include/knlinc/krlthread_t.h	/^    spinlock_t	td_lock;$/;"	m	struct:s_THREAD
+td_mmdsc	include/knlinc/krlthread_t.h	/^    void *	td_mmdsc;$/;"	m	struct:s_THREAD
+td_priority	include/knlinc/krlthread_t.h	/^    uint_t	td_priority;$/;"	m	struct:s_THREAD
+td_privilege	include/knlinc/krlthread_t.h	/^    uint_t	td_privilege;$/;"	m	struct:s_THREAD
+td_privtep	include/knlinc/krlthread_t.h	/^    void *	td_privtep;$/;"	m	struct:s_THREAD
+td_resdsc	include/knlinc/krlthread_t.h	/^    void *	td_resdsc;$/;"	m	struct:s_THREAD
+td_runmode	include/knlinc/krlthread_t.h	/^    uint_t	td_runmode;$/;"	m	struct:s_THREAD
+td_stus	include/knlinc/krlthread_t.h	/^    uint_t	td_stus;$/;"	m	struct:s_THREAD
+td_tick	include/knlinc/krlthread_t.h	/^    uint_t	td_tick;$/;"	m	struct:s_THREAD
+td_usrstkstart	include/knlinc/krlthread_t.h	/^    adr_t	td_usrstkstart;$/;"	m	struct:s_THREAD
+td_usrstktop	include/knlinc/krlthread_t.h	/^    adr_t	td_usrstktop;$/;"	m	struct:s_THREAD
+tdl_curruntd	include/knlinc/krlsched_t.h	/^    thread_t *	tdl_curruntd;$/;"	m	struct:s_THRDLST
+tdl_lsth	include/knlinc/krlsched_t.h	/^    list_h_t	tdl_lsth;$/;"	m	struct:s_THRDLST
+tdl_nr	include/knlinc/krlsched_t.h	/^    uint_t	tdl_nr;$/;"	m	struct:s_THRDLST
 test	hal/init.S	/^test:$/;"	l
 test1	hal/init.S	/^test1:$/;"	l
 test2	hal/init.S	/^test2:$/;"	l
@@ -1125,6 +1206,10 @@ testblkalloc	hal/halmm.c	/^void testblkalloc()$/;"	f
 testobjsmgr	kernel/krlpagempol.c	/^void testobjsmgr()$/;"	f
 testpagemgr	kernel/krlpagempol.c	/^void testpagemgr()$/;"	f
 testpgmpool	kernel/krlpagempol.c	/^void testpgmpool()$/;"	f
+testrtc	kernel/krlinit.c	/^void testrtc()$/;"	f
+thrdlst_t	include/knlinc/krlsched_t.h	/^}thrdlst_t;$/;"	t	typeref:struct:s_THRDLST
+thrdlst_t_init	kernel/krlsched.c	/^void thrdlst_t_init(thrdlst_t * initp)$/;"	f
+thread_t	include/knlinc/krlthread_t.h	/^}thread_t;$/;"	t	typeref:struct:s_THREAD
 time_t	include/knlinc/krltime_t.h	/^}time_t;$/;"	t	typeref:struct:s_TIME
 tstbb	hal/init.S	/^tstbb: .word __begin_bss$/;"	l
 tstbe	hal/init.S	/^tstbe: .word __end_bss$/;"	l

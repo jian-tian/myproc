@@ -13,4 +13,7 @@
 #include "krlsem.h"
 #include "krlintupt.h"
 #include "krltime.h"
+#include "krlthread.h"
+#include "krlsched.h"
+
 #endif

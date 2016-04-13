@@ -11,5 +11,7 @@
 #include "krlobjnode_t.h"
 #include "krlsem_t.h"
 #include "krltime_t.h"
+#include "krlthread_t.h"
+#include "krlsched_t.h"
 
 #endif
