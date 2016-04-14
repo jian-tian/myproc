@@ -260,6 +260,8 @@ KLINE	include/bastypeinc/bastype_t.h	38;"	d
 KMEMPALCSZ_MAX	include/knlinc/krlpagempol_t.h	11;"	d
 KMEMPALCSZ_MIN	include/knlinc/krlpagempol_t.h	10;"	d
 KPMPORHALM	include/knlinc/krlpagempol_t.h	14;"	d
+KRLCPUIDLE_H	include/knlinc/krlcpuidle.h	5;"	d
+KRLCPUIDLE_T_H	include/knlinc/krlcpuidle_t.h	5;"	d
 KRLGLOBAL_H_	include/knlinc/krlglobal.h	5;"	d
 KRLGOBAL_HEAD	kernel/krlglobal.c	4;"	d	file:
 KRLSCHED_H	include/knlinc/krlsched.h	5;"	d
@@ -775,6 +777,7 @@ init_halmm	hal/halmm.c	/^void init_halmm()$/;"	f
 init_haluart	hal/haluart.c	/^void init_haluart()$/;"	f
 init_intfltdsc	hal/halintrupt.c	/^void init_intfltdsc(mach_t * machp)$/;"	f
 init_krl	kernel/krlinit.c	/^void init_krl()$/;"	f
+init_krlcpuidle	kernel/krlcpuidle.c	/^void init_krlcpuidle()$/;"	f
 init_krldevice	kernel/krldevice.c	/^void init_krldevice()$/;"	f
 init_krldriver	kernel/krldevice.c	/^void init_krldriver()$/;"	f
 init_krlmm	kernel/krlmm.c	/^void init_krlmm()$/;"	f
@@ -816,6 +819,8 @@ kmempool_t	include/knlinc/krlpagempol_t.h	/^}kmempool_t;$/;"	t	typeref:struct:s_
 kmempool_t_init	kernel/krlpagempol.c	/^void kmempool_t_init(kmempool_t * mph)$/;"	f
 krladd_irqhandle	kernel/krlintupt.c	/^intserdsc_t * krladd_irqhandle(void * device, intflthandle_t handle, uint_t phyline)$/;"	f
 krlcmp_devid	kernel/krldevice.c	/^bool_t krlcmp_devid(devid_t * sdidp, devid_t * cdidp)$/;"	f
+krlcpuidle_main	kernel/krlcpuidle.c	/^void krlcpuidle_main()$/;"	f
+krlcpuidle_start	kernel/krlcpuidle.c	/^void krlcpuidle_start()$/;"	f
 krldel_objnode	kernel/krlobjnode.c	/^bool_t krldel_objnode(objnode_t * ondp)$/;"	f
 krldelete	kernel/krlmm.c	/^bool_t krldelete(adr_t fradr, size_t frsz)$/;"	f
 krldev_add_driver	kernel/krldevice.c	/^drvstus_t krldev_add_driver(device_t * devp, driver_t * drvp)$/;"	f
@@ -843,6 +848,7 @@ krlsem_set_sem	kernel/krlsem.c	/^void krlsem_set_sem(sem_t * setsem, uint_t flg,
 krlsem_t_init	kernel/krlsem.c	/^void krlsem_t_init(sem_t * initp)$/;"	f
 krlsem_up	kernel/krlsem.c	/^void krlsem_up(sem_t * sem)$/;"	f
 krlsve_time	kernel/krltime.c	/^sysstus_t krlsve_time(time_t * time)$/;"	f
+krlthreadkrlsatck_init	kernel/krlthread.c	/^void krlthreadkrlsatck_init(thread_t * thdp, void * runadr, reg_t cpsr, reg_t spsr)$/;"	f
 krlupdate_times	kernel/krltime.c	/^void krlupdate_times(uint_t year, uint_t mon, uint_t day, uint_t date, uint_t hour, uint_t min, uint_t sec)$/;"	f
 kt_datap	include/knlinc/krltime_t.h	/^    void *	kt_datap;$/;"	m	struct:s_KTIME
 kt_date	include/knlinc/krltime_t.h	/^    uint_t	kt_date;$/;"	m	struct:s_KTIME
@@ -934,6 +940,8 @@ mplhead_t	include/knlinc/krlpagempol_t.h	/^}mplhead_t;$/;"	t	typeref:struct:s_MP
 mplhead_t_init	kernel/krlpagempol.c	/^void mplhead_t_init(mplhead_t * initp)$/;"	f
 mrv_t	include/bastypeinc/bastype_t.h	/^typedef unsigned long mrv_t;$/;"	t
 msk_val	include/knlinc/krlthread_t.h	/^    uint_t msk_val[MICRSTK_MAX];$/;"	m	struct:s_MICRSTK
+new_cpuidle	kernel/krlcpuidle.c	/^void new_cpuidle()$/;"	f
+new_cpuidle_thread	kernel/krlcpuidle.c	/^thread_t * new_cpuidle_thread()$/;"	f
 new_device_dsc	kernel/krldevice.c	/^device_t * new_device_dsc()$/;"	f
 new_driver_dsc	kernel/krldevice.c	/^driver_t * new_driver_dsc()$/;"	f
 new_objs_mpool	kernel/krlpagempol.c	/^mplhead_t * new_objs_mpool(kmempool_t * kmplockp, size_t msize)$/;"	f
@@ -1050,6 +1058,7 @@ raise	hal/lmosemhal_start.c	/^LKHEAD_T void raise(uint_t signum)$/;"	f
 reg_t	include/bastypeinc/bastype_t.h	/^typedef u32_t reg_t;$/;"	t
 reset	hal/init.S	/^reset:$/;"	l
 result	hal/_udivsi3.S	/^result		.req	r2$/;"	l
+retnfrom_first_sched	kernel/krlsched.c	/^void retnfrom_first_sched(thread_t * thrdp)$/;"	f
 rtc_close	drivers/drvrtc.c	/^drvstus_t rtc_close(device_t * devp, void * iopack)$/;"	f
 rtc_dev_start	drivers/drvrtc.c	/^drvstus_t rtc_dev_start(device_t * devp, void * iopack)$/;"	f
 rtc_dev_stop	drivers/drvrtc.c	/^drvstus_t rtc_dev_stop(device_t * devp, void * iopack)$/;"	f

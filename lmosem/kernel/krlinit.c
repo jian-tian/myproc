@@ -34,6 +34,7 @@ void init_krl()
     init_krlsched();
 
     init_ktime();
+    init_krlcpuidle();
     hal_enable_irq();
     //testrtc();
     for(;;);

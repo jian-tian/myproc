@@ -51,3 +51,18 @@ void init_krlsched()
     schedclass_t_init(&osschedcls);
     return;
 }
+
+void retnfrom_first_sched(thread_t * thrdp)
+{
+    __asm__ __volatile__(
+	"msr spsr, %[svcspsr]\n\r"
+	"mov sp, %[svcsp]\n\r"
+	"mov lr, %[usrlr]\n\r"
+	"ldmia sp, {r0-lr}\n\r"
+	"add sp, sp, #60\n\r"
+	"movs pc, lr\n\r"
+	:
+	:[svcsp]"r"(thrdp->td_context.ctx_svcsp),[svcspsr]"r"(thrdp->td_context.ctx_svcspsr), [usrlr]"r"(thrdp->td_context.ctx_lr)
+	:"cc","memory"
+    );
+}
