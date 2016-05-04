@@ -126,7 +126,10 @@ drvstus_t systick_exit(driver_t * drvp, uint_t val, void *p)
 /*中断回调函数*/
 drvstus_t systick_handle(uint_t ift_nr, void *devp, void * sframe)
 {
-    printfk("systick handle run!\n\r");
+    //printfk("systick handle run!\n\r");
+    //printfk("systick handle run!\n\r");
+    /*增加运行进程的tick*/
+    krlthd_inc_tick(krlsched_retn_currthread());
     return DFCOKSTUS;
 }
 

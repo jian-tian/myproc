@@ -88,6 +88,13 @@ uint_t hal_retn_intnr()
     return (uint_t)hal_io32_read(INTOFFSET_R);
 }
 
+drvstus_t hal_clear_intpnd(uint_t bitnr)
+{
+    u32_t inttmp = 1<<bitnr;
+    hal_io32_write(INTPND_R, inttmp);
+    return DFCOKSTUS;
+}
+
 drvstus_t hal_clear_srcpnd(uint_t ifdnr)
 {
     u32_t inttmp;

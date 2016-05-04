@@ -119,8 +119,8 @@ void hal_irq_distr(void * sframe)
 	    hal_int_distr(sframe, intoset);
 	    break;
     }
-    //hal_clear_intpnd(intoset);
-//    krlsched_chkneed_pmptsched();
+    hal_clear_intpnd(intoset);
+    krlsched_chkneed_pmptsched();
     return;
 }
 
