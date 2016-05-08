@@ -16,5 +16,6 @@
 #include "krlthread.h"
 #include "krlsched.h"
 #include "krlcpuidle.h"
+#include "krlwaitlist.h"
 
 #endif

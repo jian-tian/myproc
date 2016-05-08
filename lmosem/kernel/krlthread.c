@@ -97,7 +97,6 @@ thread_t * krlnew_thread_dsc()
 thread_t * krlnew_thread_core(void * filerun, uint_t flg, uint_t prilg, uint_t prity, size_t usrstksz, size_t krlstksz)
 {
     thread_t * ret_td = NULL;
-    bool_t  acs = FALSE;
     adr_t   usrstkadr = NULL;
     adr_t   krlstkadr = NULL;
 
@@ -151,7 +150,7 @@ thread_t * krlnew_thread_core(void * filerun, uint_t flg, uint_t prilg, uint_t p
 void krlthd_inc_tick(thread_t * thdp)
 {
     cpuflg_t cpufg;
-    hal_spinlock_saveflg_cli(&thdp->td_list, &cpufg);
+    hal_spinlock_saveflg_cli(&thdp->td_lock, &cpufg);
     thdp->td_tick++;
     if(thdp->td_tick > TDRUN_TICK)
     {

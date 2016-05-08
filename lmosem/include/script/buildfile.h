@@ -4,7 +4,7 @@
 #define BUILD_BOOT_OBJS
 #define BUILD_HALY_OBJS init.o lmosemhal_start.o interrupt.o intabtdistr.o halglobal.o halinit.o vector.o platform.o printfk.o div0.o _udivsi3.o _umodsi3.o _modsi3.o _divsi3.o cpuctrl.o halmach.o halmmu.o halmm.o haluart.o halintrupt.o
 
-#define BUILD_KRNL_OBJS krlinit.o krlpagempol.o krlglobal.o krlmm.o krlintupt.o krlobjnode.o krldevice.o krlsem.o krltime.o krlsched.o krlthread.o krlcpuidle.o
+#define BUILD_KRNL_OBJS krlinit.o krlpagempol.o krlglobal.o krlmm.o krlintupt.o krlobjnode.o krldevice.o krlsem.o krltime.o krlsched.o krlthread.o krlcpuidle.o krlwaitlist.o
 
 #define BUILD_MEMY_OBJS
 

@@ -73,7 +73,7 @@ void krlschdclass_add_thread(thread_t * thdp)
     schdata_t * schdap = &osschedcls.scls_schda[cpuid];
     cpuflg_t cpufg;
 
-    hal_spinlock_saveflg_cli(&schdap->sda_lock, cpufg);
+    hal_spinlock_saveflg_cli(&schdap->sda_lock, &cpufg);
     /*将进程添加入对应优先级的thdlst_t结构的链表中*/
     list_add(&thdp->td_list, &schdap->sda_thdlst[thdp->td_priority].tdl_lsth);
     schdap->sda_thdlst[thdp->td_priority].tdl_nr++;
@@ -129,8 +129,197 @@ void krlsched_chkneed_pmptsched(void)
     hal_spinunlock_restflg_sti(&schdap->sda_lock, &cpufg);
     if(1 == schd)
     {
-	//krlschedul();
+	krlschedul();
     }
 
     return;
 }
+
+thread_t * krlsched_retn_idlethread(void)
+{
+    uint_t cpuid = hal_retn_cpuid();
+    schdata_t * schdap = &osschedcls.scls_schda[cpuid];
+    if(schdap->sda_cpuidle == NULL)
+    {
+	hal_sysdie("schdap->sda_cpuidle NULL\n\t");
+    }
+
+    return schdap->sda_cpuidle;
+}
+
+thread_t * krlsched_select_thread(void)
+{
+    thread_t * retthd, * tdtmp;
+    cpuflg_t cpufg;
+    uint_t cpuid = hal_retn_cpuid();
+    schdata_t * schdap = &osschedcls.scls_schda[cpuid];
+
+    hal_spinlock_saveflg_cli(&schdap->sda_lock, &cpufg);
+    for(uint_t pity = 0; pity < PRITY_MAX; pity++)
+    {
+	if(schdap->sda_thdlst[pity].tdl_nr > 0)
+	{
+	    if(list_is_empty_careful(&(schdap->sda_thdlst[pity].tdl_lsth)) == FALSE)
+	    {
+		tdtmp = list_entry(schdap->sda_thdlst[pity].tdl_lsth.next, thread_t, td_list);
+		list_del(&tdtmp->td_list);
+		if(schdap->sda_thdlst[pity].tdl_curruntd != NULL)
+		{
+		    list_add_tail(&(schdap->sda_thdlst[pity].tdl_curruntd->td_list), 
+				    &(schdap->sda_thdlst[pity].tdl_lsth));
+		}
+		schdap->sda_thdlst[pity].tdl_curruntd = tdtmp;
+		retthd = tdtmp;
+		goto return_step;
+	    }
+
+	    if(schdap->sda_thdlst[pity].tdl_curruntd != NULL)
+	    {
+		retthd = schdap->sda_thdlst[pity].tdl_curruntd;
+		goto return_step;
+	    }
+	}
+    }
+
+    schdap->sda_prityidx = PRITY_MIN;
+    retthd = krlsched_retn_idlethread();
+return_step:
+    hal_spinunlock_restflg_sti(&schdap->sda_lock, &cpufg);
+    return retthd;
+}
+
+void save_to_new_contex(thread_t * next, thread_t * prev)
+{
+    cpuflg_t cpufg;
+    hal_disableirq_savecpuflg(&cpufg);
+
+    __asm__ __volatile__("stmfd sp!, {r0-r12, lr} \n\t"
+			 ::: "memory"
+    );
+
+    __asm__ __volatile__(
+	"mrs lr, spsr\n\t"
+	"str lr, [%[PREV_SPSR]] \n\t"
+	"mrs lr, cpsr\n\t"
+	"str lr, [%[PREV_CPSR]] \n\t"
+
+	"msr spsr, %[NEXT_SPSR] \n\t"
+	"msr cpsr, %[NEXT_CPSR] \n\t"
+
+	"str sp, [%[PREV_SVCSP]] \n\t"
+	"ldr sp, [%[NEXT_SVCSP]] \n\t"
+
+	"mov r0, %[NEXT_TD] \n\t"
+	"mov r1, %[PREV_TD] \n\t"
+	"bl __to_new_contex \n\t"
+	:
+	:[PREV_TD] "r" (prev), [NEXT_TD] "r" (next), [PREV_SVCSP] "r" (&prev->td_context.ctx_svcsp), [PREV_SPSR] "r" (&prev->td_context.ctx_svcspsr), [PREV_CPSR] "r" (&prev->td_context.ctx_cpsr), [NEXT_SVCSP] "r" (&next->td_context.ctx_svcsp), [NEXT_SPSR] "r" (next->td_context.ctx_svcspsr), [NEXT_CPSR] "r" (next->td_context.ctx_cpsr)
+	:"lr", "cc", "memory"
+    );
+
+    __asm__ __volatile__(
+	"ldmfd sp!, {r0-r12, lr} \n\t"
+	:::"memory"
+    );
+
+    hal_enableirq_restcpuflg(&cpufg);
+    return;
+}
+
+void __to_new_contex(thread_t * next, thread_t * prev)
+{
+    uint_t cpuid = hal_retn_cpuid();
+    schdata_t * schdap = &osschedcls.scls_schda[cpuid];
+    schdap->sda_currtd = next;
+    if(next->td_stus == TDSTUS_NEW)
+    {
+	next->td_stus = TDSTUS_RUN;
+	retnfrom_first_sched(next);
+    }
+    return;
+}
+
+void krlschedul(void)
+{
+    thread_t * prev = krlsched_retn_currthread();
+    thread_t * next = krlsched_select_thread();
+    save_to_new_contex(next, prev);
+    return;
+}
+
+void krlsched_wait(kwlst_t * wlst)
+{
+    cpuflg_t cpufg, tcufg;
+    uint_t cpuid = hal_retn_cpuid();
+    schdata_t * schdap = &osschedcls.scls_schda[cpuid];
+    /*获取当前进程*/
+    thread_t * tdp = krlsched_retn_currthread();
+    uint_t pity = tdp->td_priority;
+    if(pity > PRITY_MAX || wlst == NULL)
+    {
+	goto err_step;
+    }
+    if(schdap->sda_thdlst[pity].tdl_nr < 1)
+    {
+	goto err_step;
+    }
+    
+    hal_spinlock_saveflg_cli(&schdap->sda_lock, &cpufg);
+    hal_spinlock_saveflg_cli(&tdp->td_lock, &tcufg);
+    /*将当前进程设置为等待*/
+    tdp->td_stus = TDSTUS_WAIT;
+    /*井进程从调度进程表中相关链表上拿出来*/
+    list_del(&tdp->td_list);
+    hal_spinunlock_restflg_sti(&tdp->td_lock, &tcufg);
+    /*如果拿出的进程和当前优先级链表上正在运行的进程相同，让其为NULL*/
+    if(schdap->sda_thdlst[pity].tdl_curruntd == tdp)
+    {
+	schdap->sda_thdlst[pity].tdl_curruntd = NULL;
+    }
+    /*进程数减一*/
+    schdap->sda_thdlst[pity].tdl_nr--;
+    hal_spinunlock_restflg_sti(&schdap->sda_lock, &cpufg);
+    /*进程加入到相关的kwlst_t结构中*/
+    krlwlst_add_thread(wlst, tdp);
+    return;
+err_step:
+    hal_sysdie("krlsched_wait err");
+    return;
+}
+
+void krlsched_up(kwlst_t *wlst)
+{
+    cpuflg_t cpufg, tpufg;
+    uint_t cpuid = hal_retn_cpuid();
+    schdata_t *schdap = &osschedcls.scls_schda[cpuid];
+    thread_t * tdp;
+    uint_t pity;
+    if(wlst == NULL)
+    {
+	goto err_step;
+    }
+    tdp = krlwlst_del_thread(wlst);
+    if(tdp == NULL)
+    {
+	goto err_step;
+    }
+    pity = tdp->td_priority;
+    if(pity > PRITY_MAX)
+    {
+	goto err_step;
+    }
+
+    hal_spinlock_saveflg_cli(&schdap->sda_lock, &cpufg);
+    hal_spinlock_saveflg_cli(&tdp->td_lock, &tpufg);
+    tdp->td_stus = TDSTUS_RUN;
+    hal_spinunlock_restflg_sti(&tdp->td_lock, &tpufg);
+    list_add_tail(&tdp->td_list, &(schdap->sda_thdlst[pity].tdl_lsth));
+    schdap->sda_thdlst[pity].tdl_nr++;
+    hal_spinunlock_restflg_sti(&schdap->sda_lock, &cpufg);
+    return;
+err_step:
+    hal_sysdie("krlschedp_up err");
+    return;
+}
+
+
