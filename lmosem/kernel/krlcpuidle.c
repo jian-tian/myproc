@@ -103,6 +103,6 @@ void krlcpuidle_main()
     for(;;)
     {
 	printfk("cpuidle is run!!\n\r");
-	//krlschedul();
+	krlschedul();
     }
 }

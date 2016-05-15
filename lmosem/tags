@@ -267,9 +267,11 @@ KRLGOBAL_HEAD	kernel/krlglobal.c	4;"	d	file:
 KRLSCHED_H	include/knlinc/krlsched.h	5;"	d
 KRLSCHED_T_H	include/knlinc/krlsched_t.h	5;"	d
 KRLTHREAD_H	include/knlinc/krlthread.h	5;"	d
+KRLWAITLIST_T_H	include/knlinc/krlwaitlist_t.h	5;"	d
 KRL_DEFGLOB_VARIABLE	include/knlinc/krlglobal_t.h	7;"	d
 KRL_PAGEMPOL_T_H	include/knlinc/krlobjsmpol_t.h	5;"	d
 KRL_SEM_T_H	include/knlinc/krlsem_t.h	5;"	d
+KRL_WAIT_LIST_H	include/knlinc/krlwaitlist.h	5;"	d
 KRNL_INRAM_START	include/halinc/platform_t.h	12;"	d
 KTIME_T_H	include/knlinc/krltime_t.h	5;"	d
 LCDCONTER_DEVICE	include/knlinc/krldevice_t.h	19;"	d
@@ -548,6 +550,7 @@ __list_add	include/bastypeinc/list.h	/^KLINE void __list_add(list_h_t *new, list
 __list_del	include/bastypeinc/list.h	/^KLINE void __list_del(list_h_t * prev, list_h_t * next)$/;"	f
 __list_del_entry	include/bastypeinc/list.h	/^KLINE void __list_del_entry(list_h_t *entry)$/;"	f
 __modsi3	hal/_modsi3.S	/^__modsi3:$/;"	l
+__to_new_contex	kernel/krlsched.c	/^void __to_new_contex(thread_t * next, thread_t * prev)$/;"	f
 __udivsi3	hal/_udivsi3.S	/^ __udivsi3:$/;"	l
 _data_abort	hal/init.S	/^ _data_abort:$/;"	l
 _err	hal/vector.S	/^_err:$/;"	l
@@ -583,6 +586,7 @@ clbss_l	hal/init.S	/^clbss_l:$/;"	l
 clear_bss	hal/init.S	/^clear_bss:$/;"	l
 cmp_adrsz	kernel/krlpagempol.c	/^void cmp_adrsz(adrsz_t * assp, uint_t nr)$/;"	f
 context_t	include/knlinc/krlthread_t.h	/^}context_t;$/;"	t	typeref:struct:s_CONTEXT
+context_t_init	kernel/krlthread.c	/^void context_t_init(context_t * initp)$/;"	f
 cp15_read_c5	hal/halmmu.c	/^u32_t cp15_read_c5()$/;"	f
 cp15_read_c6	hal/halmmu.c	/^u32_t cp15_read_c6()$/;"	f
 cpuflg_t	include/bastypeinc/bastype_t.h	/^typedef u32_t cpuflg_t;$/;"	t
@@ -674,6 +678,7 @@ gint_indx	hal/intabtdistr.c	/^__attribute__((section(".data"))) uint_t gint_indx
 hal_add_ihandle	hal/halintrupt.c	/^bool_t hal_add_ihandle(intfltdsc_t * intdscp, intserdsc_t * serdscp)$/;"	f
 hal_bugdie	hal/interrupt.S	/^hal_bugdie:$/;"	l
 hal_bugdie_distr	hal/intabtdistr.c	/^void hal_bugdie_distr(void * sframe)$/;"	f
+hal_clear_intpnd	hal/halintrupt.c	/^drvstus_t hal_clear_intpnd(uint_t bitnr)$/;"	f
 hal_clear_srcpnd	hal/halintrupt.c	/^drvstus_t hal_clear_srcpnd(uint_t ifdnr)$/;"	f
 hal_cpumode_switch	hal/cpuctrl.c	/^void hal_cpumode_switch(uint_t mode)$/;"	f
 hal_cpumodeswitch_retoldmode	hal/cpuctrl.c	/^uint_t hal_cpumodeswitch_retoldmode(uint_t mode)$/;"	f
@@ -789,6 +794,7 @@ init_phymem	hal/halmm.c	/^void init_phymem()$/;"	f
 init_platform	hal/platform.c	/^LKHEAD_T void init_platform()$/;"	f
 init_rtc	drivers/drvrtc.c	/^void init_rtc()$/;"	f
 init_s3c2440_timer4	drivers/drvtick.c	/^void init_s3c2440_timer4()$/;"	f
+init_task	kernel/task.c	/^void init_task()$/;"	f
 init_uart0	hal/haluart.c	/^void init_uart0()$/;"	f
 intfltdsc_t	include/halinc/halintrupt_t.h	/^}intfltdsc_t;$/;"	t	typeref:struct:s_INTFLTDSC
 intfltdsc_t_init	hal/halintrupt.c	/^void intfltdsc_t_init(intfltdsc_t * initp, u32_t flg, u32_t stus,u32_t pbitnr, uint_t irqnr)$/;"	f
@@ -840,16 +846,32 @@ krlnew	kernel/krlmm.c	/^adr_t krlnew(size_t mmsize)$/;"	f
 krlnew_devhandle	kernel/krldevice.c	/^drvstus_t krlnew_devhandle(device_t * devp, intflthandle_t handle, uint_t phyiline)$/;"	f
 krlnew_device	kernel/krldevice.c	/^drvstus_t krlnew_device(device_t * devp)$/;"	f
 krlnew_objnode	kernel/krlobjnode.c	/^objnode_t * krlnew_objnode()$/;"	f
+krlnew_thread	kernel/krlsched.c	/^thread_t * krlnew_thread(void * filerun, uint_t flg, uint_t prilg, uint_t prity, size_t usrstksz, size_t krlstksz)$/;"	f
+krlnew_thread_core	kernel/krlthread.c	/^thread_t * krlnew_thread_core(void * filerun, uint_t flg, uint_t prilg, uint_t prity, size_t usrstksz, size_t krlstksz)$/;"	f
+krlnew_thread_dsc	kernel/krlthread.c	/^thread_t * krlnew_thread_dsc()$/;"	f
 krlonidfl_retn_device	kernel/krldevice.c	/^device_t * krlonidfl_retn_device(void * dfname, uint_t flgs)$/;"	f
 krlretn_driverid	kernel/krldevice.c	/^void krlretn_driverid(driver_t * dverp)$/;"	f
+krlretn_thread_id	kernel/krlthread.c	/^uint_t krlretn_thread_id(thread_t * tdp)$/;"	f
 krlrun_driverentry	kernel/krldevice.c	/^drvstus_t krlrun_driverentry(drventyexit_t drventry)$/;"	f
+krlschdclass_add_thread	kernel/krlsched.c	/^void krlschdclass_add_thread(thread_t * thdp)$/;"	f
+krlsched_chkneed_pmptsched	kernel/krlsched.c	/^void krlsched_chkneed_pmptsched(void)$/;"	f
+krlsched_retn_currthread	kernel/krlthread.c	/^thread_t * krlsched_retn_currthread()$/;"	f
+krlsched_retn_idlethread	kernel/krlsched.c	/^thread_t * krlsched_retn_idlethread(void)$/;"	f
+krlsched_select_thread	kernel/krlsched.c	/^thread_t * krlsched_select_thread(void)$/;"	f
+krlsched_set_schedflgs	kernel/krlthread.c	/^void krlsched_set_schedflgs(void)$/;"	f
+krlsched_up	kernel/krlsched.c	/^void krlsched_up(kwlst_t *wlst)$/;"	f
+krlsched_wait	kernel/krlsched.c	/^void krlsched_wait(kwlst_t * wlst)$/;"	f
+krlschedul	kernel/krlsched.c	/^void krlschedul(void)$/;"	f
 krlsem_down	kernel/krlsem.c	/^void krlsem_down(sem_t * sem)$/;"	f
 krlsem_set_sem	kernel/krlsem.c	/^void krlsem_set_sem(sem_t * setsem, uint_t flg, size_t count)$/;"	f
 krlsem_t_init	kernel/krlsem.c	/^void krlsem_t_init(sem_t * initp)$/;"	f
 krlsem_up	kernel/krlsem.c	/^void krlsem_up(sem_t * sem)$/;"	f
 krlsve_time	kernel/krltime.c	/^sysstus_t krlsve_time(time_t * time)$/;"	f
+krlthd_inc_tick	kernel/krlthread.c	/^void krlthd_inc_tick(thread_t * thdp)$/;"	f
 krlthreadkrlsatck_init	kernel/krlthread.c	/^void krlthreadkrlsatck_init(thread_t * thdp, void * runadr, reg_t cpsr, reg_t spsr)$/;"	f
 krlupdate_times	kernel/krltime.c	/^void krlupdate_times(uint_t year, uint_t mon, uint_t day, uint_t date, uint_t hour, uint_t min, uint_t sec)$/;"	f
+krlwlst_add_thread	kernel/krlwaitlist.c	/^void krlwlst_add_thread(kwlst_t * wlst, thread_t * tdp)$/;"	f
+krlwlst_del_thread	kernel/krlwaitlist.c	/^thread_t * krlwlst_del_thread(kwlst_t * wlst)$/;"	f
 kt_datap	include/knlinc/krltime_t.h	/^    void *	kt_datap;$/;"	m	struct:s_KTIME
 kt_date	include/knlinc/krltime_t.h	/^    uint_t	kt_date;$/;"	m	struct:s_KTIME
 kt_day	include/knlinc/krltime_t.h	/^    uint_t	kt_day;$/;"	m	struct:s_KTIME
@@ -1134,6 +1156,7 @@ s_intfltp	include/halinc/halintrupt_t.h	/^    intfltdsc_t * s_intfltp;$/;"	m	str
 s_list	include/halinc/halintrupt_t.h	/^    list_h_t s_list;$/;"	m	struct:s_INTSERDEC
 s_lr	include/halinc/cpu_t.h	/^    reg_t s_lr;$/;"	m	struct:s_INTSTKREGS
 s_spsr	include/halinc/cpu_t.h	/^    reg_t s_spsr;$/;"	m	struct:s_INTSTKREGS
+save_to_new_contex	kernel/krlsched.c	/^void save_to_new_contex(thread_t * next, thread_t * prev)$/;"	f
 schdata_t	include/knlinc/krlsched_t.h	/^}schdata_t;$/;"	t	typeref:struct:s_SCHDATA
 schdata_t_init	kernel/krlsched.c	/^void schdata_t_init(schdata_t * initp)$/;"	f
 schedclass_t	include/knlinc/krlsched_t.h	/^}schedclass_t;$/;"	t	typeref:struct:s_SCHEDCLASS
@@ -1183,6 +1206,10 @@ systick_set_powerstus	drivers/drvtick.c	/^drvstus_t systick_set_powerstus(device
 systick_shutdown	drivers/drvtick.c	/^drvstus_t systick_shutdown(device_t * devp, void * iopack)$/;"	f
 systick_write	drivers/drvtick.c	/^drvstus_t systick_write(device_t * devp, void * iopack)$/;"	f
 sz	kernel/krlpagempol.c	/^    size_t sz;$/;"	m	struct:s_adrsz	file:
+task0	kernel/task.c	/^void task0()$/;"	f
+task0_main	task/utask.c	/^void task0_main()$/;"	f
+task1	kernel/task.c	/^void task1()$/;"	f
+task1_main	task/utask.c	/^void task1_main()$/;"	f
 td_context	include/knlinc/krlthread_t.h	/^    context_t	td_context;$/;"	m	struct:s_THREAD
 td_cpuid	include/knlinc/krlthread_t.h	/^    uint_t	td_cpuid;$/;"	m	struct:s_THREAD
 td_extdatap	include/knlinc/krlthread_t.h	/^    void *	td_extdatap;$/;"	m	struct:s_THREAD
@@ -1219,6 +1246,7 @@ testrtc	kernel/krlinit.c	/^void testrtc()$/;"	f
 thrdlst_t	include/knlinc/krlsched_t.h	/^}thrdlst_t;$/;"	t	typeref:struct:s_THRDLST
 thrdlst_t_init	kernel/krlsched.c	/^void thrdlst_t_init(thrdlst_t * initp)$/;"	f
 thread_t	include/knlinc/krlthread_t.h	/^}thread_t;$/;"	t	typeref:struct:s_THREAD
+thread_t_init	kernel/krlthread.c	/^void thread_t_init(thread_t * initp)$/;"	f
 time_t	include/knlinc/krltime_t.h	/^}time_t;$/;"	t	typeref:struct:s_TIME
 tstbb	hal/init.S	/^tstbb: .word __begin_bss$/;"	l
 tstbe	hal/init.S	/^tstbe: .word __end_bss$/;"	l

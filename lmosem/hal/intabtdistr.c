@@ -27,15 +27,16 @@ void hal_dbug_print_reg(intstkregs_t * intstkp)
     printfk("SVE_REG spsr:%x\n\r", intstkp->s_spsr);
     printfk("CSP_REG sp:%x INTPND:%x\n\r", hal_read_currmodesp(), hal_io32_read(INTPND_R));
     printfk("CCR_REG cpsr:%x INTOFST:%x\n\r", hal_read_cpuflg(), hal_retn_cpuid());
-//    thread_t * prev = krlsched_retn_currthread();
+    thread_t * prev = krlsched_retn_currthread();
 
-//    printfk("CURR_THREAD:%x CURR_THREAD_KSTKTOP:%x\n\r", (uint_t)prev, (uint_t)prev->td_krlstktop);
+    printfk("CURR_THREAD:%x CURR_THREAD_KSTKTOP:%x\n\r", (uint_t)prev, (uint_t)prev->td_krlstktop);
 
     return;
 }
 
 void hal_undefins_distr(void * sframe)
 {
+    hal_dbug_print_reg((intstkregs_t*)sframe);
     hal_sysdie("undefins runing!!");
     return;
 }

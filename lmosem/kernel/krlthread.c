@@ -99,7 +99,7 @@ thread_t * krlnew_thread_core(void * filerun, uint_t flg, uint_t prilg, uint_t p
     thread_t * ret_td = NULL;
     adr_t   usrstkadr = NULL;
     adr_t   krlstkadr = NULL;
-
+printfk("%s begin \n\r", __func__);
     usrstkadr = krlnew(usrstksz);
     if(!usrstkadr)
     {
@@ -133,6 +133,7 @@ thread_t * krlnew_thread_core(void * filerun, uint_t flg, uint_t prilg, uint_t p
 	return NULL;
     }
 
+printfk("%s after krlnew_thread_dsc \n\r", __func__);
     ret_td->td_privilege = prilg;
     ret_td->td_priority = prity;
     ret_td->td_krlstktop = krlstkadr + (adr_t)(krlstksz - 1);
@@ -142,8 +143,10 @@ thread_t * krlnew_thread_core(void * filerun, uint_t flg, uint_t prilg, uint_t p
 
     krlthreadkrlsatck_init(ret_td, filerun, DAFT_CPSR, DAFT_SPSR);
 
+printfk("%s after krlthreadkrlsatck_init \n\r", __func__);
     krlschdclass_add_thread(ret_td);
 
+printfk("%s after krlschdcleass_add_thread \n\r", __func__);
     return ret_td;
 }
 

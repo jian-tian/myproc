@@ -13,11 +13,11 @@ void thrdlst_t_init(thrdlst_t * initp)
 
 void schdata_t_init(schdata_t * initp)
 {
-    hal_spinlock_lock(&initp->sda_lock);
+    hal_spinlock_init(&initp->sda_lock);
     initp->sda_cpuid = hal_retn_cpuid();
     /*初始化时候不调度*/
     initp->sda_schdflgs = NOTS_SCHED_FLGS;
-    initp->sda_premptidx = 0;
+    initp->sda_premptidx = PMPT_FLGS;
     initp->sda_threadnr = 0;
     initp->sda_prityidx = 0;
     initp->sda_cpuidle = NULL;
@@ -69,16 +69,20 @@ void retnfrom_first_sched(thread_t * thrdp)
 
 void krlschdclass_add_thread(thread_t * thdp)
 {
+printfk("%s in \n\r", __func__);
     uint_t cpuid = hal_retn_cpuid();
     schdata_t * schdap = &osschedcls.scls_schda[cpuid];
     cpuflg_t cpufg;
 
+printfk("%s before hal_spinlock_saveflg_cli \n\r", __func__);
     hal_spinlock_saveflg_cli(&schdap->sda_lock, &cpufg);
     /*将进程添加入对应优先级的thdlst_t结构的链表中*/
     list_add(&thdp->td_list, &schdap->sda_thdlst[thdp->td_priority].tdl_lsth);
     schdap->sda_thdlst[thdp->td_priority].tdl_nr++;
     schdap->sda_threadnr++;
     hal_spinunlock_restflg_sti(&schdap->sda_lock, &cpufg);
+printfk("%s before hal_spinlock_saveflg_cli \n\r", __func__);
+
     /*增加全局进程计数*/
     hal_spinlock_saveflg_cli(&osschedcls.scls_lock, &cpufg);
     osschedcls.scls_threadnr++;
@@ -115,6 +119,7 @@ thread_t * krlnew_thread(void * filerun, uint_t flg, uint_t prilg, uint_t prity,
 
 void krlsched_chkneed_pmptsched(void)
 {
+    //printfk("%s in \n\r", __func__);
     cpuflg_t cpufg;
     uint_t schd =0;
     uint_t cpuid = hal_retn_cpuid();
@@ -149,6 +154,7 @@ thread_t * krlsched_retn_idlethread(void)
 
 thread_t * krlsched_select_thread(void)
 {
+    printfk("%s in \n\r", __func__);
     thread_t * retthd, * tdtmp;
     cpuflg_t cpufg;
     uint_t cpuid = hal_retn_cpuid();
@@ -241,6 +247,7 @@ void __to_new_contex(thread_t * next, thread_t * prev)
 
 void krlschedul(void)
 {
+    printfk("krlschedul begin \n\r");
     thread_t * prev = krlsched_retn_currthread();
     thread_t * next = krlsched_select_thread();
     save_to_new_contex(next, prev);
@@ -249,6 +256,7 @@ void krlschedul(void)
 
 void krlsched_wait(kwlst_t * wlst)
 {
+    printfk("%s in \n\r", __func__);
     cpuflg_t cpufg, tcufg;
     uint_t cpuid = hal_retn_cpuid();
     schdata_t * schdap = &osschedcls.scls_schda[cpuid];
@@ -289,6 +297,7 @@ err_step:
 
 void krlsched_up(kwlst_t *wlst)
 {
+    printfk("%s in \n\r", __func__);
     cpuflg_t cpufg, tpufg;
     uint_t cpuid = hal_retn_cpuid();
     schdata_t *schdap = &osschedcls.scls_schda[cpuid];
