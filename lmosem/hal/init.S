@@ -49,6 +49,7 @@ _start:
 clear_bss:
     ldr	r0, tstbb/* find start of bss segment        */
     ldr	r1, tstbe/* stop here                        */
+    //ldr	r1, =0x34000000/* stop here                        */
     ldr	r2, =0x0	    /* clear                            */
 clbss_l:
     str r2, [r0]	    /* clear loop...                    */

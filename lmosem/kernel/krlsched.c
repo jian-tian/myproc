@@ -54,6 +54,7 @@ void init_krlsched()
 
 void retnfrom_first_sched(thread_t * thrdp)
 {
+    printfk("%s in \n\r", __func__);
     __asm__ __volatile__(
 	"msr spsr, %[svcspsr]\n\r"
 	"mov sp, %[svcsp]\n\r"
@@ -74,14 +75,12 @@ printfk("%s in \n\r", __func__);
     schdata_t * schdap = &osschedcls.scls_schda[cpuid];
     cpuflg_t cpufg;
 
-printfk("%s before hal_spinlock_saveflg_cli \n\r", __func__);
     hal_spinlock_saveflg_cli(&schdap->sda_lock, &cpufg);
     /*将进程添加入对应优先级的thdlst_t结构的链表中*/
     list_add(&thdp->td_list, &schdap->sda_thdlst[thdp->td_priority].tdl_lsth);
     schdap->sda_thdlst[thdp->td_priority].tdl_nr++;
     schdap->sda_threadnr++;
     hal_spinunlock_restflg_sti(&schdap->sda_lock, &cpufg);
-printfk("%s before hal_spinlock_saveflg_cli \n\r", __func__);
 
     /*增加全局进程计数*/
     hal_spinlock_saveflg_cli(&osschedcls.scls_lock, &cpufg);
@@ -154,7 +153,7 @@ thread_t * krlsched_retn_idlethread(void)
 
 thread_t * krlsched_select_thread(void)
 {
-    printfk("%s in \n\r", __func__);
+    //printfk("%s in \n\r", __func__);
     thread_t * retthd, * tdtmp;
     cpuflg_t cpufg;
     uint_t cpuid = hal_retn_cpuid();
@@ -188,8 +187,10 @@ thread_t * krlsched_select_thread(void)
     }
 
     schdap->sda_prityidx = PRITY_MIN;
+    printfk("no thread select\n\r");
     retthd = krlsched_retn_idlethread();
 return_step:
+    //printfk("new retthd id: 0x%x\n\r",(uint_t)retthd);
     hal_spinunlock_restflg_sti(&schdap->sda_lock, &cpufg);
     return retthd;
 }
@@ -247,9 +248,20 @@ void __to_new_contex(thread_t * next, thread_t * prev)
 
 void krlschedul(void)
 {
-    printfk("krlschedul begin \n\r");
+   // printfk("krlschedul begin \n\r");
     thread_t * prev = krlsched_retn_currthread();
     thread_t * next = krlsched_select_thread();
+    printfk("prev id is 0x%x, next id is 0x%x\n\r", (uint_t)prev, (uint_t)next);
+    printfk("prev ctx_svcsp = 0x%x\n\r", prev->td_context.ctx_svcsp);
+    printfk("prev ctx_svcspsr = 0x%x\n\r", prev->td_context.ctx_svcspsr);
+    printfk("prev ctx_cpsr = 0x%x\n\r", prev->td_context.ctx_cpsr);
+    printfk("prev ctx_lr = 0x%x\n\r ", prev->td_context.ctx_lr);
+    printfk("prev ctx_usrsp = 0x%x\n\r", prev->td_context.ctx_usrsp);
+    printfk("next ctx_svcsp = 0x%x\n\r", next->td_context.ctx_svcsp);
+    printfk("next ctx_svcspsr = 0x%x\n\r", next->td_context.ctx_svcspsr);
+    printfk("next ctx_cpsr = 0x%x\n\r", next->td_context.ctx_cpsr);
+    printfk("next ctx_lr = 0x%x\n\r ", next->td_context.ctx_lr);
+    printfk("next ctx_usrsp = 0x%x\n\r", next->td_context.ctx_usrsp);
     save_to_new_contex(next, prev);
     return;
 }

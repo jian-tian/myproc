@@ -39,7 +39,7 @@ void init_krl()
     init_task();
     printfk("init_task init ok \n\r");
     init_krlcpuidle();
-    hal_enable_irq();
+    //hal_enable_irq();
     //testrtc();
     for(;;);
     hal_sysdie("LMOSEM RUN!");

@@ -130,6 +130,7 @@ drvstus_t systick_handle(uint_t ift_nr, void *devp, void * sframe)
     //printfk("systick handle run!\n\r");
     /*增加运行进程的tick*/
     krlthd_inc_tick(krlsched_retn_currthread());
+    //printfk("systick handle run!\n\r");
     return DFCOKSTUS;
 }
 

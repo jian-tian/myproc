@@ -18,4 +18,5 @@
 #include "krlcpuidle.h"
 #include "krlwaitlist.h"
 
+#include "task.h"
 #endif

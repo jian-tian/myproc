@@ -10,7 +10,7 @@
 #define TDSTUS_NEW	5
 #define TDSTUS_ZOMB	6
 
-#define TDRUN_TICK	20
+#define TDRUN_TICK	2000
 
 #define PRITY_MAX	64
 #define PRITY_MIN	0

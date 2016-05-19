@@ -133,20 +133,21 @@ printfk("%s begin \n\r", __func__);
 	return NULL;
     }
 
-printfk("%s after krlnew_thread_dsc \n\r", __func__);
+//printfk("%s after krlnew_thread_dsc \n\r", __func__);
     ret_td->td_privilege = prilg;
     ret_td->td_priority = prity;
     ret_td->td_krlstktop = krlstkadr + (adr_t)(krlstksz - 1);
     ret_td->td_krlstkstart = krlstkadr;
     ret_td->td_usrstktop = usrstkadr + (adr_t)(usrstksz - 1);
     ret_td->td_usrstkstart = usrstkadr;
-
+    hal_memset(krlstkadr, krlstksz, 0);
+    hal_memset(usrstkadr, usrstksz, 0);
     krlthreadkrlsatck_init(ret_td, filerun, DAFT_CPSR, DAFT_SPSR);
 
-printfk("%s after krlthreadkrlsatck_init \n\r", __func__);
+//printfk("%s after krlthreadkrlsatck_init \n\r", __func__);
     krlschdclass_add_thread(ret_td);
 
-printfk("%s after krlschdcleass_add_thread \n\r", __func__);
+//printfk("%s after krlschdcleass_add_thread \n\r", __func__);
     return ret_td;
 }
 
