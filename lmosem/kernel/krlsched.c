@@ -246,13 +246,17 @@ void __to_new_contex(thread_t * next, thread_t * prev)
     return;
 }
 
+
+extern uint_t g_i_1;
+extern uint_t g_i_0;
 void krlschedul(void)
 {
    // printfk("krlschedul begin \n\r");
     thread_t * prev = krlsched_retn_currthread();
     thread_t * next = krlsched_select_thread();
     printfk("prev id is 0x%x, next id is 0x%x\n\r", (uint_t)prev, (uint_t)next);
-    printfk("prev ctx_svcsp = 0x%x\n\r", prev->td_context.ctx_svcsp);
+    printfk("g_i_0 is %d, g_i_1 is %d\n\r", g_i_0, g_i_1);
+    /*printfk("prev ctx_svcsp = 0x%x\n\r", prev->td_context.ctx_svcsp);
     printfk("prev ctx_svcspsr = 0x%x\n\r", prev->td_context.ctx_svcspsr);
     printfk("prev ctx_cpsr = 0x%x\n\r", prev->td_context.ctx_cpsr);
     printfk("prev ctx_lr = 0x%x\n\r ", prev->td_context.ctx_lr);
@@ -261,7 +265,7 @@ void krlschedul(void)
     printfk("next ctx_svcspsr = 0x%x\n\r", next->td_context.ctx_svcspsr);
     printfk("next ctx_cpsr = 0x%x\n\r", next->td_context.ctx_cpsr);
     printfk("next ctx_lr = 0x%x\n\r ", next->td_context.ctx_lr);
-    printfk("next ctx_usrsp = 0x%x\n\r", next->td_context.ctx_usrsp);
+    printfk("next ctx_usrsp = 0x%x\n\r", next->td_context.ctx_usrsp);*/
     save_to_new_contex(next, prev);
     return;
 }

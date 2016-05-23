@@ -36,6 +36,7 @@ void hal_dbug_print_reg(intstkregs_t * intstkp)
 
 void hal_undefins_distr(void * sframe)
 {
+    printfk("CP15 c5:%x c6 %x\n\r", hal_read_cp15regs(CP15_C5R), hal_read_cp15regs(CP15_C6R));
     hal_dbug_print_reg((intstkregs_t*)sframe);
     hal_sysdie("undefins runing!!");
     return;
@@ -142,7 +143,7 @@ void hal_eint_distr(void * sframe, uint_t mintnr, uint_t pndbts, uint_t pndbte)
 	if(((pnd>>bi)&1)==1)
 	{
 	    hal_run_intflthandle(EINT_IFDNR(bi), sframe);
-	    //hal_clear_srcpnd(EINT_IFDNR(bi));
+	    hal_clear_srcpnd(EINT_IFDNR(bi));
 	}
     }
     return;
@@ -159,7 +160,7 @@ void hal_sint_distr(void * sframe, uint_t mintnr, uint_t pndbts, uint_t pndbte)
 	if(((pnd>>bi)&1)==1)
 	{
 	    hal_run_intflthandle(EINT_IFDNR(bi), sframe);
-	    //hal_clear_srcpnd(EINT_IFDNR(bi));
+	    hal_clear_srcpnd(EINT_IFDNR(bi));
 	}
     }
     return;
