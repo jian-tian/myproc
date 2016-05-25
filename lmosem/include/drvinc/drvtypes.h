@@ -6,5 +6,6 @@
 
 #include "drvtick_t.h"
 #include "drvrtc_t.h"
+#include "drvfs_t.h"
 
 #endif

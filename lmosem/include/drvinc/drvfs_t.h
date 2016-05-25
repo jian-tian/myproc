@@ -24,7 +24,7 @@ typedef struct s_RFSDEVEXT
     list_h_t	rde_list;
     uint_t	rde_flg;
     uint_t	rde_stus;
-    void *	rde_start;
+    void *	rde_mstart;
     size_t	rde_msize;
     void *	rde_ext;
 }rfsdevext_t;
@@ -57,7 +57,7 @@ typedef struct s_RFSSUBLK
     uint_t  rsb_bmpbknr;
     uint_t  rsb_fsysallblk;
     rfsdir_t	rsb_rootdir;
-}rfssubblk_t;
+}rfssublk_t;
 
 typedef struct s_fimgrhd
 {
@@ -74,7 +74,7 @@ typedef struct s_fimgrhd
     uint_t fmd_fileiendbkoff;
     uint_t fmd_curfwritebk;
     uint_t fmd_curfinwbkoff;
-    filbks_t fmd_fleblk[FBLKS_MAX];
+    filblks_t fmd_fleblk[FBLKS_MAX];
     uint_t fmd_linkpblk;
     uint_t fmd_linknblk;
 }fimgrhd_t;

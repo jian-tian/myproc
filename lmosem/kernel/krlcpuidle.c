@@ -73,8 +73,8 @@ thread_t * new_cpuidle_thread()
     ret_td->td_usrstktop = usrstkadr + (adr_t)(usrstksz - 1);
     ret_td->td_usrstkstart = usrstkadr;
 
-    hal_memset(krlstkadr, krlstksz, 0);
-    hal_memset(usrstkadr, usrstksz, 0);
+    hal_memset((void *)krlstkadr, krlstksz, 0);
+    hal_memset((void *)usrstkadr, usrstksz, 0);
 
     krlthreadkrlsatck_init(ret_td, (void *)krlcpuidle_main, DAFT_CPSR, DAFT_CIDLESPSR);
 

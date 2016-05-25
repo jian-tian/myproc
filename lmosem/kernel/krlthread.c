@@ -140,8 +140,8 @@ printfk("%s begin \n\r", __func__);
     ret_td->td_krlstkstart = krlstkadr;
     ret_td->td_usrstktop = usrstkadr + (adr_t)(usrstksz - 1);
     ret_td->td_usrstkstart = usrstkadr;
-    hal_memset(krlstkadr, krlstksz, 0);
-    hal_memset(usrstkadr, usrstksz, 0);
+    hal_memset((void *)krlstkadr, krlstksz, 0);
+    hal_memset((void *)usrstkadr, usrstksz, 0);
     krlthreadkrlsatck_init(ret_td, filerun, DAFT_CPSR, DAFT_SPSR);
 
 //printfk("%s after krlthreadkrlsatck_init \n\r", __func__);

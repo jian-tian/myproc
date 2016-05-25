@@ -7,29 +7,29 @@
 void init_s3c2440_timer4()
 {
     /*读取配置寄存器0*/
-    u32_t cfgtmp = hal_io32_read(TCFG0_R);
+    u32_t cfgtmp = hal_io32_read((uint_t)TCFG0_R);
     /*清除TCFG0_R 8~15bit*/
     cfgtmp &= 0xFFFF00FF;
     cfgtmp |= 0xFF00;
     /*设置第二个预分频为255*/
-    hal_io32_write(TCFG0_R, cfgtmp);
+    hal_io32_write((uint_t)TCFG0_R, cfgtmp);
     /*读取配置寄存器1*/
-    cfgtmp = hal_io32_read(TCFG1_R);
+    cfgtmp = hal_io32_read((uint_t)TCFG1_R);
     /*选择定时器4的选通输入为0000=1/2*/
     cfgtmp &= 0xFFF0FFFF;
     /*写入定时器的配置寄存器1*/
-    hal_io32_write(TCFG1_R, cfgtmp);
+    hal_io32_write((uint_t)TCFG1_R, cfgtmp);
     /*设置定时器4的TCNTB_R*/
-    hal_io32_write(TCNTB4_R, 0x41);
-    cfgtmp = hal_io32_read(TCON_R);
+    hal_io32_write((uint_t)TCNTB4_R, 0x41);
+    cfgtmp = hal_io32_read((uint_t)TCON_R);
     /*设置TCON_R 20-22位为1，清零21bit*/
     cfgtmp |= 0x700000;
-    hal_io32_write(TCON_R, cfgtmp);
-    cfgtmp = hal_io32_read(TCON_R);
+    hal_io32_write((uint_t)TCON_R, cfgtmp);
+    cfgtmp = hal_io32_read((uint_t)TCON_R);
     /*设置TCON_R 20bit*/
     cfgtmp &= (~0x200000);
     /*写入TCON_R并启动定时器4*/
-    hal_io32_write(TCON_R, cfgtmp);
+    hal_io32_write((uint_t)TCON_R, cfgtmp);
 
     return;
 }
