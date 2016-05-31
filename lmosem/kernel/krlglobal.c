@@ -13,5 +13,6 @@ KRL_DEFGLOB_VARIABLE(drventyexit_t, osdrvetytabl)[] =
 {
     systick_entry, /*mask systick temporarily*/ 
     rtc_entry,
+    rfs_entry,
     NULL
 };
