@@ -4,9 +4,11 @@
 #include "lmosemtypes.h"
 #include "lmosemmctrl.h"
 
+void test_file(device_t * devp);
+
 void rfsdevext_t_init(rfsdevext_t * initp)
 {
-    hal_spinlock_lock(&initp->rde_lock);
+    hal_spinlock_init(&initp->rde_lock);
     list_init(&initp->rde_list);
     initp->rde_flg = 0;
     initp->rde_stus = 0;
@@ -137,6 +139,7 @@ void del_buf(void * buf, size_t bufsz)
 
 bool_t create_superblk(device_t * devp)
 {
+    printfk("%s in \n\r", __func__);
     void *buf = new_buf(FSYS_ALCBLKSZ);
     if(!buf)
     {
@@ -158,6 +161,7 @@ bool_t create_superblk(device_t * devp)
 
 bool_t create_bitmap(device_t * devp)
 {
+    printfk("%s in \n\r", __func__);
     bool_t rets = FALSE;
     rfssublk_t * sbp = get_superblk(devp);
     if(!sbp)
@@ -280,6 +284,8 @@ void rfs_set_device(device_t * devp, driver_t * drvp)
 
 drvstus_t rfs_entry(driver_t * drvp, uint_t val, void * p)
 {
+
+    printfk("%s %d line \n\r", __func__, __LINE__);
     if(drvp == NULL)
     {
 	printfk("drvp NULL\n\r");
@@ -291,8 +297,11 @@ drvstus_t rfs_entry(driver_t * drvp, uint_t val, void * p)
 	printfk("new device failed\n\r");
 	return DFCERRSTUS;
     }
+    printfk("%s %d line \n\r", __func__, __LINE__);
     rfs_set_driver(drvp);
+    printfk("%s %d line \n\r", __func__, __LINE__);
     rfs_set_device(devp, drvp);
+    printfk("%s %d line \n\r", __func__, __LINE__);
     if(new_rfsdevext_mmblk(devp, FSMM_BLK) == DFCERRSTUS)
     {
 	printfk("new rfsdevext_mmblk failed\n\r");
@@ -302,6 +311,19 @@ drvstus_t rfs_entry(driver_t * drvp, uint_t val, void * p)
 	}
 	return DFCERRSTUS;
     }
+
+    printfk("%s %d line \n\r", __func__, __LINE__);
+    if(krldev_add_driver(devp, drvp) == DFCERRSTUS)
+    {
+	printfk("krldev add driver failed\n\r");
+	if(del_device_dsc(devp) == DFCERRSTUS)
+	{
+	    printfk("del_device_dsc failed\n\r");
+	}
+	return DFCERRSTUS;
+    }
+
+    printfk("%s %d line \n\r", __func__, __LINE__);
     if(krlnew_device(devp) == DFCERRSTUS)
     {
 	printfk("krlnew device failed\n\r");
@@ -313,6 +335,8 @@ drvstus_t rfs_entry(driver_t * drvp, uint_t val, void * p)
     }
 
     init_rfs(devp);
+
+    test_file(devp);
     return DFCOKSTUS;
 }        
          
@@ -406,6 +430,7 @@ void rfs_del_blk(device_t * devp, uint_t blknr)
 
 bool_t create_rootdir(device_t * devp)
 {
+    printfk("%s in \n\r", __func__);
     bool_t rets = FALSE;
     rfssublk_t * sbp = get_superblk(devp);
     if(!sbp)
@@ -539,6 +564,7 @@ void init_rfs(device_t * devp)
 
 void rfs_fmat(device_t * devp)
 {
+    printfk("rfs_fmat begin\n\r");
     if(create_superblk(devp) == FALSE)
     {
 	hal_sysdie("create superblk failed");
@@ -1007,7 +1033,7 @@ opfblk:
 	goto err1;
     }
     fimgrhd_t * ffmp = (fimgrhd_t *)buf;
-    if(ffmp->fmd_type == FMD_FIL_TYPE || ffmp->fmd_fileifstbkoff != 0x200)
+    if(ffmp->fmd_type == FMD_NUL_TYPE || ffmp->fmd_fileifstbkoff != 0x200)
     {
 	printfk("ffmp err\n\r");
 	rets = NULL;
@@ -1137,13 +1163,7 @@ void test_rfs(device_t * devp)
     printfk("rootdir: %s\n\r", sbp->rsb_rootdir.rdr_name);
 
     del_superblk(devp, sbp);
-    hal_sysdie("test rfs run");
-    return;
-}
-
-void test_file(device_t * devp)
-{
-    test_rfs(devp);
+    //hal_sysdie("test rfs run");
     return;
 }
 
@@ -1175,3 +1195,136 @@ void chk_rfsbitmap(device_t * devp)
     del_buf(buf, FSYS_ALCBLKSZ);
     return;
 }
+
+void test_dir(device_t * devp)
+{
+    rfsdir_t * dr = get_rootdir(devp);
+    void * buf = new_buf(FSYS_ALCBLKSZ);
+    if(buf == NULL)
+    {
+	hal_sysdie("testdir1 err\n\r");
+    }
+    hal_memset(buf, FSYS_ALCBLKSZ, 0);
+
+    if(read_rfsdevblk(devp, buf, dr->rdr_blknr) == DFCERRSTUS)
+    {
+	hal_sysdie("testdir1 err\n\r");
+    }
+    fimgrhd_t * fmp = (fimgrhd_t *)buf;
+    printfk("fmp->fmd_type : %x fmd_filesz : %x fmd_fileifstbkoff : %x fmd_fileiendbkoff : %x\n\r",
+		fmp->fmd_type, fmp->fmd_filesz, fmp->fmd_fileifstbkoff, fmp->fmd_fileiendbkoff);
+    printfk("fmd_fleblk : %x : %x\n\r", fmp->fmd_fleblk[0].fb_blkstart, fmp->fmd_fleblk[0].fb_blknr);
+    del_buf(buf, FSYS_ALCBLKSZ);
+    del_rootdir(devp, dr);
+    return;
+}
+
+void test_allocblk(device_t *devp)
+{
+    uint_t ai[64];
+    uint_t i = 0, j = 0;
+    uint_t count = 0;
+
+    for(count=0; count < 1; count++)
+    {
+	for(uint_t k = 0; k < 16; k++)
+	{
+	    i = rfs_new_blk(devp);
+	    if(i == 0)
+	    {
+		hal_sysdie("alloc blkk err\n");
+	    }
+	    printfk("alloc blk:%x\n\r", i);
+	    ai[k] = i;
+	    j++;
+	}
+	for(uint_t m = 0; m < 16; m++)
+	{
+	    rfs_del_blk(devp, ai[m]);
+	    printfk("free blk:%x\n\r", ai[m]);
+	}
+    }
+    printfk("alloc indx: %x\n\r", j);
+    return;
+}
+
+void test_fsys(device_t * devp)
+{
+    void * rwbuf = new_buf(FSYS_ALCBLKSZ);
+    if(rwbuf == NULL)
+    {
+	hal_sysdie("rwbuf is NULL");
+    }
+    hal_memset(rwbuf, FSYS_ALCBLKSZ, 0xff);
+    objnode_t * ondp = krlnew_objnode();
+    if(ondp == NULL)
+    {
+	hal_sysdie("ondp is NULL");
+    }
+
+    ondp->on_acsflgs = FSDEV_OPENFLG_NEWFILE;
+    ondp->on_fname = "/testfile";
+    ondp->on_buf = rwbuf;
+    ondp->on_bufsz = FSYS_ALCBLKSZ;
+    ondp->on_len = 512;
+    ondp->on_ioctrd = FSDEV_IOCTRCD_DELFILE;
+    if(rfs_open(devp, ondp) == DFCERRSTUS)
+    {
+	hal_sysdie("new file is err");
+    }
+
+    ondp->on_acsflgs = FSDEV_OPENFLG_OPEFILE;
+
+    if(rfs_open(devp, ondp) == DFCERRSTUS)
+    {
+	hal_sysdie("open file is err");
+    }
+
+    if(rfs_write(devp, ondp) == DFCERRSTUS)
+    {
+	hal_sysdie("write file is err");
+    }
+
+    if(rfs_close(devp, ondp) == DFCERRSTUS)
+    {
+	hal_sysdie("close file is err");
+    }
+
+    char_t * cb = (char_t *)rwbuf;
+    for(uint_t i=0; i<512; i++)
+    {
+	if(cb[i] != 0xff)
+	{
+	    hal_sysdie("chek rwbuf err");
+	}
+	//printfk("rwbuf[%x]: %x\n\r", i, (uint_t)cb[i]);
+    }
+    printfk("write and read ok\n\r");
+
+    if(rfs_ioctrl(devp, ondp) == DFCERRSTUS)
+    {
+	hal_sysdie("del file is err");
+    }
+
+    ondp->on_acsflgs = FSDEV_OPENFLG_OPEFILE;
+
+    if(rfs_open(devp, ondp) == DFCOKSTUS)
+    {
+	hal_sysdie("2open2 file is err");
+    }
+    hal_sysdie("test_fsys ok");
+    return;
+}
+
+void test_file(device_t * devp)
+{
+    test_rfs(devp);
+    test_dir(devp);
+    chk_rfsbitmap(devp);
+    test_allocblk(devp);
+    test_fsys(devp);
+    hal_sysdie("test rfs run");
+    return;
+}
+
+

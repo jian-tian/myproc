@@ -66,7 +66,7 @@ void systick_set_device(device_t * devp, driver_t * drvp)
 /*入口函数*/
 drvstus_t systick_entry(driver_t * drvp, uint_t val, void * p)
 {
-    printfk("systick_entry start\n");
+    printfk("systick_entry start\n\r");
     if(!drvp)
 	return DFCERRSTUS;
 

@@ -597,6 +597,7 @@ buf_t	include/bastypeinc/bastype_t.h	/^typedef void* buf_t;$/;"	t
 c_lr	include/halinc/cpu_t.h	/^    reg_t c_lr;$/;"	m	struct:s_INTSTKREGS
 char_t	include/bastypeinc/bastype_t.h	/^typedef char char_t;$/;"	t
 char_write_uart	hal/printfk.c	/^void char_write_uart(char_t * buf)$/;"	f
+chk_rfsbitmap	drivers/drvfs.c	/^void chk_rfsbitmap(device_t * devp)$/;"	f
 clbss_l	hal/init.S	/^clbss_l:$/;"	l
 clear_bss	hal/init.S	/^clear_bss:$/;"	l
 cmp_adrsz	kernel/krlpagempol.c	/^void cmp_adrsz(adrsz_t * assp, uint_t nr)$/;"	f
@@ -620,8 +621,11 @@ day	include/knlinc/krltime_t.h	/^    uint_t  day;$/;"	m	struct:s_TIME
 del_bitmapblk	drivers/drvfs.c	/^void del_bitmapblk(device_t * devp, u8_t * bitmap)$/;"	f
 del_buf	drivers/drvfs.c	/^void del_buf(void * buf, size_t bufsz)$/;"	f
 del_device_dsc	kernel/krldevice.c	/^drvstus_t del_device_dsc(device_t * devp)$/;"	f
+del_dirfileblk_core	drivers/drvfs.c	/^drvstus_t del_dirfileblk_core(device_t * devp, char_t * fname)$/;"	f
 del_objs_mpool	kernel/krlpagempol.c	/^bool_t del_objs_mpool(kmempool_t * kmplockp, mplhead_t * mphdp)$/;"	f
 del_page_mpool	kernel/krlpagempol.c	/^bool_t del_page_mpool(kmempool_t * kmplockp, mplhead_t * mphdp)$/;"	f
+del_rootdir	drivers/drvfs.c	/^void del_rootdir(device_t * devp, rfsdir_t * rdir)$/;"	f
+del_rootdirfile_blk	drivers/drvfs.c	/^void del_rootdirfile_blk(device_t * devp, void *blkp)$/;"	f
 del_superblk	drivers/drvfs.c	/^void del_superblk(device_t * devp, rfssublk_t * sbp)$/;"	f
 dev_attrb	include/knlinc/krldevice_t.h	/^    void * dev_attrb;$/;"	m	struct:s_DEVICE
 dev_count	include/knlinc/krldevice_t.h	/^    uint_t	dev_count;$/;"	m	struct:s_DEVICE
@@ -708,7 +712,7 @@ fmd_fileallbk	include/drvinc/drvfs_t.h	/^    uint_t fmd_fileallbk;$/;"	m	struct:
 fmd_fileiendbkoff	include/drvinc/drvfs_t.h	/^    uint_t fmd_fileiendbkoff;$/;"	m	struct:s_fimgrhd
 fmd_fileifstbkoff	include/drvinc/drvfs_t.h	/^    uint_t fmd_fileifstbkoff;$/;"	m	struct:s_fimgrhd
 fmd_filesz	include/drvinc/drvfs_t.h	/^    uint_t fmd_filesz;$/;"	m	struct:s_fimgrhd
-fmd_fleblk	include/drvinc/drvfs_t.h	/^    filbks_t fmd_fleblk[FBLKS_MAX];$/;"	m	struct:s_fimgrhd
+fmd_fleblk	include/drvinc/drvfs_t.h	/^    filblks_t fmd_fleblk[FBLKS_MAX];$/;"	m	struct:s_fimgrhd
 fmd_flg	include/drvinc/drvfs_t.h	/^    uint_t fmd_flg;$/;"	m	struct:s_fimgrhd
 fmd_linknblk	include/drvinc/drvfs_t.h	/^    uint_t fmd_linknblk;$/;"	m	struct:s_fimgrhd
 fmd_linkpblk	include/drvinc/drvfs_t.h	/^    uint_t fmd_linkpblk;$/;"	m	struct:s_fimgrhd
@@ -720,6 +724,8 @@ freeblks	include/halinc/halmm_t.h	/^    uint_t	freeblks;$/;"	m	struct:s_PHYMEM
 g_i_0	task/utask.c	/^uint_t g_i_0 = 0;$/;"	v
 g_i_1	task/utask.c	/^uint_t g_i_1 = 0;$/;"	v
 get_bitmapblk	drivers/drvfs.c	/^u8_t * get_bitmapblk(device_t * devp)$/;"	f
+get_rootdir	drivers/drvfs.c	/^rfsdir_t * get_rootdir(device_t * devp)$/;"	f
+get_rootdirfile_blk	drivers/drvfs.c	/^void * get_rootdirfile_blk(device_t * devp)$/;"	f
 get_superblk	drivers/drvfs.c	/^rfssublk_t * get_superblk(device_t * devp)$/;"	f
 gint_indx	hal/intabtdistr.c	/^__attribute__((section(".data"))) uint_t gint_indx = 0;$/;"	v
 hal_add_ihandle	hal/halintrupt.c	/^bool_t hal_add_ihandle(intfltdsc_t * intdscp, intserdsc_t * serdscp)$/;"	f
@@ -1021,6 +1027,7 @@ new_device_dsc	kernel/krldevice.c	/^device_t * new_device_dsc()$/;"	f
 new_driver_dsc	kernel/krldevice.c	/^driver_t * new_driver_dsc()$/;"	f
 new_objs_mpool	kernel/krlpagempol.c	/^mplhead_t * new_objs_mpool(kmempool_t * kmplockp, size_t msize)$/;"	f
 new_page_mpool	kernel/krlpagempol.c	/^mplhead_t * new_page_mpool(kmempool_t * kmplockp, size_t msize)$/;"	f
+new_rfsdevext_mmblk	drivers/drvfs.c	/^drvstus_t new_rfsdevext_mmblk(device_t * devp, size_t blksz)$/;"	f
 next	include/bastypeinc/list_t.h	/^    struct s_LIST_H *next;$/;"	m	struct:s_LIST_H	typeref:struct:s_LIST_H::s_LIST_H
 numberk	hal/printfk.c	/^char_t * numberk(char_t *str, uint_t n, sint_t base)$/;"	f
 oal_cfgmsz	include/knlinc/krlobjsmpol_t.h	/^    olcfgdat_t *    oal_cfgmsz;$/;"	m	struct:s_OBJALST
@@ -1135,7 +1142,7 @@ rde_flg	include/drvinc/drvfs_t.h	/^    uint_t	rde_flg;$/;"	m	struct:s_RFSDEVEXT
 rde_list	include/drvinc/drvfs_t.h	/^    list_h_t	rde_list;$/;"	m	struct:s_RFSDEVEXT
 rde_lock	include/drvinc/drvfs_t.h	/^    spinlock_t rde_lock;$/;"	m	struct:s_RFSDEVEXT
 rde_msize	include/drvinc/drvfs_t.h	/^    size_t	rde_msize;$/;"	m	struct:s_RFSDEVEXT
-rde_start	include/drvinc/drvfs_t.h	/^    void *	rde_start;$/;"	m	struct:s_RFSDEVEXT
+rde_mstart	include/drvinc/drvfs_t.h	/^    void *	rde_mstart;$/;"	m	struct:s_RFSDEVEXT
 rde_stus	include/drvinc/drvfs_t.h	/^    uint_t	rde_stus;$/;"	m	struct:s_RFSDEVEXT
 rdr_blknr	include/drvinc/drvfs_t.h	/^    uint_t  rdr_blknr;$/;"	m	struct:s_RFSDIR
 rdr_name	include/drvinc/drvfs_t.h	/^    char_t  rdr_name[DR_NM_MAX];$/;"	m	struct:s_RFSDIR
@@ -1149,12 +1156,47 @@ ret_rfsdevblk	drivers/drvfs.c	/^void * ret_rfsdevblk(device_t * devp, uint_t blk
 ret_rfsdevext	drivers/drvfs.c	/^rfsdevext_t * ret_rfsdevext(device_t * devp)$/;"	f
 ret_rfsdevmaxblknr	drivers/drvfs.c	/^uint_t ret_rfsdevmaxblknr(device_t * devp)$/;"	f
 retnfrom_first_sched	kernel/krlsched.c	/^void retnfrom_first_sched(thread_t * thrdp)$/;"	f
+rfs_chkfileisindev	drivers/drvfs.c	/^sint_t rfs_chkfileisindev(device_t * devp, char_t * fname)$/;"	f
+rfs_chkfilepath	drivers/drvfs.c	/^sint_t rfs_chkfilepath(char_t * fname)$/;"	f
+rfs_close	drivers/drvfs.c	/^drvstus_t rfs_close(device_t * devp, void * iopack)$/;"	f
+rfs_close_file	drivers/drvfs.c	/^drvstus_t rfs_close_file(device_t * devp, void * iopack)$/;"	f
+rfs_closefileblk	drivers/drvfs.c	/^drvstus_t rfs_closefileblk(device_t * devp, void * fblkp)$/;"	f
+rfs_del_blk	drivers/drvfs.c	/^void rfs_del_blk(device_t * devp, uint_t blknr)$/;"	f
+rfs_del_dirfileblk	drivers/drvfs.c	/^drvstus_t rfs_del_dirfileblk(device_t * devp, char_t * fname, uint_t flgtype, uint_t val)$/;"	f
+rfs_del_file	drivers/drvfs.c	/^drvstus_t rfs_del_file(device_t * devp, char_t * fname, uint_t flg)$/;"	f
+rfs_dev_start	drivers/drvfs.c	/^drvstus_t rfs_dev_start(device_t * devp, void * iopack)$/;"	f
+rfs_dev_stop	drivers/drvfs.c	/^drvstus_t rfs_dev_stop(device_t * devp, void * iopack)$/;"	f
+rfs_entry	drivers/drvfs.c	/^drvstus_t rfs_entry(driver_t * drvp, uint_t val, void * p)$/;"	f
+rfs_enum_dev	drivers/drvfs.c	/^drvstus_t rfs_enum_dev(device_t * devp, void * iopack)$/;"	f
+rfs_flush	drivers/drvfs.c	/^drvstus_t rfs_flush(device_t * devp, void * iopack)$/;"	f
 rfs_fmat	drivers/drvfs.c	/^void rfs_fmat(device_t * devp)$/;"	f
-rfs_new_blk	drivers/drvfs.c	/^uint rfs_new_blk(device_t * devp)$/;"	f
+rfs_ioctrl	drivers/drvfs.c	/^drvstus_t rfs_ioctrl(device_t * devp, void * iopack)$/;"	f
+rfs_lseek	drivers/drvfs.c	/^drvstus_t rfs_lseek(device_t * devp, void * iopack)$/;"	f
+rfs_new_blk	drivers/drvfs.c	/^uint_t rfs_new_blk(device_t * devp)$/;"	f
+rfs_new_dirfileblk	drivers/drvfs.c	/^drvstus_t rfs_new_dirfileblk(device_t * devp, char_t * fname, uint_t flgtype, uint_t val)$/;"	f
+rfs_new_file	drivers/drvfs.c	/^drvstus_t rfs_new_file(device_t * devp, char_t * fname, uint_t flg)$/;"	f
+rfs_open	drivers/drvfs.c	/^drvstus_t rfs_open(device_t * devp, void * iopack)$/;"	f
+rfs_open_file	drivers/drvfs.c	/^drvstus_t rfs_open_file(device_t * devp, void * iopack)$/;"	f
+rfs_openfileblk	drivers/drvfs.c	/^void * rfs_openfileblk(device_t * devp, char_t * fname)$/;"	f
+rfs_read	drivers/drvfs.c	/^drvstus_t rfs_read(device_t * devp, void * iopack)$/;"	f
+rfs_read_file	drivers/drvfs.c	/^drvstus_t rfs_read_file(device_t * devp, void * iopack)$/;"	f
+rfs_readfileblk	drivers/drvfs.c	/^drvstus_t rfs_readfileblk(device_t * devp, fimgrhd_t * fmp, void * buf, uint_t len)$/;"	f
+rfs_ret_fname	drivers/drvfs.c	/^sint_t rfs_ret_fname(char_t * buf, char_t * fpath)$/;"	f
+rfs_set_device	drivers/drvfs.c	/^void rfs_set_device(device_t * devp, driver_t * drvp)$/;"	f
+rfs_set_driver	drivers/drvfs.c	/^void rfs_set_driver(driver_t * drvp)$/;"	f
+rfs_set_powerstus	drivers/drvfs.c	/^drvstus_t rfs_set_powerstus(device_t * devp, void * iopack)$/;"	f
+rfs_shutdown	drivers/drvfs.c	/^drvstus_t rfs_shutdown(device_t * devp, void * iopack)$/;"	f
+rfs_strcmp	drivers/drvfs.c	/^sint_t rfs_strcmp(char_t * str_s, char_t * str_d)$/;"	f
+rfs_strcpy	drivers/drvfs.c	/^sint_t rfs_strcpy(char_t * str_s, char_t * str_d)$/;"	f
+rfs_strlen	drivers/drvfs.c	/^sint_t rfs_strlen(char * str_s)$/;"	f
+rfs_write	drivers/drvfs.c	/^drvstus_t rfs_write(device_t * devp, void * iopack)$/;"	f
+rfs_write_file	drivers/drvfs.c	/^drvstus_t rfs_write_file(device_t * devp, void * iopack)$/;"	f
+rfs_writefileblk	drivers/drvfs.c	/^drvstus_t rfs_writefileblk(device_t * devp, fimgrhd_t * fmp, void * buf, uint_t len)$/;"	f
 rfsdevext_t	include/drvinc/drvfs_t.h	/^}rfsdevext_t;$/;"	t	typeref:struct:s_RFSDEVEXT
+rfsdevext_t_init	drivers/drvfs.c	/^void rfsdevext_t_init(rfsdevext_t * initp)$/;"	f
 rfsdir_t	include/drvinc/drvfs_t.h	/^}rfsdir_t;$/;"	t	typeref:struct:s_RFSDIR
 rfsdir_t_init	drivers/drvfs.c	/^void rfsdir_t_init(rfsdir_t * initp)$/;"	f
-rfssubblk_t	include/drvinc/drvfs_t.h	/^}rfssubblk_t;$/;"	t	typeref:struct:s_RFSSUBLK
+rfssublk_t	include/drvinc/drvfs_t.h	/^}rfssublk_t;$/;"	t	typeref:struct:s_RFSSUBLK
 rfssublk_t_init	drivers/drvfs.c	/^void rfssublk_t_init(rfssublk_t * initp)$/;"	f
 rsb_bmpbknr	include/drvinc/drvfs_t.h	/^    uint_t  rsb_bmpbknr;$/;"	m	struct:s_RFSSUBLK
 rsb_bmpbks	include/drvinc/drvfs_t.h	/^    uint_t  rsb_bmpbks;$/;"	m	struct:s_RFSSUBLK
@@ -1329,7 +1371,12 @@ test	hal/init.S	/^test:$/;"	l
 test1	hal/init.S	/^test1:$/;"	l
 test2	hal/init.S	/^test2:$/;"	l
 test3	hal/init.S	/^test3:$/;"	l
+test_allocblk	drivers/drvfs.c	/^void test_allocblk(device_t *devp)$/;"	f
 test_blkmm	hal/halmm.c	/^void test_blkmm()$/;"	f
+test_dir	drivers/drvfs.c	/^void test_dir(device_t * devp)$/;"	f
+test_file	drivers/drvfs.c	/^void test_file(device_t * devp)$/;"	f
+test_fsys	drivers/drvfs.c	/^void test_fsys(device_t * devp)$/;"	f
+test_rfs	drivers/drvfs.c	/^void test_rfs(device_t * devp)$/;"	f
 testblkalloc	hal/halmm.c	/^void testblkalloc()$/;"	f
 testobjsmgr	kernel/krlpagempol.c	/^void testobjsmgr()$/;"	f
 testpagemgr	kernel/krlpagempol.c	/^void testpagemgr()$/;"	f

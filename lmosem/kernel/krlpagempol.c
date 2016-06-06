@@ -846,7 +846,7 @@ adr_t kmempool_pages_core_new(size_t msize)
     mplhdp = kmemplpg_retn_mplhead(kmplp, msize);
     if(mplhdp == NULL)
     {
-	printfk("kmemplpg_retn_mplhead get NULL\n\r");
+	//printfk("kmemplpg_retn_mplhead get NULL\n\r");
 	mplhdp = new_page_mpool(kmplp, msize);
 	if(mplhdp == NULL)
 	{
