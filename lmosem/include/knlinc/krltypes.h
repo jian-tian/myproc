@@ -15,5 +15,8 @@
 #include "krlsched_t.h"
 #include "krlcpuidle_t.h"
 #include "krlwaitlist_t.h"
+#include "krlsvemm_t.h"
+#include "krlservice_t.h"
+#include "krlsvethread_t.h"
 
 #endif

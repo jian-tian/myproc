@@ -17,6 +17,9 @@
 #include "krlsched.h"
 #include "krlcpuidle.h"
 #include "krlwaitlist.h"
+#include "krlsvemm.h"
+#include "krlservice.h"
+#include "krlsvethread.h"
 
 #include "task.h"
 #endif

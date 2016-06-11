@@ -1,0 +1,12 @@
+/*****************************
+ * krlsveclose.h 2016.06.11
+ * *************************/
+#ifndef _KRLSVECLOSE_H
+#define _KRLSVECLOSE_H
+
+sysstus_t krlsvetabl_close(uint_t swinr, stkparame_t * stkparv);
+sysstus_t krlsve_close(hand_t fhand);
+sysstus_t krlsve_core_close(hand_t fhand);
+sysstus_t krlsve_close_device(objnode_t * ondp);
+
+#endif
