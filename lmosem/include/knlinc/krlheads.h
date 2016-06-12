@@ -20,6 +20,12 @@
 #include "krlsvemm.h"
 #include "krlservice.h"
 #include "krlsvethread.h"
+#include "krlsveopen.h"
+#include "krlsveclose.h"
+#include "krlsveread.h"
+#include "krlsvewrite.h"
+#include "krlsveioctrl.h"
+#include "krlsvelseek.h"
 
 #include "task.h"
 #endif

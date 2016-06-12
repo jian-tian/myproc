@@ -4,14 +4,14 @@
 #include "lmosemtypes.h"
 #include "lmosemmctrl.h"
 
-sysstus_t krlsvetabl_open(uint_t swinr, stkparame * stkparv)
+sysstus_t krlsvetabl_open(uint_t swinr, stkparame_t * stkparv)
 {
     if(swinr != SNR_FS_OPEN)
     {
 	return SYSSTUSERR;
     }
     return (sysstus_t)krlsve_open((void *)stkparv->parmv1, (uint_t)stkparv->parmv2,\
-				    (uint_t)stkparv->parvmv3);
+				    (uint_t)stkparv->parmv3);
 }
 
 hand_t krlsve_open(void * file, uint_t flgs, uint_t stus)
@@ -34,14 +34,14 @@ hand_t krlsve_core_open(void * file, uint_t flgs, uint_t stus)
     {
 	goto op_dev_step;
     }
-    if(((flgs & FILG_TY_MASK) == FILE_TY_FILE))
+    if(((flgs & FILE_TY_MASK) == FILE_TY_FILE))
     {
 	goto op_fil_step;
     }
     return NO_HAND;
 
 op_dev_step:
-    devid.dev_mtype = ((devid_t *)file)->dev_mtye;
+    devid.dev_mtype = ((devid_t *)file)->dev_mtype;
     devid.dev_stype = ((devid_t *)file)->dev_stype;
     devid.dev_nr = ((devid_t *)file)->dev_nr;
     devp = krlonidfl_retn_device((void *)(&devid), DIDFIL_IDN);
@@ -53,7 +53,7 @@ op_dev_step:
     ondp->on_objtype = OBJN_TY_DEV;
     ondp->on_objadr = devp;
     rethd = krlthd_add_objnode(tdp, ondp);
-    if(rethd == NO_HEAD)
+    if(rethd == NO_HAND)
     {
 	goto res_step;
     }
@@ -84,7 +84,7 @@ op_fil_step:
 
     if(((flgs >> RWO_FLG_BITS) & RWO_FLG_MASK) == NF_FLG)
     {
-	ondp->on_acs_flgs = FSDEV_OPENFLG_NEWFILE;
+	ondp->on_acsflgs = FSDEV_OPENFLG_NEWFILE;
 	ondp->on_fname = file;
 	if(krlsve_open_device(ondp) == SYSSTUSERR)
 	{
@@ -95,7 +95,6 @@ op_fil_step:
 	    hal_sysdie("NEWFILE api dle objnode err");
 	}
 	return 0;
-	}
     }
     else
     {
@@ -104,7 +103,7 @@ op_fil_step:
     ondp->on_fname = file;
 
     rethd = krlthd_add_objnode(tdp, ondp);
-    if(rethd = NO_HAND)
+    if(rethd == NO_HAND)
     {
 	goto res_step;
     }

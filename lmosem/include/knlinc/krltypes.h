@@ -18,5 +18,11 @@
 #include "krlsvemm_t.h"
 #include "krlservice_t.h"
 #include "krlsvethread_t.h"
+#include "krlsveopen_t.h"
+#include "krlsveclose_t.h"
+#include "krlsveread_t.h"
+#include "krlsvewrite_t.h"
+#include "krlsveioctrl_t.h"
+#include "krlsvelseek_t.h"
 
 #endif

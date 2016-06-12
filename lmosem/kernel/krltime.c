@@ -40,12 +40,20 @@ void krlupdate_times(uint_t year, uint_t mon, uint_t day, uint_t date, uint_t ho
     return;
 }
 
+sysstus_t krlsvetabl_time(uint_t swinr, stkparame_t * stkparv)
+{
+    if(swinr != SNR_TIME)
+    {
+	return SYSSTUSERR;
+    }
+    return krlsve_time((time_t *)stkparv->parmv1);
+}
+
 sysstus_t krlsve_time(time_t * time)
 {
     if(time == NULL)
     {
-	//return SYSSTUSERR;
-	return -1;
+	return SYSSTUSERR;
     }
 
     ktime_t * initp = &osktime;
@@ -60,6 +68,5 @@ sysstus_t krlsve_time(time_t * time)
     time->sec = initp->kt_sec;
     hal_spinunlock_restflg_sti(&initp->kt_lock, &cpufg);
 
-    //return SYSSTUSOK;
-    return 0;
+    return SYSSTUSOK;
 }

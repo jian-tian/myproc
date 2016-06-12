@@ -24,7 +24,8 @@ KRL_DEFGLOB_VARIABLE(syscall_t, osscalltab)[SWINR_MAX] =
     krlsvetabl_ioctrl,
     krlsvetabl_lseek,
     krlsvetabl_time
-}
+};
+
 KRL_DEFGLOB_VARIABLE(drventyexit_t, osdrvetytabl)[] = 
 {
     systick_entry, /*mask systick temporarily*/ 

@@ -42,7 +42,7 @@ sysstus_t krlsve_mfreeblk(void * fradr, size_t blksz)
     return krlsve_core_mfreeblk(fradr, blksz);
 }
 
-void * krlsve_core_mfreeblk(size_t blksz)
+void * krlsve_core_mallocblk(size_t blksz)
 {
     return (void *)krlnew(blksz);
 }

@@ -10,7 +10,7 @@ sysstus_t krlsvetabl_exel_thread(uint_t swinr, stkparame_t * stkparv)
     {
 	return SYSSTUSERR;
     }
-    return krlsve_exel_thread((void *)stkparv->parvm1, (uint_t)stkparv->parmv2);
+    return krlsve_exel_thread((void *)stkparv->parmv1, (uint_t)stkparv->parmv2);
 }
 
 sysstus_t krlsvetabl_retn_threadhand(uint_t swinr, stkparame_t * stkparv)
@@ -19,10 +19,10 @@ sysstus_t krlsvetabl_retn_threadhand(uint_t swinr, stkparame_t * stkparv)
     {
 	return SYSSTUSERR;
     }
-    return (sysstus_t)krlsve_exel_thread((void *)stkparv->parvm1);
+    return (sysstus_t)krlsve_exel_thread((void *)stkparv->parmv1, (uint_t)stkparv->parmv2);
 }
 
-systus_t krlsvetabl_retn_threadstats(uint_t swinr, stkparame_t * stkparv)
+sysstus_t krlsvetabl_retn_threadstats(uint_t swinr, stkparame_t * stkparv)
 {
     if(swinr != SNR_TD_RSTATS)
     {
@@ -32,13 +32,13 @@ systus_t krlsvetabl_retn_threadstats(uint_t swinr, stkparame_t * stkparv)
 				   (uint_t)stkparv->parmv3, (buf_t)stkparv->parmv4);
 }
 
-systus_t krlsvetabl_set_threadstats(uint_t swinr, stkparame_t * stkparv)
+sysstus_t krlsvetabl_set_threadstats(uint_t swinr, stkparame_t * stkparv)
 {
     if(swinr != SNR_TD_SSTATS)
     {
 	return SYSSTUSERR;
     }
-    return krlsve_set_threadstats((hand_t)stkparv-parmv1, (uint_t)stkparv->parmv2, \
+    return krlsve_set_threadstats((hand_t)stkparv->parmv1, (uint_t)stkparv->parmv2, \
 				  (uint_t)stkparv->parmv3, (buf_t)stkparv->parmv4);
 }
 

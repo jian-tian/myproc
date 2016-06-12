@@ -22,7 +22,7 @@ sysstus_t krlsve_close(hand_t fhand)
     return krlsve_core_close(fhand);
 }
 
-sysstus_t krlsve_core_close(hant_t fhand)
+sysstus_t krlsve_core_close(hand_t fhand)
 {
     thread_t * tdp = krlsched_retn_currthread();
     objnode_t * ondp = krlthd_retn_objnode(tdp, fhand);
@@ -30,7 +30,7 @@ sysstus_t krlsve_core_close(hant_t fhand)
     {
 	return SYSSTUSERR;
     }
-    if(ondp->on_objtype == OBJN_TY_DEV || ondp->objtype == OBJN_TY_FIL)
+    if(ondp->on_objtype == OBJN_TY_DEV || ondp->on_objtype == OBJN_TY_FIL)
     {
 	ondp->on_opercode = IOIF_CODE_CLOSE;
 	goto cl_dev_step;
