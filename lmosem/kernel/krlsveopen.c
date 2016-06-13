@@ -131,3 +131,16 @@ res_step:
     }
     return NO_HAND;
 }
+
+sysstus_t krlsve_open_device(objnode_t * ondep)
+{
+    if(ondep->on_objadr == NULL)
+    {
+	return SYSSTUSERR;
+    }
+    if(krldev_io(ondep) == DFCERRSTUS)
+    {
+	return SYSSTUSERR;
+    }
+    return SYSSTUSOK;
+}

@@ -1,7 +1,7 @@
 #ifndef _LAPINRENTRY_H
 #define _LAPINRENTRY_H
 
-#define API_ENTRY_PAPE1(swinr, rets, pval1)\
+#define API_ENTRY_PARE1(swinr, rets, pval1)\
 __asm__ __volatile__(\
     "mov r0, %[snr] \n\t"\
     "mov r1, %[prv1] \n\t"\
@@ -12,7 +12,7 @@ __asm__ __volatile__(\
     :"r0", "r1", "lr", "cc", "memory"\
     )
 
-#define API_ENTRY_PAPE2(swinr, rets, pval1, pval2) \
+#define API_ENTRY_PARE2(swinr, rets, pval1, pval2) \
 __asm__ __volatile__(\
     "mov r0, %[snr] \n\t" \
     "mov r1, %[prv1] \n\t" \
@@ -24,7 +24,7 @@ __asm__ __volatile__(\
     :"r0", "r1", "r2", "cc", "memory"\
     )
 
-#define API_ENTRY_PAPE3(swinr, rets, pval1, pval2, pval3) \
+#define API_ENTRY_PARE3(swinr, rets, pval1, pval2, pval3) \
 __asm__ __volatile__(\
     "mov r0, %[snr] \n\t"\
     "mov r1, %[prv1] \n\t"\
@@ -36,7 +36,7 @@ __asm__ __volatile__(\
     :"r0", "r1", "r2", "cc", "memory"\
     )
 
-#define API_ENTRY_PAPE4(swinr, rets, pval1, pval2, pval3, pval4) \
+#define API_ENTRY_PARE4(swinr, rets, pval1, pval2, pval3, pval4) \
 __asm__ __volatile__(\
     "mov r0, %[snr] \n\t" \
     "mov r1, %[prv1] \n\t" \
@@ -52,7 +52,7 @@ __asm__ __volatile__(\
     :"r0", "r1", "r2", "r3", "r4", "cc", "memory" \
     )
 
-#define API_ENTRY_PAPE5(swinr, rets, pval1, pval2, pval3, pval4, pval5) \
+#define API_ENTRY_PARE5(swinr, rets, pval1, pval2, pval3, pval4, pval5) \
 __asm__ __volatile__(\
     "mov r0, %[snr] \n\t"\
     "mov r1, %[prv1] \n\t"\

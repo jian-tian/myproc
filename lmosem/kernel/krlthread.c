@@ -188,3 +188,74 @@ thread_t * krlsched_retn_currthread()
     }
     return schdap->sda_currtd;
 }
+
+hand_t krlthd_add_objnode(thread_t * thdp, objnode_t * ondp)
+{
+    cpuflg_t cpuflg;
+    hand_t rethd = NO_HAND;
+    hal_spinlock_saveflg_cli(&thdp->td_lock, &cpuflg);
+
+    for(uint_t hand=0; hand<TD_HAND_MAX; hand++)
+    {
+	if(thdp->td_handtbl[hand] == NULL)
+	{
+	    rethd = (hand_t)hand;
+	    goto next_step;
+	}
+    }
+    rethd = NO_HAND;
+    goto retn_step;
+
+next_step:
+    thdp->td_handtbl[rethd] = ondp;
+retn_step:
+    hal_spinunlock_restflg_sti(&thdp->td_lock, &cpuflg);
+    return rethd;
+}
+
+hand_t krlthd_del_objnode(thread_t * thdp, hand_t hand)
+{
+    if(hand >= TD_HAND_MAX || hand <=NO_HAND)
+    {
+	return NO_HAND;
+    }
+
+    cpuflg_t cpuflg;
+    hand_t rethd = NO_HAND;
+    hal_spinlock_saveflg_cli(&thdp->td_lock, &cpuflg);
+
+    if(thdp->td_handtbl[hand] == NULL)
+    {
+	rethd = NO_HAND;
+	goto retn_step;
+    }
+    thdp->td_handtbl[hand] = NULL;
+    rethd = hand;
+
+retn_step:
+    hal_spinunlock_restflg_sti(&thdp->td_lock, &cpuflg);
+    return rethd;
+}
+
+objnode_t * krlthd_retn_objnode(thread_t * thdp, hand_t hand)
+{
+    if(hand >= TD_HAND_MAX || hand <= NO_HAND)
+    {
+	return NULL;
+    }
+
+    cpuflg_t cpuflg;
+    objnode_t * retondp = NULL;
+    hal_spinlock_saveflg_cli(&thdp->td_lock, &cpuflg);
+
+    if(thdp->td_handtbl[hand] == NULL)
+    {
+	retondp = NULL;
+	goto retn_step;
+    }
+    retondp = thdp->td_handtbl[hand];
+retn_step:
+    hal_spinunlock_restflg_sti(&thdp->td_lock, &cpuflg);
+    return retondp;
+}
+

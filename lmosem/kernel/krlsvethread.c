@@ -13,6 +13,15 @@ sysstus_t krlsvetabl_exel_thread(uint_t swinr, stkparame_t * stkparv)
     return krlsve_exel_thread((void *)stkparv->parmv1, (uint_t)stkparv->parmv2);
 }
 
+sysstus_t krlsvetabl_exit_thread(uint_t swinr, stkparame_t * stkparv)
+{
+    if(swinr != SNR_TD_EXIT)
+    {
+	return SYSSTUSERR;
+    }
+    return krlsve_exit_thread();
+}
+
 sysstus_t krlsvetabl_retn_threadhand(uint_t swinr, stkparame_t * stkparv)
 {
     if(swinr != SNR_TD_HAND)
@@ -59,6 +68,11 @@ hand_t krlsve_retn_threadhand(void * tname)
 	thread_t * tdp = krlsched_retn_currthread();
 	return (hand_t)(tdp->td_id);
     }
+    return SYSSTUSERR;
+}
+
+sysstus_t krlsve_retn_threadstats(hand_t thand, uint_t scode, uint_t data, buf_t buf)
+{
     return SYSSTUSERR;
 }
 

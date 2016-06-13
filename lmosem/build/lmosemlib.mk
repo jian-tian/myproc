@@ -16,4 +16,4 @@ all : build_kernel
 build_kernel : everything
 
 everything : $(BUILD_MK_LIBS_OBJS)
-include krnlbuidcmd.mh
+include krnlbuidrule.mk
