@@ -11,7 +11,10 @@
 #define BUILD_FSYS_OBJS
 #define BUILD_DRIV_OBJS drvtick.o drvrtc.o drvfs.o
 
-#define BUILD_LIBS_OBJS lapitime.o lapithread.o
+#define BUILD_LIBS_OBJS lapitime.o lapithread.o lapimm.o lapiopen.o \
+			lapiclose.o lapiread.o lapiwrite.o lapiioctrl.o lapilseek.o \
+			libmm.o libthread.o libopen.o libclose.o libread.o \
+			libwrite.o libioctrl.o liblseek.o libtime.o
 #define BUILD_TASK_OBJS utask.o
 #define BUILD_LINK_OBJS BUILD_BOOT_OBJS BUILD_HALY_OBJS \
 			BUILD_KRNL_OBJS BUILD_MEMY_OBJS \
