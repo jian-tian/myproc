@@ -13,7 +13,7 @@ void krlsem_t_init(sem_t * initp)
     return;
 }
 
-void krlsem_set_sem(sem_t * setsem, uint_t flg, size_t count)
+void krlsem_set_sem(sem_t * setsem, uint_t flg, sint_t count)
 {
     cpuflg_t cpufg;
     hal_spinlock_saveflg_cli(&setsem->sem_lock, &cpufg);
@@ -31,7 +31,7 @@ start_step:
     if(sem->sem_count < 1)
     {
 	/*将当前进程挂入等待队列*/
-	//krlwlst_wait(&sem->sem_waitlst);
+	krlwlst_wait(&sem->sem_waitlst);
 	hal_spinunlock_restflg_sti(&sem->sem_lock, &cpufg);
 	/*调度并切换到新的进程运行，下次运行时从goto开始*/
 	krlschedul();

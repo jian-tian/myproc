@@ -23,10 +23,12 @@ void hal_dbug_print_reg(intstkregs_t * intstkp)
     printfk("USR_REG r12:%x\n\r", intstkp->r12);
     printfk("USR_REG r13:%x\n\r", intstkp->r13);
     printfk("USR_REG r14:%x\n\r", intstkp->r14);
+    printfk("USR_REG r14:%x\n\r", intstkp->r14);
+    printfk("USR_REG c_lr:%x\n\r", intstkp->c_lr);
     printfk("SVE_REG lr:%x\n\r", intstkp->s_lr);
     printfk("SVE_REG spsr:%x\n\r", intstkp->s_spsr);
     printfk("CSP_REG sp:%x INTPND:%x\n\r", hal_read_currmodesp(), hal_io32_read(INTPND_R));
-    printfk("CCR_REG cpsr:%x INTOFST:%x\n\r", hal_read_cpuflg(), hal_retn_cpuid());
+    printfk("CCR_REG cpsr:%x INTOFST:%x\n\r", hal_read_cpuflg(), hal_retn_intnr());
     thread_t * prev = krlsched_retn_currthread();
 
     printfk("CURR_THREAD:%x CURR_THREAD_KSTKTOP:%x\n\r", (uint_t)prev, (uint_t)prev->td_krlstktop);
@@ -44,9 +46,10 @@ void hal_undefins_distr(void * sframe)
 
 sysstus_t hal_swi_distr(uint_t swinr, void * sframe)
 {
-    sysstus_t a = 0;
-//    return krlservice(swinr, sframe);
-    return a;
+    //sysstus_t a = 0;
+    //printfk("hal_swi_distr begin:\n\r");
+    return krlservice(swinr, sframe);
+    //return a;
 }
 
 void hal_prefabt_distr(void * sframe)
@@ -159,8 +162,8 @@ void hal_sint_distr(void * sframe, uint_t mintnr, uint_t pndbts, uint_t pndbte)
     {
 	if(((pnd>>bi)&1)==1)
 	{
-	    hal_run_intflthandle(EINT_IFDNR(bi), sframe);
-	    hal_clear_srcpnd(EINT_IFDNR(bi));
+	    hal_run_intflthandle(SINT_IFDNR(bi), sframe);
+	    hal_clear_srcpnd(SINT_IFDNR(bi));
 	}
     }
     return;
@@ -175,7 +178,7 @@ void hal_lcdint_distr(void * sframe, uint_t mintnr, uint_t pndbts, uint_t pndbte
     {
 	if(((pnd>>bi)&1)==1)
 	{
-	    hal_run_intflthandle(EINT_IFDNR(bi), sframe);
+	    hal_run_intflthandle(SINT_IFDNR(bi), sframe);
 	}
     }
     return;

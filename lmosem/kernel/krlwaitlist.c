@@ -32,7 +32,7 @@ void krlwlst_up(kwlst_t * wlst)
 
 void krlwlst_allup(kwlst_t * wlst)
 {
-    while(list_is_empty_careful(&wlst->wl_list) == TRUE)
+    while(list_is_empty_careful(&wlst->wl_list) == FALSE)
     {
 	krlsched_up(wlst);
     }

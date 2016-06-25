@@ -26,7 +26,7 @@ ARMTASKMFLGS = -C $(BUILD_PATH) -f lmosemtask.mk
 ARMLINKMFLGS = -C $(BUILD_PATH) -f lmosemlink.mk
 CPFLAGES =
 VMFLAGES = 
-MGFLAGES = -A arm -T kernel -C none -a 30007ebo -e 30008000 -d lmosemkrnl.bin lmosemkrnl.uimg
+MGFLAGES = -A arm -T kernel -C none -a 30007eb0 -e 30008000 -d lmosemkrnl.bin lmosemkrnl.uimg
 DSTPATH = ../exckrnl
 RELEDSTPATH = ../release
 SRCFILE = lmosemkrnl.bin lmosemkrnl.elf
@@ -63,7 +63,7 @@ cpkrnl :
 	$(CD) $(BUILD_PATH) && $(CP) $(CPFLAGES) $(SRCFILE) $(DSTPATH)
 
 writekrl :
-	$(CD) $(BUILD_PATH) && $(CP) bs=512 if=$(BOOTEXCIMG) of=$(DSKIMG) conv\=notrunc
+	$(CD) $(EXKNL_PATH) && $(DD) bs=512 if=$(BOOTEXCIMG) of=$(DSKIMG) conv\=notrunc
 
 UIMAGE:
 	$(CD) $(EXKNL_PATH) && $(MKIMAGE) $(MGFLAGES)

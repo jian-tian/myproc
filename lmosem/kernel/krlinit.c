@@ -36,6 +36,7 @@ void init_krl()
     printfk("krlsched init ok \n\r");
     init_ktime();
     printfk("init_task init before \n\r");
+    //task1_main();
     init_task();
     printfk("init_task init ok \n\r");
     init_krlcpuidle();

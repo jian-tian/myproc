@@ -8,6 +8,7 @@ void context_t_init(context_t * initp)
 {
     initp->ctx_usrsp = 0;
     initp->ctx_svcsp = 0;
+    initp->ctx_svcspsr = 0;
     initp->ctx_cpsr = 0;
     initp->ctx_lr = 0;
 }
@@ -165,30 +166,6 @@ void krlthd_inc_tick(thread_t * thdp)
     return;
 }
 
-void krlsched_set_schedflgs(void)
-{
-    cpuflg_t cpufg;
-    uint_t cpuid = hal_retn_cpuid();
-    /*获取当前CPU的schdata_t结构指针*/
-    schdata_t * schdap = &osschedcls.scls_schda[cpuid];
-    hal_spinlock_saveflg_cli(&schdap->sda_lock, &cpufg);
-    schdap->sda_schdflgs = NEED_SCHED_FLGS;
-    hal_spinunlock_restflg_sti(&schdap->sda_lock, &cpufg);
-    return;
-}
-
-/*获取当前运行的进程*/
-thread_t * krlsched_retn_currthread()
-{
-    uint_t cpuid = hal_retn_cpuid();
-    schdata_t * schdap = &osschedcls.scls_schda[cpuid];
-    if(schdap->sda_currtd == NULL)
-    {
-	hal_sysdie("schdap->sda_currtd NULL\n\r");
-    }
-    return schdap->sda_currtd;
-}
-
 hand_t krlthd_add_objnode(thread_t * thdp, objnode_t * ondp)
 {
     cpuflg_t cpuflg;
@@ -257,5 +234,32 @@ objnode_t * krlthd_retn_objnode(thread_t * thdp, hand_t hand)
 retn_step:
     hal_spinunlock_restflg_sti(&thdp->td_lock, &cpuflg);
     return retondp;
+}
+
+thread_t * krlnew_thread(void * filerun, uint_t flg, uint_t prilg, uint_t prity, size_t usrstksz, size_t krlstksz)
+{
+    size_t tustksz = 0;
+    size_t tkstksz = 0;
+
+    if((flg & 0x1) != 0 || filerun == NULL || usrstksz > DAFT_TDUSRSTKSZ || krlstksz > DAFT_TDKRLSTKSZ)
+    {
+	printfk("input error\n\r");
+	return NULL;
+    }
+    if((prilg != PRILG_USR && prilg != PRILG_SYS) || prity > PRITY_MAX)
+    {
+	printfk("input pri error\n\r");
+	return NULL;
+    }
+    if(usrstksz < DAFT_TDUSRSTKSZ)
+    {
+	tustksz = DAFT_TDUSRSTKSZ;
+    }
+    if(krlstksz < DAFT_TDKRLSTKSZ)
+    {
+	tkstksz = DAFT_TDKRLSTKSZ;
+    }
+
+    return krlnew_thread_core(filerun, flg, prilg, prity, tustksz, tkstksz);
 }
 

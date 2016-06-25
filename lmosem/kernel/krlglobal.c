@@ -11,6 +11,7 @@ KRL_DEFGLOB_VARIABLE(devtable_t, osdevtable);
 KRL_DEFGLOB_VARIABLE(ktime_t, osktime);
 KRL_DEFGLOB_VARIABLE(syscall_t, osscalltab)[SWINR_MAX] = 
 {
+    NULL,
     krlsvetabl_mfreeblk,
     krlsvetabl_exel_thread,
     krlsvetabl_exit_thread,
@@ -29,6 +30,7 @@ KRL_DEFGLOB_VARIABLE(syscall_t, osscalltab)[SWINR_MAX] =
 KRL_DEFGLOB_VARIABLE(drventyexit_t, osdrvetytabl)[] = 
 {
     systick_entry, /*mask systick temporarily*/ 
+    uart_entry,
     rtc_entry,
     rfs_entry,
     NULL

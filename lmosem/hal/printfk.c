@@ -4,18 +4,60 @@
 #include "lmosemtypes.h"
 #include "lmosemmctrl.h"
 
+spinlock_t print_lock;
+
+void print_init()
+{
+    hal_spinlock_init(&print_lock);
+    return;
+}
+
+uint_t g_i_2;
+
+void printfk_new(const char_t * fmt, ...)
+{
+//hal_spinlock_lock(&print_lock);
+//hal_disable_irq();
+    cpuflg_t cpuflg;
+    hal_disableirq_savecpuflg(&cpuflg);
+    g_i_2 = 10;
+    char_t buf_print[512];
+    va_list ap;
+    g_i_2 = 20;
+    va_start(ap, fmt);
+    g_i_2 = 30;
+    //hal_memset(buf_print, 512, 0);
+    g_i_2 = 40;
+    vsprintfk(buf_print, fmt, ap);
+    g_i_2 = 50;
+    //hal_uart_write(0, buf_print, 0);
+    g_i_2 = 60;
+    va_end(ap);
+    g_i_2 = 90;
+    hal_enableirq_restcpuflg(&cpuflg);
+    g_i_2 = 100;
+//hal_enable_irq();
+//hal_spinlock_unlock(&print_lock);
+    return;
+}
+
+
 void printfk(const char_t * fmt, ...)
 {
-    char_t buf[512];
+//    hal_spinlock_lock(&print_lock);
+    //hal_disable_irq();
     cpuflg_t cpuflg;
+    hal_disableirq_savecpuflg(&cpuflg);
+    char_t buf_print[512];
     va_list ap;
     va_start(ap, fmt);
-    hal_disableirq_savecpuflg(&cpuflg);
-
-    vsprintfk(buf, fmt, ap);
-    hal_uart_write(0, buf, 0);
-    hal_enableirq_restcpuflg(&cpuflg);
+    //hal_memset(buf_print, 512, 0);
+    vsprintfk(buf_print, fmt, ap);
+    hal_uart_write(0, buf_print, 0);
     va_end(ap);
+    hal_enableirq_restcpuflg(&cpuflg);
+    //hal_enable_irq();
+  //  hal_spinlock_unlock(&print_lock);
     return;
 }
 

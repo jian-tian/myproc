@@ -15,6 +15,7 @@ void objnode_t_init(objnode_t * initp)
     initp->on_objtype = 0;
     initp->on_objadr = NULL;
     initp->on_acsflgs = 0;
+    initp->on_acsstus = 0;
     initp->on_currops = 0;
     initp->on_len = 0;
     initp->on_ioctrd = 0;

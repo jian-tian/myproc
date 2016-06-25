@@ -52,7 +52,7 @@ cl_dev_step:
     {
 	hal_sysdie("close api del objnode\n");
     }
-    return SYSSTUSERR;
+    return SYSSTUSOK;
 }
 
 sysstus_t krlsve_close_device(objnode_t * ondep)

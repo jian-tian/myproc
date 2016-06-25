@@ -16,7 +16,7 @@ sysstus_t krlsvetabl_write(uint_t swinr, stkparame_t * stkparv)
 
 sysstus_t krlsve_write(hand_t fhand, buf_t buf, size_t len, uint_t flgs)
 {
-    if(fhand == NULL || fhand >= TD_HAND_MAX || buf == NULL || len == 0)
+    if(fhand <=NO_HAND || fhand >= TD_HAND_MAX || buf == NULL || len == 0)
     {
 	return SYSSTUSERR;
     }

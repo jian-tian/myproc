@@ -30,8 +30,8 @@ APBBUS_DEVICE	include/libinc/libdev.h	10;"	d
 API_ENTRY_PARE1	include/libinc/lapinrentry.h	4;"	d
 API_ENTRY_PARE2	include/libinc/lapinrentry.h	15;"	d
 API_ENTRY_PARE3	include/libinc/lapinrentry.h	27;"	d
-API_ENTRY_PARE4	include/libinc/lapinrentry.h	39;"	d
-API_ENTRY_PARE5	include/libinc/lapinrentry.h	55;"	d
+API_ENTRY_PARE4	include/libinc/lapinrentry.h	40;"	d
+API_ENTRY_PARE5	include/libinc/lapinrentry.h	56;"	d
 ARMDRIVMFLGS	Makefile	/^ARMDRIVMFLGS = -C $(BUILD_PATH) -f lmosemdrv.mk$/;"	m
 ARMHALYMFLGS	Makefile	/^ARMHALYMFLGS = -C $(BUILD_PATH) -f lmosemhal.mk$/;"	m
 ARMKRNLMFLGS	Makefile	/^ARMKRNLMFLGS = -C $(BUILD_PATH) -f lmosemkrl.mk $/;"	m
@@ -75,7 +75,6 @@ BLKSZ_HEAD_MAX	include/halinc/halmm_t.h	57;"	d
 BOOTEXCIMG	Makefile	/^BOOTEXCIMG = lmosem.bin$/;"	m
 BRIDGE_DEVICE	include/knlinc/krldevice_t.h	11;"	d
 BRIDGE_DEVICE	include/libinc/libdev.h	11;"	d
-BUIKD_MK_HALY_OBJS	script/krnlobjs.S	/^BUIKD_MK_HALY_OBJS :=$/;"	d
 BUILD_BOOT_OBJS	include/script/buildfile.h	4;"	d
 BUILD_DRIV_OBJS	include/script/buildfile.h	12;"	d
 BUILD_FSYS_OBJS	include/script/buildfile.h	11;"	d
@@ -91,6 +90,7 @@ BUILD_MK_DRIV_OBJS	script/krnlobjs.S	/^BUILD_MK_DRIV_OBJS :=$/;"	d
 BUILD_MK_FSYS_OBJS	script/krnlobjs.S	/^BUILD_MK_FSYS_OBJS += BUILD_FSYS_OBJS$/;"	l
 BUILD_MK_FSYS_OBJS	script/krnlobjs.S	/^BUILD_MK_FSYS_OBJS :=$/;"	d
 BUILD_MK_HALY_OBJS	script/krnlobjs.S	/^BUILD_MK_HALY_OBJS += BUILD_HALY_OBJS$/;"	l
+BUILD_MK_HALY_OBJS	script/krnlobjs.S	/^BUILD_MK_HALY_OBJS :=$/;"	d
 BUILD_MK_KRNL_OBJS	script/krnlobjs.S	/^BUILD_MK_KRNL_OBJS += BUILD_KRNL_OBJS$/;"	l
 BUILD_MK_KRNL_OBJS	script/krnlobjs.S	/^BUILD_MK_KRNL_OBJS :=$/;"	d
 BUILD_MK_LIBS_OBJS	script/krnlobjs.S	/^BUILD_MK_LIBS_OBJS += BUILD_LIBS_OBJS$/;"	l
@@ -390,7 +390,7 @@ MAPF_SZ_4MB	include/halinc/halmm_t.h	20;"	d
 MAPF_SZ_BIT	include/halinc/halmm_t.h	16;"	d
 MAPONE_SIZE	include/halinc/halmm_t.h	29;"	d
 MAP_FLAGS_VAL	include/halinc/halmm_t.h	30;"	d
-MGFLAGES	Makefile	/^MGFLAGES = -A arm -T kernel -C none -a 30007ebo -e 30008000 -d lmosemkrnl.bin lmosemkrnl.uimg$/;"	m
+MGFLAGES	Makefile	/^MGFLAGES = -A arm -T kernel -C none -a 30007eb0 -e 30008000 -d lmosemkrnl.bin lmosemkrnl.uimg$/;"	m
 MICRSTK_MAX	include/knlinc/krlthread_t.h	20;"	d
 MINTNR_END	include/halinc/halintrupt_t.h	51;"	d
 MINTNR_START	include/halinc/halintrupt_t.h	50;"	d
@@ -504,6 +504,7 @@ SPI_DEVICE	include/knlinc/krldevice_t.h	31;"	d
 SPI_DEVICE	include/libinc/libdev.h	31;"	d
 SRCFILE	Makefile	/^SRCFILE = lmosemkrnl.bin lmosemkrnl.elf$/;"	m
 SRCPND_R	include/halinc/halintrupt_t.h	32;"	d
+STDIO_H	include/libinc/stdio.h	5;"	d
 SUBINITSRC_FLG	include/halinc/halintrupt_t.h	19;"	d
 SUBINTLINE_MAX	include/halinc/halintrupt_t.h	23;"	d
 SUBSRCPND_BITS_MASK	include/halinc/halintrupt_t.h	36;"	d
@@ -546,6 +547,7 @@ UBRDIV2_R	include/halinc/haluart_t.h	47;"	d
 UCON0_R	include/halinc/haluart_t.h	11;"	d
 UCON1_R	include/halinc/haluart_t.h	12;"	d
 UCON2_R	include/halinc/haluart_t.h	13;"	d
+UERR0_INT_PHYLINE	include/drvinc/drvuart_t.h	9;"	d
 UERSTAT0_R	include/halinc/haluart_t.h	26;"	d
 UERSTAT1_R	include/halinc/haluart_t.h	27;"	d
 UERSTAT2_R	include/halinc/haluart_t.h	28;"	d
@@ -564,6 +566,7 @@ UMSTAT0_R	include/halinc/haluart_t.h	34;"	d
 UMSTAT1_R	include/halinc/haluart_t.h	35;"	d
 UNKNOWN_DEVICE	include/knlinc/krldevice_t.h	39;"	d
 UNKNOWN_DEVICE	include/libinc/libdev.h	39;"	d
+URXD0_INT_PHYLINE	include/drvinc/drvuart_t.h	7;"	d
 URXH0_R	include/halinc/haluart_t.h	41;"	d
 URXH1_R	include/halinc/haluart_t.h	42;"	d
 URXH2_R	include/halinc/haluart_t.h	43;"	d
@@ -574,6 +577,7 @@ USB_DEVICE	include/libinc/libdev.h	24;"	d
 UTRSTAT0_R	include/halinc/haluart_t.h	22;"	d
 UTRSTAT1_R	include/halinc/haluart_t.h	23;"	d
 UTRSTAT2_R	include/halinc/haluart_t.h	24;"	d
+UTXD0_INT_PHYLINE	include/drvinc/drvuart_t.h	8;"	d
 UTXH0_R	include/halinc/haluart_t.h	37;"	d
 UTXH1_R	include/halinc/haluart_t.h	38;"	d
 UTXH2_R	include/halinc/haluart_t.h	39;"	d
@@ -597,6 +601,8 @@ _DRVHEADS_H	include/drvinc/drvheads.h	5;"	d
 _DRVRTC_H	include/drvinc/drvrtc.h	5;"	d
 _DRVRTC_T_H	include/drvinc/drvrtc_t.h	5;"	d
 _DRVTYPE_H	include/drvinc/drvtypes.h	5;"	d
+_DRVUART_H	include/drvinc/drvuart.h	5;"	d
+_DRVUART_T_H	include/drvinc/drvuart_t.h	5;"	d
 _HALGLOBAL_T_H	include/halinc/halglobal_t.h	5;"	d
 _HALHEADS_H_	include/halinc/halheads.h	5;"	d
 _HALINIT_H	include/halinc/halinit.h	5;"	d
@@ -670,6 +676,7 @@ _PLATFORM_H	include/halinc/platform.h	5;"	d
 _PLATFORM_T_H	include/halinc/platform_t.h	6;"	d
 _PRINTFK_H	include/halinc/printfk.h	5;"	d
 _PRINTFK_T_H	include/halinc/printfk_t.h	5;"	d
+_PRINTF_H	include/libinc/printf.h	5;"	d
 _SEM_T_H	include/bastypeinc/sem_t.h	5;"	d
 _SPINLOCK_T_H	include/bastypeinc/spinlock_t.h	5;"	d
 __KRLDEVICE_H	include/knlinc/krldevice.h	5;"	d
@@ -695,7 +702,8 @@ __end_bss	script/lmemknllink.S	/^    __end_bss = .;$/;"	d
 __end_data	script/lmemknllink.S	/^    __end_data = .;$/;"	d
 __end_kernel	script/lmemknllink.S	/^    __end_kernel = .;$/;"	d
 __end_kstrtab	script/lmemknllink.S	/^    __end_kstrtab = .;$/;"	d
-__end_lmosem_hal_head_test	script/lmemknllink.S	/^    __end_lmosem_hal_head_test = .;$/;"	d
+__end_lmosem_hal_head_data	script/lmemknllink.S	/^    __end_lmosem_hal_head_data = .;$/;"	d
+__end_lmosem_hal_head_text	script/lmemknllink.S	/^    __end_lmosem_hal_head_text = .;$/;"	d
 __end_lmosem_hal_init	script/lmemknllink.S	/^    __end_lmosem_hal_init = .;$/;"	d
 __end_lmosem_hal_intvect	script/lmemknllink.S	/^    __end_lmosem_hal_intvect = .;$/;"	d
 __end_lmosem_hal_vector	script/lmemknllink.S	/^    __end_lmosem_hal_vector = .;$/;"	d
@@ -887,6 +895,7 @@ fmd_type	include/drvinc/drvfs_t.h	/^    uint_t fmd_type;$/;"	m	struct:s_fimgrhd
 freeblks	include/halinc/halmm_t.h	/^    uint_t	freeblks;$/;"	m	struct:s_PHYMEM
 g_i_0	task/utask.c	/^uint_t g_i_0 = 0;$/;"	v
 g_i_1	task/utask.c	/^uint_t g_i_1 = 0;$/;"	v
+g_i_2	hal/printfk.c	/^uint_t g_i_2;$/;"	v
 get_bitmapblk	drivers/drvfs.c	/^u8_t * get_bitmapblk(device_t * devp)$/;"	f
 get_rootdir	drivers/drvfs.c	/^rfsdir_t * get_rootdir(device_t * devp)$/;"	f
 get_rootdirfile_blk	drivers/drvfs.c	/^void * get_rootdirfile_blk(device_t * devp)$/;"	f
@@ -995,6 +1004,7 @@ ild_modflg	include/halinc/halintrupt_t.h	/^    u32_t ild_modflg;$/;"	m	struct:s_
 ild_physid	include/halinc/halintrupt_t.h	/^    u32_t ild_physid;$/;"	m	struct:s_ILNEDSC
 ilnedsc_t	include/halinc/halintrupt_t.h	/^}ilnedsc_t;$/;"	t	typeref:struct:s_ILNEDSC
 init_core_mmapdsc	hal/halmm.c	/^uint_t init_core_mmapdsc(adr_t adrs, adr_t adre, mmapdsc_t * gmmp, uint_t curmindx)$/;"	f
+init_devuart0	drivers/drvuart.c	/^void init_devuart0()$/;"	f
 init_hal	hal/halinit.c	/^void init_hal()$/;"	f
 init_halintupt	hal/halintrupt.c	/^void init_halintupt()$/;"	f
 init_halmach	hal/halmach.c	/^void init_halmach(void)$/;"	f
@@ -1068,7 +1078,7 @@ krlnew	kernel/krlmm.c	/^adr_t krlnew(size_t mmsize)$/;"	f
 krlnew_devhandle	kernel/krldevice.c	/^drvstus_t krlnew_devhandle(device_t * devp, intflthandle_t handle, uint_t phyiline)$/;"	f
 krlnew_device	kernel/krldevice.c	/^drvstus_t krlnew_device(device_t * devp)$/;"	f
 krlnew_objnode	kernel/krlobjnode.c	/^objnode_t * krlnew_objnode()$/;"	f
-krlnew_thread	kernel/krlsched.c	/^thread_t * krlnew_thread(void * filerun, uint_t flg, uint_t prilg, uint_t prity, size_t usrstksz, size_t krlstksz)$/;"	f
+krlnew_thread	kernel/krlthread.c	/^thread_t * krlnew_thread(void * filerun, uint_t flg, uint_t prilg, uint_t prity, size_t usrstksz, size_t krlstksz)$/;"	f
 krlnew_thread_core	kernel/krlthread.c	/^thread_t * krlnew_thread_core(void * filerun, uint_t flg, uint_t prilg, uint_t prity, size_t usrstksz, size_t krlstksz)$/;"	f
 krlnew_thread_dsc	kernel/krlthread.c	/^thread_t * krlnew_thread_dsc()$/;"	f
 krlonidfl_retn_device	kernel/krldevice.c	/^device_t * krlonidfl_retn_device(void * dfname, uint_t flgs)$/;"	f
@@ -1077,15 +1087,15 @@ krlretn_thread_id	kernel/krlthread.c	/^uint_t krlretn_thread_id(thread_t * tdp)$
 krlrun_driverentry	kernel/krldevice.c	/^drvstus_t krlrun_driverentry(drventyexit_t drventry)$/;"	f
 krlschdclass_add_thread	kernel/krlsched.c	/^void krlschdclass_add_thread(thread_t * thdp)$/;"	f
 krlsched_chkneed_pmptsched	kernel/krlsched.c	/^void krlsched_chkneed_pmptsched(void)$/;"	f
-krlsched_retn_currthread	kernel/krlthread.c	/^thread_t * krlsched_retn_currthread()$/;"	f
+krlsched_retn_currthread	kernel/krlsched.c	/^thread_t * krlsched_retn_currthread()$/;"	f
 krlsched_retn_idlethread	kernel/krlsched.c	/^thread_t * krlsched_retn_idlethread(void)$/;"	f
 krlsched_select_thread	kernel/krlsched.c	/^thread_t * krlsched_select_thread(void)$/;"	f
-krlsched_set_schedflgs	kernel/krlthread.c	/^void krlsched_set_schedflgs(void)$/;"	f
+krlsched_set_schedflgs	kernel/krlsched.c	/^void krlsched_set_schedflgs(void)$/;"	f
 krlsched_up	kernel/krlsched.c	/^void krlsched_up(kwlst_t *wlst)$/;"	f
 krlsched_wait	kernel/krlsched.c	/^void krlsched_wait(kwlst_t * wlst)$/;"	f
 krlschedul	kernel/krlsched.c	/^void krlschedul(void)$/;"	f
 krlsem_down	kernel/krlsem.c	/^void krlsem_down(sem_t * sem)$/;"	f
-krlsem_set_sem	kernel/krlsem.c	/^void krlsem_set_sem(sem_t * setsem, uint_t flg, size_t count)$/;"	f
+krlsem_set_sem	kernel/krlsem.c	/^void krlsem_set_sem(sem_t * setsem, uint_t flg, sint_t count)$/;"	f
 krlsem_t_init	kernel/krlsem.c	/^void krlsem_t_init(sem_t * initp)$/;"	f
 krlsem_up	kernel/krlsem.c	/^void krlsem_up(sem_t * sem)$/;"	f
 krlservice	kernel/krlservice.c	/^sysstus_t krlservice(uint_t swinr, void * sframe)$/;"	f
@@ -1251,6 +1261,7 @@ new_objs_mpool	kernel/krlpagempol.c	/^mplhead_t * new_objs_mpool(kmempool_t * km
 new_page_mpool	kernel/krlpagempol.c	/^mplhead_t * new_page_mpool(kmempool_t * kmplockp, size_t msize)$/;"	f
 new_rfsdevext_mmblk	drivers/drvfs.c	/^drvstus_t new_rfsdevext_mmblk(device_t * devp, size_t blksz)$/;"	f
 next	include/bastypeinc/list_t.h	/^    struct s_LIST_H *next;$/;"	m	struct:s_LIST_H	typeref:struct:s_LIST_H::s_LIST_H
+number	lib/printf.c	/^char * number(char *str, uint_t n, sint_t base)$/;"	f
 numberk	hal/printfk.c	/^char_t * numberk(char_t *str, uint_t n, sint_t base)$/;"	f
 oal_cfgmsz	include/knlinc/krlobjsmpol_t.h	/^    olcfgdat_t *    oal_cfgmsz;$/;"	m	struct:s_OBJALST
 oal_emplist	include/knlinc/krlobjsmpol_t.h	/^    list_h_t	oal_emplist;$/;"	m	struct:s_OBJALST
@@ -1333,10 +1344,14 @@ pmm_lock	include/halinc/halmm_t.h	/^    spinlock_t	pmm_lock;$/;"	m	struct:s_PHYM
 pmm_sz_lsth	include/halinc/halmm_t.h	/^    alcfrelst_t	pmm_sz_lsth[BLKSZ_HEAD_MAX];$/;"	m	struct:s_PHYMEM
 pmmlist_init	hal/halmm.c	/^void pmmlist_init(mach_t * mahp, phymem_t * pmp)$/;"	f
 prev	include/bastypeinc/list_t.h	/^    struct s_LIST_H *prev;$/;"	m	struct:s_LIST_H	typeref:struct:s_LIST_H::s_LIST_H
+print_init	hal/printfk.c	/^void print_init()$/;"	f
+print_lock	hal/printfk.c	/^spinlock_t print_lock;$/;"	v
 print_mach	hal/halmach.c	/^void print_mach(mach_t * mchp)$/;"	f
 print_mmapdsc	hal/halmm.c	/^void print_mmapdsc(mach_t * mchp)$/;"	f
 print_mminfo	hal/halmm.c	/^void print_mminfo(phymem_t * pmp)$/;"	f
+printf	lib/printf.c	/^int printf(const char *fmt, ...)$/;"	f
 printfk	hal/printfk.c	/^void printfk(const char_t * fmt, ...)$/;"	f
+printfk_new	hal/printfk.c	/^void printfk_new(const char_t * fmt, ...)$/;"	f
 private	include/bastypeinc/bastype_t.h	40;"	d
 r0	include/halinc/cpu_t.h	/^    reg_t r0;$/;"	m	struct:s_ARMREGS
 r0	include/halinc/cpu_t.h	/^    reg_t r0;$/;"	m	struct:s_INTSTKREGS
@@ -1566,6 +1581,8 @@ spinlock_t	include/bastypeinc/spinlock_t.h	/^}spinlock_t;$/;"	t	typeref:struct:_
 stkparame_t	include/knlinc/krlservice_t.h	/^}stkparame_t;$/;"	t	typeref:struct:s_STKPARAME
 str_t	include/bastypeinc/bastype_t.h	/^typedef const char* str_t;$/;"	t
 strcopyk	hal/printfk.c	/^char_t * strcopyk(char_t * buf, char_t * str_s)$/;"	f
+strcpy	lib/printf.c	/^char * strcpy(char *buf, char *str_s)$/;"	f
+strlen	lib/printf.c	/^uint_t strlen(char * str_s)$/;"	f
 synsecalarm	lib/libtime.c	/^sysstus_t synsecalarm(uint_t sec)$/;"	f
 syscall_t	include/knlinc/krlservice_t.h	/^typedef sysstus_t (*syscall_t)(uint_t swinr, stkparame_t * stkparm);$/;"	t
 sysstus_t	include/bastypeinc/bastype_t.h	/^typedef sint_t sysstus_t;$/;"	t
@@ -1592,6 +1609,8 @@ task0	kernel/task.c	/^void task0()$/;"	f
 task0_main	task/utask.c	/^void task0_main()$/;"	f
 task1	kernel/task.c	/^void task1()$/;"	f
 task1_main	task/utask.c	/^void task1_main()$/;"	f
+task4	kernel/task.c	/^void task4()$/;"	f
+task5	kernel/task.c	/^void task5()$/;"	f
 td_context	include/knlinc/krlthread_t.h	/^    context_t	td_context;$/;"	m	struct:s_THREAD
 td_cpuid	include/knlinc/krlthread_t.h	/^    uint_t	td_cpuid;$/;"	m	struct:s_THREAD
 td_extdatap	include/knlinc/krlthread_t.h	/^    void *	td_extdatap;$/;"	m	struct:s_THREAD
@@ -1644,15 +1663,40 @@ u16_t	include/bastypeinc/bastype_t.h	/^typedef unsigned short u16_t;$/;"	t
 u32_t	include/bastypeinc/bastype_t.h	/^typedef unsigned int u32_t;$/;"	t
 u64_t	include/bastypeinc/bastype_t.h	/^typedef unsigned long long u64_t;$/;"	t
 u8_t	include/bastypeinc/bastype_t.h	/^typedef unsigned char u8_t;$/;"	t
+uart0_err_handle	drivers/drvuart.c	/^drvstus_t uart0_err_handle(uint_t ift_nr, void *devp, void *sframe)$/;"	f
+uart0_rxd_handle	drivers/drvuart.c	/^drvstus_t uart0_rxd_handle(uint_t ift_nr, void *devp, void *sframe)$/;"	f
+uart0_set_device	drivers/drvuart.c	/^void uart0_set_device(device_t *devp, driver_t *drvp)$/;"	f
+uart0_txd_handle	drivers/drvuart.c	/^drvstus_t uart0_txd_handle(uint_t ift_nr, void *devp, void *sframe)$/;"	f
+uart_close	drivers/drvuart.c	/^drvstus_t uart_close(device_t * devp, void *iopack)$/;"	f
+uart_dev_start	drivers/drvuart.c	/^drvstus_t uart_dev_start(device_t * devp, void *iopack)$/;"	f
+uart_dev_stop	drivers/drvuart.c	/^drvstus_t uart_dev_stop(device_t * devp, void * iopack)$/;"	f
+uart_entry	drivers/drvuart.c	/^drvstus_t uart_entry(driver_t * drvp, uint_t val, void * p)$/;"	f
+uart_enum_dev	drivers/drvuart.c	/^drvstus_t uart_enum_dev(device_t * devp, void * iopack)$/;"	f
+uart_exit	drivers/drvuart.c	/^drvstus_t uart_exit(driver_t * drvp, uint_t val, void *p)$/;"	f
+uart_flush	drivers/drvuart.c	/^drvstus_t uart_flush(device_t * devp, void * iopack)$/;"	f
+uart_ioctrl	drivers/drvuart.c	/^drvstus_t uart_ioctrl(device_t * devp, void * iopack)$/;"	f
+uart_lseek	drivers/drvuart.c	/^drvstus_t uart_lseek(device_t * devp, void *iopack)$/;"	f
+uart_open	drivers/drvuart.c	/^drvstus_t uart_open(device_t *devp, void *iopack)$/;"	f
+uart_read	drivers/drvuart.c	/^drvstus_t uart_read(device_t * devp, void * iopack)$/;"	f
 uart_receive_char	hal/haluart.c	/^drvstus_t uart_receive_char(uint_t uart, char_t * retch)$/;"	f
 uart_send_char	hal/haluart.c	/^drvstus_t uart_send_char(uint_t uart, char_t ch)$/;"	f
+uart_set_driver	drivers/drvuart.c	/^void uart_set_driver(driver_t * drvp)$/;"	f
+uart_set_powerstus	drivers/drvuart.c	/^drvstus_t uart_set_powerstus(device_t * devp, void * iopa)$/;"	f
+uart_shutdown	drivers/drvuart.c	/^drvstus_t uart_shutdown(device_t * devp, void * iopack)$/;"	f
+uart_write	drivers/drvuart.c	/^drvstus_t uart_write(device_t * devp, void * iopack)$/;"	f
+uartdev_send_char	drivers/drvuart.c	/^drvstus_t uartdev_send_char(uint_t uart, char_t  ch)$/;"	f
 uint_t	include/bastypeinc/bastype_t.h	/^typedef unsigned long uint_t;$/;"	t
 uint_t	include/libinc/libtypes.h	/^typedef unsigned long uint_t;$/;"	t
 va_arg	include/halinc/printfk_t.h	10;"	d
+va_arg	include/libinc/printf.h	11;"	d
 va_end	include/halinc/printfk_t.h	9;"	d
+va_end	include/libinc/printf.h	10;"	d
 va_list	include/halinc/printfk_t.h	/^typedef __builtin_va_list va_list;$/;"	t
+va_list	include/libinc/printf.h	/^typedef __builtin_va_list va_list;$/;"	t
 va_start	include/halinc/printfk_t.h	8;"	d
+va_start	include/libinc/printf.h	9;"	d
 vector	hal/vector.S	/^vector:$/;"	l
+vsprintf	lib/printf.c	/^void vsprintf(char *buf, const char *fmt, va_list args)$/;"	f
 vsprintfk	hal/printfk.c	/^void vsprintfk(char_t * buf, const char_t * fmt, va_list args)$/;"	f
 wl_list	include/bastypeinc/sem_t.h	/^    list_h_t	wl_list;$/;"	m	struct:s_KWLST
 wl_lock	include/bastypeinc/sem_t.h	/^    spinlock_t	wl_lock;$/;"	m	struct:s_KWLST

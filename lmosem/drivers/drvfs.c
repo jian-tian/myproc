@@ -1234,17 +1234,17 @@ void test_allocblk(device_t *devp)
 	    {
 		hal_sysdie("alloc blkk err\n");
 	    }
-	    printfk("alloc blk:%x\n\r", i);
+	    //printfk("alloc blk:%x\n\r", i);
 	    ai[k] = i;
 	    j++;
 	}
 	for(uint_t m = 0; m < 16; m++)
 	{
 	    rfs_del_blk(devp, ai[m]);
-	    printfk("free blk:%x\n\r", ai[m]);
+	    //printfk("free blk:%x\n\r", ai[m]);
 	}
     }
-    printfk("alloc indx: %x\n\r", j);
+    printfk("allocblk test finished. indx: %x\n\r", j);
     return;
 }
 
@@ -1299,7 +1299,7 @@ void test_fsys(device_t * devp)
 	}
 	//printfk("rwbuf[%x]: %x\n\r", i, (uint_t)cb[i]);
     }
-    printfk("write and read ok\n\r");
+    //printfk("write and read ok\n\r");
 
     if(rfs_ioctrl(devp, ondp) == DFCERRSTUS)
     {
@@ -1312,18 +1312,21 @@ void test_fsys(device_t * devp)
     {
 	hal_sysdie("2open2 file is err");
     }
-    hal_sysdie("test_fsys ok");
+    printfk("write and read test ok\n\r");
+    //hal_sysdie("test_fsys ok");
     return;
 }
 
 void test_file(device_t * devp)
 {
+    printfk("\n\rFile test begin:\n\r");
     test_rfs(devp);
     test_dir(devp);
     chk_rfsbitmap(devp);
     test_allocblk(devp);
     test_fsys(devp);
-    hal_sysdie("test rfs run");
+    printfk("File test end.\n\r");
+    //hal_sysdie("test rfs run");
     return;
 }
 

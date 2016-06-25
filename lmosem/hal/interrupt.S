@@ -54,7 +54,7 @@ hal_undefins:
     ldmfd sp!, {pc}^
 
 hal_swi:
-    sub sb, sb, #ALLREGS_STKSZ
+    sub sp, sp, #ALLREGS_STKSZ
     stmia sp, {r1-lr}^
     mrs r1, spsr
     str lr, [sp, #STKOFFSET_PC]
@@ -74,6 +74,7 @@ hal_prefabt:
     msr cpsr_c, #NINT_ABTMODE
     sub r1, lr, #4
     mrs r0, spsr
+    msr cpsr_c, #NINT_SVEMODE
     str r1, [sp, #STKOFFSET_PC]
     stmfd sp!, {r0, lr}
     mov r0, sp

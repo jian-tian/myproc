@@ -28,7 +28,7 @@ sysstus_t krlsvetabl_retn_threadhand(uint_t swinr, stkparame_t * stkparv)
     {
 	return SYSSTUSERR;
     }
-    return (sysstus_t)krlsve_exel_thread((void *)stkparv->parmv1, (uint_t)stkparv->parmv2);
+    return (sysstus_t)krlsve_retn_threadhand((void *)stkparv->parmv1);
 }
 
 sysstus_t krlsvetabl_retn_threadstats(uint_t swinr, stkparame_t * stkparv)

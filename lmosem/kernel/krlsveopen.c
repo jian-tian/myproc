@@ -49,6 +49,12 @@ op_dev_step:
     {
 	return NO_HAND;
     }
+
+    ondp = krlnew_objnode();
+    if(!ondp)
+    {
+	return NO_HAND;
+    }
     ondp->on_opercode = IOIF_CODE_OPEN;
     ondp->on_objtype = OBJN_TY_DEV;
     ondp->on_objadr = devp;

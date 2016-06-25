@@ -2,7 +2,7 @@
 #include "platform_t.h"
 #include "buildfile.h"
 BUILD_MK_BOOT_OBJS :=
-BUIKD_MK_HALY_OBJS :=
+BUILD_MK_HALY_OBJS :=
 BUILD_MK_KRNL_OBJS :=
 BUILD_MK_MEMY_OBJS :=
 BUILD_MK_FSYS_OBJS :=

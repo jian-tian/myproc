@@ -15,6 +15,6 @@
 #include "libioctrl.h"
 #include "liblseek.h"
 #include "libtime.h"
-
+#include "printf.h"
 
 #endif

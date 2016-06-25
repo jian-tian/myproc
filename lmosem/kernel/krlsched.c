@@ -59,7 +59,7 @@ void retnfrom_first_sched(thread_t * thrdp)
 	"msr spsr, %[svcspsr]\n\r"
 	"mov sp, %[svcsp]\n\r"
 	"mov lr, %[usrlr]\n\r"
-	"ldmia sp, {r0-lr}\n\r"
+	"ldmia sp, {r0-lr}^ \n\r"
 	"add sp, sp, #60\n\r"
 	"movs pc, lr\n\r"
 	:
@@ -89,31 +89,28 @@ printfk("%s in \n\r", __func__);
     return;
 }
 
-thread_t * krlnew_thread(void * filerun, uint_t flg, uint_t prilg, uint_t prity, size_t usrstksz, size_t krlstksz)
+/*获取当前运行的进程*/
+thread_t * krlsched_retn_currthread()
 {
-    size_t tustksz = 0;
-    size_t tkstksz = 0;
+    uint_t cpuid = hal_retn_cpuid();
+    schdata_t * schdap = &osschedcls.scls_schda[cpuid];
+    if(schdap->sda_currtd == NULL)
+    {
+	hal_sysdie("schdap->sda_currtd NULL\n\r");
+    }
+    return schdap->sda_currtd;
+}
 
-    if((flg & 0x1) != 0 || filerun == NULL || usrstksz > DAFT_TDUSRSTKSZ || krlstksz > DAFT_TDKRLSTKSZ)
-    {
-	printfk("input error\n\r");
-	return NULL;
-    }
-    if((prilg != PRILG_USR && prilg != PRILG_SYS) || prity > PRITY_MAX)
-    {
-	printfk("input pri error\n\r");
-	return NULL;
-    }
-    if(usrstksz < DAFT_TDUSRSTKSZ)
-    {
-	tustksz = DAFT_TDUSRSTKSZ;
-    }
-    if(krlstksz < DAFT_TDKRLSTKSZ)
-    {
-	tkstksz = DAFT_TDKRLSTKSZ;
-    }
-
-    return krlnew_thread_core(filerun, flg, prilg, prity, tustksz, tkstksz);
+void krlsched_set_schedflgs(void)
+{
+    cpuflg_t cpufg;
+    uint_t cpuid = hal_retn_cpuid();
+    /*获取当前CPU的schdata_t结构指针*/
+    schdata_t * schdap = &osschedcls.scls_schda[cpuid];
+    hal_spinlock_saveflg_cli(&schdap->sda_lock, &cpufg);
+    schdap->sda_schdflgs = NEED_SCHED_FLGS;
+    hal_spinunlock_restflg_sti(&schdap->sda_lock, &cpufg);
+    return;
 }
 
 void krlsched_chkneed_pmptsched(void)
@@ -249,12 +246,14 @@ void __to_new_contex(thread_t * next, thread_t * prev)
 
 extern uint_t g_i_1;
 extern uint_t g_i_0;
+extern uint_t g_i_2;
 void krlschedul(void)
 {
    // printfk("krlschedul begin \n\r");
     thread_t * prev = krlsched_retn_currthread();
     thread_t * next = krlsched_select_thread();
     printfk("prev id is 0x%x, next id is 0x%x\n\r", (uint_t)prev, (uint_t)next);
+    //printfk("g_i_0 is %d, g_i_1 is %d, g_i_2 is %d\n\r", g_i_0, g_i_1, g_i_2);
     printfk("g_i_0 is %d, g_i_1 is %d\n\r", g_i_0, g_i_1);
     /*printfk("prev ctx_svcsp = 0x%x\n\r", prev->td_context.ctx_svcsp);
     printfk("prev ctx_svcspsr = 0x%x\n\r", prev->td_context.ctx_svcspsr);

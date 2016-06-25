@@ -18,11 +18,11 @@ SECTIONS
 
     __begin_lmosem_hal_head_text = .;
     .head.text ALIGN(4) : { *(.head.text) }
-    __end_lmosem_hal_head_test = .;
+    __end_lmosem_hal_head_text = .;
 
     __begin_lmosem_hal_head_data = .;
     .head.data ALIGN(4) : { *(.head.data) }
-    __begin_lmosem_hal_head_data = .;
+    __end_lmosem_hal_head_data = .;
 
     __begin_lmosem_hal_init = .;
     .lmosem_hal.init ALIGN(4) : { *(.lmosem_hal.init) }

@@ -8,6 +8,7 @@
 sysstus_t api_write(hand_t fhand,buf_t buf,size_t len,uint_t flgs)
 {
     sysstus_t rets;
+    printfk("api_write\n\r");
     API_ENTRY_PARE4(SNR_FS_WRITE,rets,fhand,buf,len,flgs);
     return rets;
 }

@@ -11,9 +11,12 @@ void hello_word(void)
     printfk("/**********Hello, I miss you so much************/\n\r");
 }
 
+extern void print_init();
+
 void init_haluart()
 {
     init_uart0();
+    print_init();
     hello_word();  
     uint_t vall = 25;
     char_t * str = "/***test*****/";
