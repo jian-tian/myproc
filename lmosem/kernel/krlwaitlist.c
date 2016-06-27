@@ -6,7 +6,7 @@
 
 void kwlst_t_init(kwlst_t * initp)
 {
-    printfk("%s in \n\r", __func__);
+    //printfk("%s in \n\r", __func__);
     hal_spinlock_init(&initp->wl_lock);
     initp->wl_tdnr = 0;
     list_init(&initp->wl_list);

@@ -116,14 +116,14 @@ void task0_main()
 	printf("task0 run %d ,%d\n\r", i, g_i_0);
     }
 }
-/*
+
 void task2_main()
 {
     int i = 0;
     times_t timet;
 
-    usr_write_file();
-    usr_read_file();
+    //usr_write_file();
+    //usr_read_file();
 
     for(;;)
     {
@@ -169,11 +169,11 @@ void task4_main()
     for(;;)
     {
 	i++;
-	//g_i_0++;
-	//printf("task4 run %x task4ID:%x \n\r",i,pid(NULL));
-	//gettime(&timet);
-	//printf("year:%d mon:%d date:%d hour:%d min:%d sec:%d\n\r",
-	 //timet.year,timet.mon,timet.date,timet.hour,timet.min,timet.sec);
+	g_i_0++;
+	printf("task4 run %x task4ID:%x \n\r",i,pid(NULL));
+	gettime(&timet);
+	printf("year:%d mon:%d date:%d hour:%d min:%d sec:%d\n\r",
+	 timet.year,timet.mon,timet.date,timet.hour,timet.min,timet.sec);
     }
     return;
 }
@@ -190,4 +190,3 @@ void task5_main()
     }
     return;
 }
-*/

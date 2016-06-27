@@ -8,6 +8,7 @@ sysstus_t krlsvetabl_open(uint_t swinr, stkparame_t * stkparv)
 {
     if(swinr != SNR_FS_OPEN)
     {
+	printfk("%s: %d\n\r", __func__, __LINE__);
 	return SYSSTUSERR;
     }
     return (sysstus_t)krlsve_open((void *)stkparv->parmv1, (uint_t)stkparv->parmv2,\
@@ -18,6 +19,7 @@ hand_t krlsve_open(void * file, uint_t flgs, uint_t stus)
 {
     if(!file)
     {
+	printfk("%s: %d\n\r", __func__, __LINE__);
 	return SYSSTUSERR;
     }
     return krlsve_core_open(file, flgs, stus);
@@ -47,12 +49,14 @@ op_dev_step:
     devp = krlonidfl_retn_device((void *)(&devid), DIDFIL_IDN);
     if(devp == NULL)
     {
+	printfk("get devp failed\n\r");
 	return NO_HAND;
     }
 
     ondp = krlnew_objnode();
     if(!ondp)
     {
+	printfk("krlnew_objnode failed\n\r");
 	return NO_HAND;
     }
     ondp->on_opercode = IOIF_CODE_OPEN;
@@ -61,10 +65,12 @@ op_dev_step:
     rethd = krlthd_add_objnode(tdp, ondp);
     if(rethd == NO_HAND)
     {
+	printfk("krlthd_add_objnode failed\n\r");
 	goto res_step;
     }
     if(krlsve_open_device(ondp) == SYSSTUSERR)
     {
+	printfk("krl open device failed\n\r");
 	goto res_step;
     }
     return rethd;
@@ -76,11 +82,13 @@ op_fil_step:
     devp = krlonidfl_retn_device((void *)(&devid), DIDFIL_IDN);
     if(devp == NULL)
     {
+	printfk("%s retn_device failed\n\r", __func__);
 	return NO_HAND;
     }
     ondp = krlnew_objnode();
     if(ondp == NULL)
     {
+	printfk("%s krlnew_objnode failed\n\r", __func__);
 	return NO_HAND;
     }
 
@@ -94,6 +102,7 @@ op_fil_step:
 	ondp->on_fname = file;
 	if(krlsve_open_device(ondp) == SYSSTUSERR)
 	{
+	    printfk("%s open device failed\n\r", __func__);
 	    goto res_step;
 	}
 	if(krldel_objnode(ondp) == FALSE)
@@ -111,6 +120,7 @@ op_fil_step:
     rethd = krlthd_add_objnode(tdp, ondp);
     if(rethd == NO_HAND)
     {
+	printfk("%s add objnode failed\n\r", __func__);
 	goto res_step;
     }
     if(krlsve_open_device(ondp) == SYSSTUSERR)
@@ -146,6 +156,7 @@ sysstus_t krlsve_open_device(objnode_t * ondep)
     }
     if(krldev_io(ondep) == DFCERRSTUS)
     {
+	printfk("%s: krldev_io open device failed\n\r", __func__);
 	return SYSSTUSERR;
     }
     return SYSSTUSOK;

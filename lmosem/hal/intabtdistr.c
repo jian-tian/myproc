@@ -47,7 +47,7 @@ void hal_undefins_distr(void * sframe)
 sysstus_t hal_swi_distr(uint_t swinr, void * sframe)
 {
     //sysstus_t a = 0;
-    //printfk("hal_swi_distr begin:\n\r");
+    //printfk("hal_swi_distr begin: swinr = 0x%x\r", swinr);
     return krlservice(swinr, sframe);
     //return a;
 }

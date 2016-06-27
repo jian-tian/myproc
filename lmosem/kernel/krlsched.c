@@ -252,9 +252,9 @@ void krlschedul(void)
    // printfk("krlschedul begin \n\r");
     thread_t * prev = krlsched_retn_currthread();
     thread_t * next = krlsched_select_thread();
-    printfk("prev id is 0x%x, next id is 0x%x\n\r", (uint_t)prev, (uint_t)next);
+    //printfk("prev id is 0x%x, next id is 0x%x\n\r", (uint_t)prev, (uint_t)next);
     //printfk("g_i_0 is %d, g_i_1 is %d, g_i_2 is %d\n\r", g_i_0, g_i_1, g_i_2);
-    printfk("g_i_0 is %d, g_i_1 is %d\n\r", g_i_0, g_i_1);
+    //printfk("g_i_0 is %d, g_i_1 is %d\r", g_i_0, g_i_1);
     /*printfk("prev ctx_svcsp = 0x%x\n\r", prev->td_context.ctx_svcsp);
     printfk("prev ctx_svcspsr = 0x%x\n\r", prev->td_context.ctx_svcspsr);
     printfk("prev ctx_cpsr = 0x%x\n\r", prev->td_context.ctx_cpsr);

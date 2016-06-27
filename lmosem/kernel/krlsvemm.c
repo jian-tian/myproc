@@ -8,6 +8,7 @@ sysstus_t krlsvetabl_mallocblk(uint_t swinr, stkparame_t * stkparv)
 {
     if(swinr != SNR_MM_ALLOC)
     {
+	printfk("%s: %d\r", __func__, __LINE__);
 	return SYSSTUSERR;
     }
     return (sysstus_t)krlsve_mallocblk((size_t)stkparv->parmv1);
@@ -17,6 +18,7 @@ sysstus_t krlsvetabl_mfreeblk(uint_t swinr, stkparame_t * stkparv)
 {
     if(swinr != SNR_MM_FREE)
     {
+	printfk("%s: %d\r", __func__, __LINE__);
 	return SYSSTUSERR;
     }
     return krlsve_mfreeblk((void *)stkparv->parmv1, (size_t)stkparv->parmv2);

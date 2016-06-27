@@ -12,6 +12,7 @@ KRL_DEFGLOB_VARIABLE(ktime_t, osktime);
 KRL_DEFGLOB_VARIABLE(syscall_t, osscalltab)[SWINR_MAX] = 
 {
     NULL,
+    krlsvetabl_mallocblk,
     krlsvetabl_mfreeblk,
     krlsvetabl_exel_thread,
     krlsvetabl_exit_thread,

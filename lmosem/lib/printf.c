@@ -25,8 +25,6 @@ char * strcpy(char *buf, char *str_s)
     return buf;
 }
 
-
-extern uint_t g_i_0;
 int printf(const char *fmt, ...)
 {
     int rets = -1;
@@ -37,7 +35,6 @@ int printf(const char *fmt, ...)
     {
 	return -1;
     }
-    g_i_0 = 10;
     devid_t dev;
     dev.dev_mtype = UART_DEVICE;
     dev.dev_stype = 0;
@@ -48,25 +45,20 @@ int printf(const char *fmt, ...)
 	rets = -1;
 	goto res_step;
     }
-    g_i_0 = 20;
     vsprintf(buf, fmt, ap);
     if(write(fd, buf, strlen(buf), 0) == SYSSTUSERR)
     {
 	rets = -1;
 	goto res_step;
     }
-    g_i_0 = 30;
     close(fd);
     rets = 0;
 
-    g_i_0 = 40;
-    
 res_step:
     if(mfreeblk(buf, 0x1000) == SYSSTUSERR)
     {
 	rets = -1;
     }
-    g_i_0 = 50;
     va_end(ap);
     return rets;
 }
