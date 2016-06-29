@@ -90,6 +90,7 @@ void driver_t_init(driver_t * initp)
     initp->drv_flg = 0;
     krlretn_driverid(initp);
     initp->drv_count = 0;
+    krlsem_t_init(&initp->drv_sem);
     initp->drv_safedsc = NULL;
     initp->drv_attrb = NULL;
     initp->drv_privdata = NULL;
@@ -192,7 +193,7 @@ void device_t_init(device_t * initp)
 drvstus_t del_device_dsc(device_t * devp)
 {
     if(krldelete((adr_t)devp, sizeof(device_t)) == FALSE)
-	return DFCOKSTUS;
+	return DFCERRSTUS;
     return DFCOKSTUS;
 }
 
@@ -313,7 +314,7 @@ drvstus_t krldev_io(objnode_t * nodep)
 {
     //提取要访问的设备数据结构的指针
     device_t * devp = (device_t *)(nodep->on_objadr);
-    if(nodep->on_objtype != OBJN_TY_DEV || nodep->on_objadr == NULL)
+    if((nodep->on_objtype != OBJN_TY_DEV && nodep->on_objtype != OBJN_TY_FIL)|| nodep->on_objadr == NULL)
 	return DFCERRSTUS;
 
     if(nodep->on_opercode < 0 || nodep->on_opercode >= IOIF_CODE_MAX)
@@ -407,6 +408,34 @@ drvstus_t krldev_complete_request(device_t * devp, objnode_t * request)
     /*操作信号量，同时唤醒相关进程*/
     krlsem_up(&request->on_complesem);
     return DFCOKSTUS;
+}
+
+drvstus_t krldev_retn_request(device_t *devp,uint_t iocode,objnode_t** retreq)
+{
+    if(retreq == NULL || iocode >=IOIF_CODE_MAX)
+    {
+	return DFCERRSTUS;
+    }
+    cpuflg_t cpufg;
+    objnode_t * np;
+    list_h_t * list;
+    drvstus_t rets = DFCERRSTUS;
+    hal_spinlock_saveflg_cli(&devp->dev_lock, cpufg);
+    list_for_each(list, &devp->dev_rqlist)
+    {
+	np = list_entry(list, objnode_t, on_list);
+	if(np->on_opercode == (sint_t)iocode)
+	{
+	    *retreq = np;
+	    rets = DFCOKSTUS;
+	    goto return_step;
+	}
+    }
+    rets = DFCERRSTUS;
+    *retreq = NULL;
+return_step:
+    hal_spinunlock_restflg_sti(&devp->dev_lock, &cpufg);
+    return rets;
 }
 
 drvstus_t krldev_inc_devcount(device_t * devp)

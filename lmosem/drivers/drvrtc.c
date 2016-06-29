@@ -16,9 +16,10 @@ void rtc_set_driver(driver_t * drvp)
     drvp->drv_dipfun[IOIF_CODE_DEV_STOP] = rtc_dev_stop;
     drvp->drv_dipfun[IOIF_CODE_SET_POWERSTUS] = rtc_set_powerstus;
     drvp->drv_dipfun[IOIF_CODE_ENUM_DEV] = rtc_enum_dev;
-    drvp->drv_dipfun[IOIF_CODE_READ] = rtc_read;
     drvp->drv_dipfun[IOIF_CODE_FLUSH] = rtc_flush;
     drvp->drv_dipfun[IOIF_CODE_SHUTDOWN] = rtc_shutdown;
+
+    drvp->drv_name = "rtcdrv";
     return;
 }
 
@@ -54,7 +55,7 @@ drvstus_t rtc_entry(driver_t * drvp, uint_t val, void *p)
     if(!devp)
     {
 	printfk("new_device_dsc failed\n\r");
-	return DFCOKSTUS;
+	return DFCERRSTUS;
     }
 
     rtc_set_driver(drvp);
@@ -299,7 +300,10 @@ drvstus_t rtc_handle(uint_t ift_nr, void *devp, void * sframe)
     objnode_t * request;
     if(((device_t *)devp)->dev_rqlnr > 0)
     {
-	hal_sysdie("rtc hand run err no retn request\n\r");
+	if(krldev_retn_request((device_t *)devp, IOIF_CODE_IOCTRL, &request) == DFCERRSTUS)
+	{
+	    hal_sysdie("rtc hand run err no retn request\n\r");
+	}
     }
 
     if(DFCERRSTUS == krldev_complete_request((device_t *)devp, request))

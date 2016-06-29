@@ -4,7 +4,7 @@
 #include "stdio.h"
 //#include "lmosemtypes.h"
 //#include "lmosemmctrl.h"
-/*
+
 void usr_write_file()
 {
     char * buf = (char *)mallocblk(0x1000);
@@ -41,6 +41,7 @@ void usr_write_file()
 	goto err;
     }
 
+    printf("uar_write_file OK\n\r");
     return;
 
 err:
@@ -83,13 +84,14 @@ void usr_read_file()
     {
         goto err;
     }
+    printf("usr_read_file and test OK\n\r");
     return;
 err:
     printf("usr_read_file err\n\r");
     for(;;);
     return;
 }
-*/
+
 uint_t g_i_1 = 0;
 uint_t g_i_0 = 0;
 void task1_main()
@@ -122,16 +124,16 @@ void task2_main()
     int i = 0;
     times_t timet;
 
-    //usr_write_file();
-    //usr_read_file();
+    usr_write_file();
+    usr_read_file();
 
     for(;;)
     {
 	i++;
-	printf("task1 run %x task1ID:%x\n\r", i, pid(NULL));
+	//printf("task2 run %x task1ID:%x\n\r", i, pid(NULL));
 	time(&timet);
-	printf("year:%d mon:%d date:%d hour:%d min:%d sec:%d\n\r", \
-		timet.year, timet.mon, timet.date, timet.hour, timet.min, timet.sec);
+	//printf("year:%d mon:%d date:%d hour:%d min:%d sec:%d\n\r",
+	//	timet.year, timet.mon, timet.date, timet.hour, timet.min, timet.sec);
     }
 
     return;
@@ -144,10 +146,9 @@ void task3_main()
     for(;;)
     {
 	i++;
-	printf("task3 run %x task3ID:%x \n\r",i,pid(NULL));
+	//printf("task3 run %x task3ID:%x \n\r",i,pid(NULL));
 	gettime(&timet);
-	printf("year:%d mon:%d date:%d hour:%d min:%d sec:%d\n\r",
-	 timet.year,timet.mon,timet.date,timet.hour,timet.min,timet.sec);
+	printf("%d-%d-%d %d:%d:%d \r",timet.year,timet.mon,timet.date,timet.hour,timet.min,timet.sec);
     }
     return;
 }

@@ -79,11 +79,11 @@ void task5()
 
 void init_task()
 {
-    task0();
-    task1();
+    //task0();
+    //task1();
     task2();
     task3();
-    task4();
+    //task4();
     //task5();
     printfk("init_task ok.\n\r");
     return;
